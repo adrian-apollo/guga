@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="LevelGameMode" format=3 uid="uid://tgfhc4endumw"]
+
+[ext_resource type="Script" uid="uid://0ndnlj3t7e68" path="res://addons/AtomGameplayFramework/Classes/Resources/class_playercontroller.gd" id="1_7srtj"]
+[ext_resource type="Script" uid="uid://dlvyqoyeyit03" path="res://addons/AtomGameplayFramework/Classes/Resources/class_levelgamemode.gd" id="2_l6218"]
+[ext_resource type="PackedScene" uid="uid://drn1pnyxfgqme" path="res://addons/AtomGameplayFramework/Actor/A_DefaultPlayer_Flotating.tscn" id="2_uhxr4"]
+
+[resource]
+script = ExtResource("2_l6218")
+PlayerScene = ExtResource("2_uhxr4")
+Controller = ExtResource("1_7srtj")
+metadata/_custom_type_script = "uid://dlvyqoyeyit03"
