@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="InputDataContext" format=3 uid="uid://btvcqffat0edw"]
+
+[ext_resource type="Script" uid="uid://cluhc11vixkf1" path="res://addons/guide/guide_action.gd" id="1_l67cb"]
+[ext_resource type="Resource" uid="uid://c8o348wb56r2x" path="res://addons/AtomGameplayFramework/Input/IAs/IA_default_kb_move.tres" id="2_43dch"]
+[ext_resource type="Resource" uid="uid://cw756jad6fvts" path="res://addons/AtomGameplayFramework/Input/IMC_default.tres" id="2_58ov6"]
+[ext_resource type="Script" uid="uid://dfte22qo7uui8" path="res://addons/AtomGameplayFramework/Classes/Resources/class_inputdatacontext.gd" id="2_y606q"]
+[ext_resource type="Resource" uid="uid://d2dad6reva2hi" path="res://addons/AtomGameplayFramework/Input/IAs/IA_default_mouse.tres" id="3_su28o"]
+
+[resource]
+script = ExtResource("2_y606q")
+mapping_context = ExtResource("2_58ov6")
+inputactions = Array[ExtResource("1_l67cb")]([ExtResource("2_43dch"), ExtResource("3_su28o")])
+metadata/_custom_type_script = "uid://dfte22qo7uui8"
