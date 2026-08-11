@@ -1,7 +1,6 @@
 [gd_resource type="Resource" script_class="ComponentsManager" format=3 uid="uid://cilnwpg23ysuy"]
 
-[ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/AtomGameplayFramework/Classes/Components/class_ComponentBase.gd" id="1_hj10x"]
-[ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/AtomGameplayFramework/Classes/Components/class_ComponentManager.gd" id="3_0a8o6"]
+[ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_0a8o6"]
 
 [resource]
 resource_local_to_scene = true

@@ -1,1 +1,0 @@
-class_name Enumerator extends Resource
