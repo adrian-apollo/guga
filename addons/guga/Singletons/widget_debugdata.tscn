@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://bfeo8p376ol3m"]
 
-[ext_resource type="Script" uid="uid://dyb3js7qf51gg" path="res://addons/AtomGameplayFramework/Singletons/Scripts/autoload_onscreendebugdata.gd" id="1_tunpg"]
-[ext_resource type="Script" uid="uid://cej23nkk7iue5" path="res://addons/AtomGameplayFramework/Singletons/Scripts/widget_debugdata.gd" id="1_xlpey"]
-[ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/AtomGameplayFramework/Classes/Components/class_ComponentBase.gd" id="2_1lyrq"]
+[ext_resource type="Script" uid="uid://dyb3js7qf51gg" path="res://addons/guga/Singletons/Scripts/autoload_onscreendebugdata.gd" id="1_tunpg"]
+[ext_resource type="Script" uid="uid://cej23nkk7iue5" path="res://addons/guga/Singletons/Scripts/widget_debugdata.gd" id="1_xlpey"]
+[ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="2_1lyrq"]
 [ext_resource type="Script" uid="uid://cluhc11vixkf1" path="res://addons/guide/guide_action.gd" id="2_xlpey"]
-[ext_resource type="Resource" uid="uid://djapwdiohwp05" path="res://addons/AtomGameplayFramework/Input/IAs/IA_default_kb_debug_F5.tres" id="3_r3ssl"]
-[ext_resource type="Script" uid="uid://cxcavl5p5wjt6" path="res://addons/AtomGameplayFramework/Components/c_widgetdebuglabels.gd" id="3_tmspl"]
-[ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/AtomGameplayFramework/Classes/Components/class_ComponentManager.gd" id="3_xcp3r"]
-[ext_resource type="Resource" uid="uid://cbku8x2oka56f" path="res://addons/AtomGameplayFramework/Input/IMC_debugdata.tres" id="4_1lyrq"]
-[ext_resource type="Script" uid="uid://dfte22qo7uui8" path="res://addons/AtomGameplayFramework/Classes/Resources/class_inputdatacontext.gd" id="5_xcp3r"]
+[ext_resource type="Resource" path="res://addons/AtomGameplayFramework/Input/IAs/IA_default_kb_debug_F5.tres" id="3_r3ssl"]
+[ext_resource type="Script" path="res://addons/AtomGameplayFramework/Components/c_widgetdebuglabels.gd" id="3_tmspl"]
+[ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_xcp3r"]
+[ext_resource type="Resource" path="res://addons/AtomGameplayFramework/Input/IMC_debugdata.tres" id="4_1lyrq"]
+[ext_resource type="Script" uid="uid://dfte22qo7uui8" path="res://addons/guga/classes/Resources/class_inputdatacontext.gd" id="5_xcp3r"]
 
 [sub_resource type="Resource" id="Resource_xcp3r"]
 resource_local_to_scene = true

@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://ej67qdswlude"]
+
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/Resources/class_level.gd" id="1_xylau"]
+[ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="2_r1gnf"]
+[ext_resource type="Script" uid="uid://bksci81pdqqnx" path="res://addons/guga/Premade components/systems testing/c_debug_test.gd" id="3_dh2qe"]
+[ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_x0bx3"]
+
+[sub_resource type="Resource" id="Resource_r1gnf"]
+resource_local_to_scene = true
+script = ExtResource("3_dh2qe")
+custom_tick = true
+tick_rate = 1
+metadata/_custom_type_script = "uid://bksci81pdqqnx"
+
+[sub_resource type="Resource" id="Resource_dh2qe"]
+resource_local_to_scene = true
+script = ExtResource("3_x0bx3")
+components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_r1gnf")])
+metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"
+
+[node name="level_test" type="Node" unique_id=782718615]
+script = ExtResource("1_xylau")
+component_manager = SubResource("Resource_dh2qe")
+metadata/_custom_type_script = "uid://dx7ipnqchnxei"
+
+[node name="Control" type="Control" parent="." unique_id=1558838999]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control" unique_id=1485145061]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "level test"
