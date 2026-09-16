@@ -4,5 +4,5 @@
 
 [node name="startscene" type="ColorRect" unique_id=455353640]
 script = ExtResource("1_hw5bs")
-firstlevel = "uid://cale14gfr1d1r"
+firstlevel = "uid://ej67qdswlude"
 metadata/_custom_type_script = "uid://d3w47kn3bs5jn"
