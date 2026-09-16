@@ -43,5 +43,11 @@ grow_vertical = 2
 color = Color(0.32974586, 0.6530005, 0.8926722, 1)
 metadata/_edit_lock_ = true
 
+<<<<<<< HEAD
 [node name="PlayerStart" parent="." unique_id=875178709 instance=ExtResource("5_w77cx")]
 position = Vector2(406, 226.5)
+=======
+[node name="PlayerStart" type="Node2D" parent="." unique_id=875178709 instance=ExtResource("5_w77cx")]
+position = Vector2(406, 226.5)
+metadata/_edit_vertical_guides_ = [-179.0]
+>>>>>>> 55e01848c7a5e79d68c1bacd3419af8e3717883b
