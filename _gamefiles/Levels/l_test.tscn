@@ -2,20 +2,21 @@
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/Resources/class_level.gd" id="1_xylau"]
 [ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="2_r1gnf"]
-[ext_resource type="Script" uid="uid://bksci81pdqqnx" path="res://addons/guga/Premade components/systems testing/c_debug_test.gd" id="3_dh2qe"]
+[ext_resource type="Script" uid="uid://dwqx4ver1r2ax" path="res://addons/guga/Premade components/c_playerstart.gd" id="3_dh2qe"]
 [ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_x0bx3"]
+[ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="5_dh2qe"]
 
-[sub_resource type="Resource" id="Resource_r1gnf"]
+[sub_resource type="Resource" id="Resource_x0bx3"]
 resource_local_to_scene = true
 script = ExtResource("3_dh2qe")
 custom_tick = true
 tick_rate = 1
-metadata/_custom_type_script = "uid://bksci81pdqqnx"
+metadata/_custom_type_script = "uid://dwqx4ver1r2ax"
 
 [sub_resource type="Resource" id="Resource_dh2qe"]
 resource_local_to_scene = true
 script = ExtResource("3_x0bx3")
-components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_r1gnf")])
+components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_x0bx3")])
 metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"
 
 [node name="level_test" type="Node" unique_id=782718615]
@@ -45,3 +46,6 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "level test"
+
+[node name="PlayerStart" parent="." unique_id=875178709 instance=ExtResource("5_dh2qe")]
+position = Vector2(497, 302)

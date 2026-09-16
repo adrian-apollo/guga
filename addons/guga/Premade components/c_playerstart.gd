@@ -1,4 +1,4 @@
-class_name CLoadPlayer extends ComponentBase
+class_name CLevelLoadPlayer extends ComponentBase
 
 var level:Level
 @export var player_scene:PackedScene
@@ -10,14 +10,18 @@ func tick():
 		loadplayer()
 
 func loadplayer():
-	if level.level_game_mode.PlayerScene:
-		print("PlayerStart >> Loadind player")
-		playerref = level.level_game_mode.PlayerScene.instantiate()
-		level.add_child( playerref )
-		playerref.owner = owner
-		tree.send_message(owner, "posses", [playerref])
-		movetostart()
-		componentmanager.delete_component( self )
+	if !player_scene:
+		print("CLevelLoadPlayer" + " >> " + "Empty player scene")
+		componentmanager.delete_component(self)
+		return
+	
+	print("PlayerStart >> Loadind player")
+	playerref = level.level_game_mode.PlayerScene.instantiate()
+	level.add_child( playerref )
+	playerref.owner = owner
+	tree.send_message(owner, "posses", [playerref])
+	movetostart()
+	componentmanager.delete_component( self )
 
 func movetostart():
 	var start:= level.get_node("PlayerStart")

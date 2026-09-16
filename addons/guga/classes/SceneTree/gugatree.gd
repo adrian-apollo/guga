@@ -59,7 +59,7 @@ func change_to_level( levelref:Level, destroy_previous:bool ):
 	s_level_changed.emit( levelref )
 
 func get_current_level() -> Node:
-	return
+	return get( "current_level" )
 
 func delete_level(levelref:Node):
 	s_level_destroyed.emit( levelref)

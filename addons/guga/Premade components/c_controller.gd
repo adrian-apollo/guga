@@ -16,10 +16,6 @@ func _begin( ):
 	level = tree.get_current_level()
 
 #region
-
-func testcontroller():
-	print(self)
-
 func posses( _pawn ):
 	print("Controller >> Attempting to posses >> " + str( _pawn.name ))
 	currentplayer = _pawn
@@ -32,3 +28,6 @@ func unposses( _pawn ):
 	unpossesed.emit( _pawn )
 
 #endregion
+
+func testcontroller():
+	print(self)
