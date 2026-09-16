@@ -1,7 +1,7 @@
-class_name CStartLevel extends ComponentBase
+class_name CLoadPlayer extends ComponentBase
 
 var level:Level
-#var defaultplayer:PackedScene = preload("uid://qhk8d62eqgwr")
+@export var player_scene:PackedScene
 var playerref:Node
 
 func tick():
