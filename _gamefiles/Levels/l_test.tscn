@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="2_r1gnf"]
 [ext_resource type="Script" uid="uid://bksci81pdqqnx" path="res://addons/guga/Premade components/systems testing/c_debug_test.gd" id="3_dh2qe"]
 [ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_x0bx3"]
+[ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="5_dh2qe"]
 
 [sub_resource type="Resource" id="Resource_r1gnf"]
 resource_local_to_scene = true
@@ -45,3 +46,7 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "level test"
+
+[node name="PlayerStart" type="Node2D" parent="." unique_id=875178709 instance=ExtResource("5_dh2qe")]
+position = Vector2(497, 302)
+metadata/_edit_vertical_guides_ = [-179.0]
