@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://c7iuw10w7ox4x"]
+
+[ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="1_agcrc"]
+
+[node name="PlayerStart" type="Node2D" unique_id=875178709]
+metadata/_edit_vertical_guides_ = [-179.0]
+
+[node name="Control" type="Control" parent="." unique_id=119990068]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=1800523478]
+position = Vector2(20, 20)
+scale = Vector2(0.54296875, 0.5527344)
+texture = ExtResource("1_agcrc")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Control" unique_id=209883005]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = 38.0
+offset_right = 46.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PlayerStart"
+metadata/_edit_lock_ = true

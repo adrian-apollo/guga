@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://drntav8oq17ax"]
+
+[ext_resource type="Script" uid="uid://d3w47kn3bs5jn" path="res://addons/guga/classes/class_startscene.gd" id="1_hw5bs"]
+
+[node name="startscene" type="ColorRect" unique_id=455353640]
+script = ExtResource("1_hw5bs")
+firstlevel = "uid://cale14gfr1d1r"
+metadata/_custom_type_script = "uid://d3w47kn3bs5jn"

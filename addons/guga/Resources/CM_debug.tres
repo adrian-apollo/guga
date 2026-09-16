@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ComponentsManager" format=3 uid="uid://cilnwpg23ysuy"]
+
+[ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_0a8o6"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("3_0a8o6")
+metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"

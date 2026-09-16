@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ej67qdswlude"]
+
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/Resources/class_level.gd" id="1_xylau"]
+
+[node name="LTest" type="Node" unique_id=782718615]
+script = ExtResource("1_xylau")
+metadata/_custom_type_script = "uid://dx7ipnqchnxei"
