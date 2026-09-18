@@ -22,7 +22,7 @@ func posses( pawn:Node ):
 		return
 	
 	print("CLevelController >> Attempting to posses " + str( pawn.name ))
-	tree.send_message(pawn, "event_posses", [self])
+	tree.send_message(pawn, "_posses", [self])
 	if !conector.datareceived == "OK":
 		print("CLevelController >> Fail possesion of " + str( pawn.name ))
 		return
@@ -33,7 +33,7 @@ func posses( pawn:Node ):
 
 #	to complete
 func unposses( pawn ):
-	#tree.send_message(pawn, "event_posses", [self])
+	#tree.send_message(pawn, "_posses", [self])
 	unpossesed.emit( pawn )
 
 #endregion

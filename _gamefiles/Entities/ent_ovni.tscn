@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="2_a4qog"]
 [ext_resource type="Script" uid="uid://qamsihjqrmrc" path="res://addons/guga/Premade components/c_gravity.gd" id="3_6twqx"]
 [ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_sikd0"]
-[ext_resource type="Script" uid="uid://crmuencm34h11" path="res://addons/guga/Premade components/c_pawn.gd" id="4_6twqx"]
+[ext_resource type="Script" uid="uid://di3vhm0625ccf" path="res://_gamefiles/Entities/CPawnOvni.gd" id="4_6twqx"]
 
 [sub_resource type="Resource" id="Resource_a4qog"]
 resource_local_to_scene = true
@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://qamsihjqrmrc"
 [sub_resource type="Resource" id="Resource_sikd0"]
 resource_local_to_scene = true
 script = ExtResource("4_6twqx")
-metadata/_custom_type_script = "uid://crmuencm34h11"
+metadata/_custom_type_script = "uid://di3vhm0625ccf"
 
 [sub_resource type="Resource" id="Resource_16j6u"]
 resource_local_to_scene = true
