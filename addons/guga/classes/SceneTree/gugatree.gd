@@ -28,7 +28,7 @@ var cached_levels:Array[Node]:
 		return cached_levels
  
 #  timers
-var available_timers: Dictionary[float, Timer] = {}
+var available_timers: Dictionary[int, Timer] = {}
 
 #endregion
 
@@ -59,7 +59,7 @@ func change_to_level( levelref:Level, destroy_previous:bool ):
 	s_level_changed.emit( levelref )
 
 func get_current_level() -> Node:
-	return
+	return get( "current_level" )
 
 func delete_level(levelref:Node):
 	s_level_destroyed.emit( levelref)
@@ -93,7 +93,7 @@ func connect_callable_to_timer(callableref:Callable, tickrate:int):
 
 #	pending test
 func disconnect_callable_from_timer( callableref:Callable, tickrate:int ):
-	var timerref:Timer = available_timers.find_key( tickrate )
+	var timerref:Timer = available_timers.get( tickrate )
 	if !is_instance_valid( timerref ):
 		print("GUGATree >> timer disconnection failed, invalid timer reference")
 		return

@@ -1,18 +1,41 @@
 [gd_scene format=3 uid="uid://smlqh6y1vncm"]
 
 [ext_resource type="Script" uid="uid://nxfilin461tr" path="res://addons/guga/classes/Components/componentable_classes/class_c_characterbody2d.gd" id="1_vfcc8"]
-[ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="2_dnm5j"]
+[ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="2_a4qog"]
+[ext_resource type="Script" uid="uid://qamsihjqrmrc" path="res://addons/guga/Premade components/c_gravity.gd" id="3_6twqx"]
+[ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_sikd0"]
+[ext_resource type="Script" uid="uid://di3vhm0625ccf" path="res://_gamefiles/Entities/CPawnOvni.gd" id="4_6twqx"]
+
+[sub_resource type="Resource" id="Resource_a4qog"]
+resource_local_to_scene = true
+script = ExtResource("3_6twqx")
+metadata/_custom_type_script = "uid://qamsihjqrmrc"
+
+[sub_resource type="Resource" id="Resource_sikd0"]
+resource_local_to_scene = true
+script = ExtResource("4_6twqx")
+metadata/_custom_type_script = "uid://di3vhm0625ccf"
+
+[sub_resource type="Resource" id="Resource_16j6u"]
+resource_local_to_scene = true
+script = ExtResource("3_sikd0")
+components = Array[ExtResource("2_a4qog")]([SubResource("Resource_a4qog"), SubResource("Resource_sikd0")])
+metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m0dlo"]
 size = Vector2(48, 48)
 
 [node name="EntOvni" type="CharacterBody2D" unique_id=1352088312]
 script = ExtResource("1_vfcc8")
+component_manager = SubResource("Resource_16j6u")
 metadata/_custom_type_script = "uid://nxfilin461tr"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1477909079]
-scale = Vector2(0.375, 0.375)
-texture = ExtResource("2_dnm5j")
+[node name="ColorRect" type="ColorRect" parent="." unique_id=523526382]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+color = Color(0.35164595, 0.4063381, 0, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2055562734]
 shape = SubResource("RectangleShape2D_m0dlo")

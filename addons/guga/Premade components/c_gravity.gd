@@ -5,7 +5,7 @@ class_name CGravity
 @export var enabled:bool = true
 @export_range(0, 100, 1, "or_greater" ) var gravity:float = 9.8
 
-func _tick() -> void:
+func tick() -> void:
 	_applygravity()
 	owner.move_and_slide()
 

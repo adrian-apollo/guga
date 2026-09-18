@@ -59,6 +59,7 @@ func add_component( component: ComponentBase ) -> void:
 	
 func delete_component( component: ComponentBase ) -> void:
 	components.erase( component )
+	component.safe_delete()
 	message_component_removed.emit()
 
 func getamountcomponents(objref:Object) -> int:

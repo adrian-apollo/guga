@@ -45,6 +45,12 @@ func tick():
 #endregion
 
 #region the end
-func free():
-	conector.call_deferred( "free" )
+func safe_delete():
+	#conector.call_deferred( "free" )
+	
+	if tree.physics_frame.is_connected( tick ):
+		tree.physics_frame.disconnect(tick)
+		return
+	
+	tree.disconnect_callable_from_timer( tick, tick_rate )
 #endregion
