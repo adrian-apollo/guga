@@ -2,22 +2,33 @@
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/Resources/class_level.gd" id="1_xylau"]
 [ext_resource type="Script" uid="uid://c2qql36r4qble" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="2_r1gnf"]
-[ext_resource type="Script" uid="uid://dwqx4ver1r2ax" path="res://addons/guga/Premade components/c_playerstart.gd" id="3_dh2qe"]
+[ext_resource type="Script" uid="uid://dwqx4ver1r2ax" path="res://addons/guga/Premade components/c_levelplayerstart.gd" id="3_dh2qe"]
+[ext_resource type="PackedScene" uid="uid://smlqh6y1vncm" path="res://_gamefiles/Entities/ent_ovni.tscn" id="3_egptu"]
 [ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_x0bx3"]
+[ext_resource type="Script" uid="uid://kcsbum4l2o46" path="res://addons/guga/Premade components/c_levelcontroller.gd" id="5_3d5gd"]
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="5_dh2qe"]
 
 [sub_resource type="Resource" id="Resource_x0bx3"]
 resource_local_to_scene = true
 script = ExtResource("3_dh2qe")
+player_scene = ExtResource("3_egptu")
 custom_tick = true
 tick_rate = 1
 metadata/_custom_type_script = "uid://dwqx4ver1r2ax"
 
+[sub_resource type="Resource" id="Resource_egptu"]
+resource_local_to_scene = true
+script = ExtResource("5_3d5gd")
+metadata/_custom_type_script = "uid://kcsbum4l2o46"
+
 [sub_resource type="Resource" id="Resource_dh2qe"]
 resource_local_to_scene = true
 script = ExtResource("3_x0bx3")
-components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_x0bx3")])
+components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_x0bx3"), SubResource("Resource_egptu")])
 metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ce1dn"]
+size = Vector2(1192, 20)
 
 [node name="level_test" type="Node" unique_id=782718615]
 script = ExtResource("1_xylau")
@@ -49,3 +60,20 @@ text = "level test"
 
 [node name="PlayerStart" parent="." unique_id=875178709 instance=ExtResource("5_dh2qe")]
 position = Vector2(497, 302)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=658471187]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2028590572]
+position = Vector2(575, 615)
+shape = SubResource("RectangleShape2D_ce1dn")
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D/CollisionShape2D" unique_id=535486827]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -577.0
+offset_top = -9.0
+offset_right = 581.0
+offset_bottom = 8.0
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
