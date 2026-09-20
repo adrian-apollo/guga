@@ -3,7 +3,8 @@ class_name CPawnOvni extends CPawn
 @export var inputdata:InputDataContext
 
 var charowner:CharacterBody2D
-var touchlocation:Vector2
+
+var player_wants_fly:bool = false
 
 func event_possess():
 	charowner = owner
@@ -14,21 +15,17 @@ func event_unposses():
 	pass
 
 func tick():
-	charowner.move_and_slide()
-	if !inputdata.inputactions[1].value_bool:
-		touchlocation = Vector2(0.0, 0.0)
-		return
-	
-	if touchlocation.length() == 0:
-		touchlocation = DisplayServer.mouse_get_position()
-	
+	if inputdata.inputactions[0].value_bool:
+		player_wants_fly = true
+	else:
+		player_wants_fly = false
+
 	move()
 
 func move():
-	if touchlocation.y > charowner.position.y:
-		charowner.velocity.y += 5
-		
-	if touchlocation.y < charowner.position.y:
+	if player_wants_fly:
 		charowner.velocity.y -= 5
+		print(charowner.velocity.y)
+		
 	
 	
