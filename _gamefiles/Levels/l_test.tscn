@@ -12,13 +12,12 @@
 resource_local_to_scene = true
 script = ExtResource("3_dh2qe")
 player_scene = ExtResource("3_egptu")
-custom_tick = true
-tick_rate = 1
 metadata/_custom_type_script = "uid://dwqx4ver1r2ax"
 
 [sub_resource type="Resource" id="Resource_egptu"]
 resource_local_to_scene = true
 script = ExtResource("5_3d5gd")
+start_with_tick_enabled = false
 metadata/_custom_type_script = "uid://kcsbum4l2o46"
 
 [sub_resource type="Resource" id="Resource_dh2qe"]
@@ -42,6 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="Control" unique_id=1485145061]
 layout_mode = 1
@@ -77,3 +77,4 @@ offset_bottom = 8.0
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
