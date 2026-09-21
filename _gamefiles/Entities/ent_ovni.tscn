@@ -6,6 +6,8 @@
 [ext_resource type="Resource" uid="uid://vhdlfgos16td" path="res://_gamefiles/Input/idc_ovni.tres" id="4_3l412"]
 [ext_resource type="Script" uid="uid://di3vhm0625ccf" path="res://_gamefiles/Entities/CPawnOvni.gd" id="4_6twqx"]
 [ext_resource type="Script" uid="uid://qamsihjqrmrc" path="res://addons/guga/Premade components/c_gravity.gd" id="5_3l412"]
+[ext_resource type="FontFile" uid="uid://bdegvol0xafth" path="res://addons/nerdfonts/fonts/SymbolsNerdFontMono-Regular.ttf" id="8_7k8hf"]
+[ext_resource type="Script" uid="uid://bsiyisqj3rko0" path="res://addons/nerdfonts/NerdFont.gd" id="9_84lqc"]
 
 [sub_resource type="Resource" id="Resource_sikd0"]
 resource_local_to_scene = true
@@ -35,11 +37,31 @@ component_manager = SubResource("Resource_16j6u")
 metadata/_custom_type_script = "uid://nxfilin461tr"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2055562734]
+visible = false
 shape = SubResource("RectangleShape2D_m0dlo")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=523526382]
-offset_left = -24.0
-offset_top = -24.0
-offset_right = 24.0
-offset_bottom = 24.0
-color = Color(0.35164595, 0.4063381, 0, 1)
+[node name="NerdFont" type="Label" parent="." unique_id=1276561160]
+auto_translate_mode = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -23.375
+offset_right = 22.0
+offset_bottom = 23.375
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_fonts/font = ExtResource("8_7k8hf")
+theme_override_font_sizes/font_size = 43
+text = "󰢚"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_84lqc")
+icon_size = 43
+icon_name = "alien"
+metadata/_custom_type_script = "uid://bsiyisqj3rko0"
+metadata/_edit_use_anchors_ = true
