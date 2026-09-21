@@ -1,19 +1,19 @@
 [gd_resource type="Resource" script_class="GUIDEMappingContext" format=3 uid="uid://crrxs4n7ijo6r"]
 
 [ext_resource type="Script" uid="uid://cpplm41b5bt6m" path="res://addons/guide/guide_action_mapping.gd" id="1_gka0k"]
-[ext_resource type="Resource" uid="uid://bsllts7qe3srx" path="res://_gamefiles/Input/Actions/ia_ovni_click.tres" id="2_jg0ha"]
+[ext_resource type="Resource" uid="uid://bsllts7qe3srx" path="res://_gamefiles/Input/Actions/ia_ovni_move.tres" id="2_jg0ha"]
 [ext_resource type="Script" uid="uid://dsa1dnifd6w32" path="res://addons/guide/guide_mapping_context.gd" id="2_lxvhj"]
 [ext_resource type="Script" uid="uid://mtx1unc2aqn7" path="res://addons/guide/guide_input_mapping.gd" id="3_6e4dr"]
 [ext_resource type="Script" uid="uid://bl8rjl4oaldje" path="res://addons/guide/modifiers/guide_modifier.gd" id="4_40p0k"]
+[ext_resource type="Script" uid="uid://rvttn472ix6v" path="res://addons/guide/inputs/guide_input_joy_button.gd" id="4_jg0ha"]
 [ext_resource type="Script" uid="uid://x74mnwgr08a7" path="res://addons/guide/triggers/guide_trigger.gd" id="5_jg0ha"]
-[ext_resource type="Script" uid="uid://vgjlx6p007lp" path="res://addons/guide/inputs/guide_input_mouse_button.gd" id="10_eqf3v"]
 
-[sub_resource type="Resource" id="Resource_j0db5"]
-script = ExtResource("10_eqf3v")
+[sub_resource type="Resource" id="Resource_jg0ha"]
+script = ExtResource("4_jg0ha")
 
 [sub_resource type="Resource" id="Resource_vhayk"]
 script = ExtResource("3_6e4dr")
-input = SubResource("Resource_j0db5")
+input = SubResource("Resource_jg0ha")
 
 [sub_resource type="Resource" id="Resource_32eu2"]
 script = ExtResource("1_gka0k")

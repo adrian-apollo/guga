@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_x0bx3"]
 [ext_resource type="Script" uid="uid://kcsbum4l2o46" path="res://addons/guga/Premade components/c_levelcontroller.gd" id="5_3d5gd"]
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="5_dh2qe"]
+[ext_resource type="Script" uid="uid://mtww7c1tlwt7" path="res://addons/guide/ui/virtual_joy/virtual_button/guide_virtual_button.gd" id="9_oeowj"]
 
 [sub_resource type="Resource" id="Resource_x0bx3"]
 resource_local_to_scene = true
@@ -27,14 +28,32 @@ components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_x0bx3"), SubRe
 metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ce1dn"]
-size = Vector2(1192, 20)
+size = Vector2(1192, 89)
 
 [node name="level_test" type="Node" unique_id=782718615]
 script = ExtResource("1_xylau")
 component_manager = SubResource("Resource_dh2qe")
 metadata/_custom_type_script = "uid://dx7ipnqchnxei"
 
-[node name="Control" type="Control" parent="." unique_id=1558838999]
+[node name="limits" type="Node2D" parent="." unique_id=489232567]
+
+[node name="limit_inferior" type="StaticBody2D" parent="limits" unique_id=658471187]
+visible = false
+position = Vector2(0, 77)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limits/limit_inferior" unique_id=2028590572]
+position = Vector2(575, 604.5)
+shape = SubResource("RectangleShape2D_ce1dn")
+
+[node name="limit_superior" type="StaticBody2D" parent="limits" unique_id=496414088]
+visible = false
+position = Vector2(0, -63)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limits/limit_superior" unique_id=2065004753]
+position = Vector2(575, 40)
+shape = SubResource("RectangleShape2D_ce1dn")
+
+[node name="UI" type="Control" parent="." unique_id=1558838999]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,38 +62,120 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="Control" unique_id=1485145061]
+[node name="tone_sky" type="ColorRect" parent="UI" unique_id=289284434]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -338.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.6417339, 0.9856879, 1)
+
+[node name="Control2" type="Control" parent="UI" unique_id=1527943182]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -338.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="tone_land" type="ColorRect" parent="UI/Control2" unique_id=535486827]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+color = Color(1, 0.832, 0.27999997, 1)
+
+[node name="game_buttons" type="Control" parent="." unique_id=2077457709]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="l_fire" type="Label" parent="game_buttons" unique_id=1456406919]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
+offset_left = 409.00006
+offset_top = 116.0
+offset_right = 442.00006
+offset_bottom = 139.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(4.3131166, 3.7759664)
+theme_override_colors/font_color = Color(0, 0, 0, 0.15294118)
+text = "FIRE"
+
+[node name="l_move" type="Label" parent="game_buttons" unique_id=1877741332]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.055989582
+anchor_top = 0.6967593
+anchor_right = 0.055989582
+anchor_bottom = 0.6967593
+offset_left = -23.5
 offset_top = -11.5
-offset_right = 20.0
+offset_right = 23.5
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "level test"
+scale = Vector2(3.4756289, 3.4734144)
+theme_override_colors/font_color = Color(0, 0, 0, 0.15294118)
+text = "MOVE"
+metadata/_edit_use_anchors_ = true
+
+[node name="b_fire" type="CenterContainer" parent="game_buttons" unique_id=1812081694]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8550347
+anchor_top = 0.67901236
+anchor_right = 1.8550347
+anchor_bottom = 1.6790125
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5855733, 1.5290109)
+mouse_filter = 2
+script = ExtResource("9_oeowj")
+button_radius = 200.0
+button_index = 1
+input_mode = 2
+metadata/_custom_type_script = "uid://mtww7c1tlwt7"
+metadata/_edit_use_anchors_ = true
+
+[node name="b_move" type="CenterContainer" parent="game_buttons" unique_id=1802001708]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.140625
+anchor_top = 0.67901236
+anchor_right = 1.140625
+anchor_bottom = 1.6790125
+offset_right = -1152.0
+offset_bottom = -648.0001
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5855733, 1.5290109)
+mouse_filter = 2
+script = ExtResource("9_oeowj")
+button_radius = 200.0
+input_mode = 2
+metadata/_custom_type_script = "uid://mtww7c1tlwt7"
+metadata/_edit_use_anchors_ = true
 
 [node name="PlayerStart" parent="." unique_id=875178709 instance=ExtResource("5_dh2qe")]
-position = Vector2(497, 302)
-
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=658471187]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2028590572]
-position = Vector2(575, 615)
-shape = SubResource("RectangleShape2D_ce1dn")
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D/CollisionShape2D" unique_id=535486827]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_left = -577.0
-offset_top = -9.0
-offset_right = 581.0
-offset_bottom = 8.0
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
+position = Vector2(352, 275)

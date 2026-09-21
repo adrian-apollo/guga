@@ -16,7 +16,7 @@ metadata/_custom_type_script = "uid://di3vhm0625ccf"
 [sub_resource type="Resource" id="Resource_6twqx"]
 resource_local_to_scene = true
 script = ExtResource("5_3l412")
-gravity_scale = 0.1
+gravity_scale = 0.22
 move_and_slide = true
 metadata/_custom_type_script = "uid://qamsihjqrmrc"
 

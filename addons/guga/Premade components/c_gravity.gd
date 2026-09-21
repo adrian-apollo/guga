@@ -17,7 +17,6 @@ func tick() -> void:
 
 func _applygravity() -> void:
 	if owner.is_on_floor():
-		owner.velocity.y = 0
 		return
 	if !enabled:
 		return

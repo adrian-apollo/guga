@@ -24,8 +24,7 @@ func tick():
 
 func move():
 	if player_wants_fly:
-		charowner.velocity.y -= 5
-		print(charowner.velocity.y)
-		
-	
+		charowner.velocity.y -= 20
+		if charowner.velocity.y < -250:
+			charowner.velocity.y = -250
 	

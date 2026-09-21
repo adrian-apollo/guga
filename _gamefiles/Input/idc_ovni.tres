@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cluhc11vixkf1" path="res://addons/guide/guide_action.gd" id="1_lhsis"]
 [ext_resource type="Script" uid="uid://dfte22qo7uui8" path="res://addons/guga/classes/Resources/class_inputdatacontext.gd" id="2_drufh"]
-[ext_resource type="Resource" uid="uid://bsllts7qe3srx" path="res://_gamefiles/Input/Actions/ia_ovni_click.tres" id="2_hna4v"]
+[ext_resource type="Resource" uid="uid://bsllts7qe3srx" path="res://_gamefiles/Input/Actions/ia_ovni_move.tres" id="2_hna4v"]
 [ext_resource type="Resource" uid="uid://crrxs4n7ijo6r" path="res://_gamefiles/Input/Input maps/imc_ovni.tres" id="2_l3off"]
 
 [resource]
