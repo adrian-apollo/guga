@@ -147,10 +147,13 @@ anchor_left = 0.8550347
 anchor_top = 0.67901236
 anchor_right = 1.8550347
 anchor_bottom = 1.6790125
+offset_right = -1152.0
+offset_bottom = -648.0001
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5855733, 1.5290109)
 mouse_filter = 2
+use_top_left = true
 script = ExtResource("9_oeowj")
 button_radius = 200.0
 button_index = 1
@@ -171,6 +174,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5855733, 1.5290109)
 mouse_filter = 2
+use_top_left = true
 script = ExtResource("9_oeowj")
 button_radius = 200.0
 input_mode = 2
@@ -178,4 +182,4 @@ metadata/_custom_type_script = "uid://mtww7c1tlwt7"
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerStart" parent="." unique_id=875178709 instance=ExtResource("5_dh2qe")]
-position = Vector2(352, 275)
+position = Vector2(242, 275)
