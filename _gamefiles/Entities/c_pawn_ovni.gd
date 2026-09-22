@@ -6,7 +6,6 @@ var charowner:CharacterBody2D
 
 #	input tracking
 var player_wants_fly:bool = false
-var player_wants_fire:bool = false
 
 func event_possess():
 	charowner = owner
@@ -25,9 +24,7 @@ func tick():
 	
 	#	fire input detection
 	if inputdata.inputactions[1].value_bool or inputdata.inputactions[3].value_bool:
-		player_wants_fire = true
-	else:
-		player_wants_fire = false
+		tree.send_message(owner, "event_fire", [])
 	
 	move()
 
@@ -36,6 +33,3 @@ func move():
 		charowner.velocity.y -= 20
 		if charowner.velocity.y < -250:
 			charowner.velocity.y = -250
-	
-	if player_wants_fire:
-		print("firing")
