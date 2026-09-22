@@ -15,8 +15,8 @@ run/main_scene="uid://drntav8oq17ax"
 run/main_loop_type="GugaTree"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-config/icon="res://icon.svg"
 boot_splash/show_image=false
+config/icon="res://icon.svg"
 
 [autoload]
 
@@ -29,7 +29,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/guga/plugin.cfg", "res://addons/guide/plugin.cfg", "res://addons/nerdfonts/plugin.cfg", "res://addons/terminal/plugin.cfg")
+enabled=PackedStringArray("res://addons/guga/plugin.cfg", "res://addons/guide/plugin.cfg", "res://addons/nerdfonts/plugin.cfg")
 
 [file_customization]
 
