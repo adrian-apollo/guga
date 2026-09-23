@@ -13,6 +13,7 @@ script/source = "extends ComponentSetup
 [sub_resource type="Resource" id="Resource_3u0y3"]
 resource_local_to_scene = true
 script = ExtResource("2_erpce")
+direction = Vector2(5, 0)
 metadata/_custom_type_script = "uid://bi72tteb6jix3"
 
 [sub_resource type="Resource" id="Resource_s8ne7"]

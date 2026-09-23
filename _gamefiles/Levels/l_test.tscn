@@ -7,7 +7,12 @@
 [ext_resource type="Script" uid="uid://cdy1fbfvbwp8p" path="res://addons/guga/classes/Components/class_ComponentManager.gd" id="3_x0bx3"]
 [ext_resource type="Script" uid="uid://kcsbum4l2o46" path="res://addons/guga/Premade components/c_levelcontroller.gd" id="5_3d5gd"]
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="5_dh2qe"]
+[ext_resource type="PackedScene" uid="uid://cksr14xwnqp8b" path="res://_gamefiles/Entities/ent_spawner_enemy.tscn" id="9_4ydb1"]
 [ext_resource type="Script" uid="uid://mtww7c1tlwt7" path="res://addons/guide/ui/virtual_joy/virtual_button/guide_virtual_button.gd" id="9_oeowj"]
+[ext_resource type="Script" uid="uid://cykof4k3bmq8r" path="res://_gamefiles/Entities/c_ai_spawner.gd" id="10_r5qjr"]
+[ext_resource type="Script" uid="uid://b7q3p5078nie" path="res://addons/guga/Premade components/c_spawner2d.gd" id="11_alnbj"]
+[ext_resource type="PackedScene" uid="uid://chsnddrtqwb3w" path="res://_gamefiles/Entities/ent_tank.tscn" id="11_r5qjr"]
+[ext_resource type="PackedScene" uid="uid://btb844d4qfest" path="res://_gamefiles/Entities/ent_plane.tscn" id="13_alnbj"]
 
 [sub_resource type="Resource" id="Resource_x0bx3"]
 resource_local_to_scene = true
@@ -28,30 +33,56 @@ components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_x0bx3"), SubRe
 metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ce1dn"]
-size = Vector2(1192, 89)
+size = Vector2(1192, 57.5)
+
+[sub_resource type="Resource" id="Resource_r5qjr"]
+resource_local_to_scene = true
+script = ExtResource("10_r5qjr")
+spawn_chance = 31
+custom_tick = true
+tick_rate = 1
+metadata/_custom_type_script = "uid://cykof4k3bmq8r"
+
+[sub_resource type="Resource" id="Resource_alnbj"]
+resource_local_to_scene = true
+script = ExtResource("11_alnbj")
+spawn_location = NodePath("Sprite2D")
+min_offset_y = -300.0
+actors = Array[PackedScene]([ExtResource("11_r5qjr")])
+metadata/_custom_type_script = "uid://b7q3p5078nie"
+
+[sub_resource type="Resource" id="Resource_r07af"]
+resource_local_to_scene = true
+script = ExtResource("3_x0bx3")
+components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_r5qjr"), SubResource("Resource_alnbj")])
+metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"
+
+[sub_resource type="Resource" id="Resource_8utm2"]
+resource_local_to_scene = true
+script = ExtResource("10_r5qjr")
+spawn_chance = 40
+custom_tick = true
+tick_rate = 1
+metadata/_custom_type_script = "uid://cykof4k3bmq8r"
+
+[sub_resource type="Resource" id="Resource_i3juk"]
+resource_local_to_scene = true
+script = ExtResource("11_alnbj")
+spawn_location = NodePath("Sprite2D")
+min_offset_y = -300.0
+actors = Array[PackedScene]([ExtResource("13_alnbj")])
+metadata/_custom_type_script = "uid://b7q3p5078nie"
+
+[sub_resource type="Resource" id="Resource_y3k5y"]
+resource_local_to_scene = true
+script = ExtResource("3_x0bx3")
+components = Array[ExtResource("2_r1gnf")]([SubResource("Resource_8utm2"), SubResource("Resource_i3juk")])
+metadata/_custom_type_script = "uid://cdy1fbfvbwp8p"
 
 [node name="level_test" type="Node" unique_id=782718615]
 script = ExtResource("1_xylau")
 component_manager = SubResource("Resource_dh2qe")
 metadata/_custom_type_script = "uid://dx7ipnqchnxei"
-
-[node name="limits" type="Node2D" parent="." unique_id=489232567]
-
-[node name="limit_inferior" type="StaticBody2D" parent="limits" unique_id=658471187]
-visible = false
-position = Vector2(0, 77)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="limits/limit_inferior" unique_id=2028590572]
-position = Vector2(575, 604.5)
-shape = SubResource("RectangleShape2D_ce1dn")
-
-[node name="limit_superior" type="StaticBody2D" parent="limits" unique_id=496414088]
-visible = false
-position = Vector2(0, -63)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="limits/limit_superior" unique_id=2065004753]
-position = Vector2(575, 40)
-shape = SubResource("RectangleShape2D_ce1dn")
 
 [node name="UI" type="Control" parent="." unique_id=1558838999]
 layout_mode = 3
@@ -95,6 +126,38 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 mouse_filter = 2
 color = Color(1, 0.832, 0.27999997, 1)
+
+[node name="limits" type="Node2D" parent="." unique_id=489232567]
+
+[node name="limit_inferior" type="StaticBody2D" parent="limits" unique_id=658471187]
+position = Vector2(0, 77)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limits/limit_inferior" unique_id=2028590572]
+position = Vector2(575, 604.5)
+shape = SubResource("RectangleShape2D_ce1dn")
+
+[node name="limit_superior" type="StaticBody2D" parent="limits" unique_id=496414088]
+position = Vector2(0, -63)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limits/limit_superior" unique_id=2065004753]
+position = Vector2(575, 40)
+shape = SubResource("RectangleShape2D_ce1dn")
+
+[node name="limit_rigth" type="StaticBody2D" parent="limits" unique_id=2064808159]
+position = Vector2(1385, 336)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limits/limit_rigth" unique_id=741509648]
+position = Vector2(0, 15.75)
+shape = SubResource("RectangleShape2D_ce1dn")
+
+[node name="limit_left" type="StaticBody2D" parent="limits" unique_id=1148445596]
+position = Vector2(-249, 300)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limits/limit_left" unique_id=1087897083]
+position = Vector2(0, 15.75)
+shape = SubResource("RectangleShape2D_ce1dn")
 
 [node name="game_buttons" type="Control" parent="." unique_id=2077457709]
 layout_mode = 3
@@ -182,3 +245,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="PlayerStart" parent="." unique_id=875178709 instance=ExtResource("5_dh2qe")]
 position = Vector2(242, 275)
+
+[node name="SpawnerEnemy" parent="." unique_id=1562062048 instance=ExtResource("9_4ydb1")]
+position = Vector2(1270, 645)
+component_manager = SubResource("Resource_r07af")
+
+[node name="SpawnerEnemy2" parent="." unique_id=1334733236 instance=ExtResource("9_4ydb1")]
+position = Vector2(1270, 308)
+component_manager = SubResource("Resource_y3k5y")
