@@ -16,7 +16,7 @@ signal s_timer_destroyed
 #endregion
 
 #region variables
-#  level managing
+#	level managing
 var current_level:Level:
 	set(level):
 		current_level = level
@@ -27,8 +27,16 @@ var cached_levels:Array[Node]:
 	get:
 		return cached_levels
  
-#  timers
+#	timers
 var available_timers: Dictionary[int, Timer] = {}
+
+#	actors components data
+var cdata:Dictionary = {
+	"nodo": null,                  # Aquí puedes guardar un Node
+	"recurso": null,               # Aquí puedes guardar un Resource
+	"lista_recursos": [],          # Array de Resources
+	"variante": "Hola"             # Variant (puede ser int, string, float, bool, etc.)
+}
 
 #endregion
 
@@ -68,7 +76,7 @@ func delete_level(levelref:Node):
 
 #region message system
 func send_message(receiver: Object, callable:String, data:Array)->bool:
-	if !receiver:
+	if !is_instance_valid( receiver ):
 		return false
 	if callable.is_empty():
 		return false

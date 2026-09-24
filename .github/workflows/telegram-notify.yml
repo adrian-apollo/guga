@@ -1,0 +1,26 @@
+name: Telegram Commit Notify
+
+on:
+  push:
+    branches: [ "main" ] # Cambia "main" por "master" si tu rama principal se llama así
+
+jobs:
+  send_notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram Message
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          message: |
+            🎮 ¡NEW COMMIT!
+            
+            ✍️ AUTHOR ${{ github.actor }}
+            
+            🗂️Repo: ${{ github.repository }}
+            
+            💬 Committ message:
+            ${{ github.event.head_commit.message }}
+            
+            🔗 See changes: ${{ github.event.head_commit.url }}

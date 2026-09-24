@@ -31,24 +31,31 @@ func _cleardatareceived():
 	datareceived = null
 
 func _mailbox(_owner:Object, callable:String, args:Array):
+	if !is_instance_valid(_owner):
+		return
+
 	if objrefs.has(_owner):
+		#	find destination
 		var executor:Object
 		for obj:Object in objrefs:
 			if obj.has_method( callable ):
 				executor = obj
 				break
-				
+
 		if !executor:
 			return
-			
+		
+		#	call 1
 		if args.size() == 1:
 			executor.call(callable, args[0])
 			return
-
+		
+		#	call +1
 		if args.size() > 1:
 			executor.call(callable, args)
 			return
 
+		#	call 0
 		if args.is_empty():
 			executor.call( callable )
 			return
