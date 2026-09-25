@@ -1,26 +1,37 @@
-name: Telegram Commit Notify
+name: Telegram Commit Notify Avanzado
 
 on:
   push:
-    branches: [ "main" ] # Cambia "main" por "master" si tu rama principal se llama así
-
+    branches:
+      - '**'
 jobs:
   send_notification:
     runs-on: ubuntu-latest
     steps:
-      - name: Send Telegram Message
+      # 1. Descargamos el repositorio para que la acción pueda leer los cambios
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2 # Necesario para comparar el commit actual con el anterior
+
+      # 2. Obtenemos una lista detallada de los archivos modificados
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+
+      # 3. Enviamos el mensaje enriquecido a Telegram
+      - name: Send Detailed Telegram Message
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           message: |
-            🎮 ¡NEW COMMIT!
+            🎮 ¡Nuevo cambio en el repositorio!
             
-            ✍️ AUTHOR ${{ github.actor }}
+            👤 *Autor:* ${{ github.actor }}
+            📦 *Commit:* ${{ github.event.head_commit.message }}
             
-            🗂️Repo: ${{ github.repository }}
+            📁 *Archivos modificados/añadidos:*
+            ${{ steps.changed-files.outputs.all_changed_files }}
             
-            💬 Committ message:
-            ${{ github.event.head_commit.message }}
-            
-            🔗 See changes: ${{ github.event.head_commit.url }}
+            🔗 [Ver cambios en GitHub](${{ github.event.head_commit.url }})

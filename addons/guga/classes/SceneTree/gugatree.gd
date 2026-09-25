@@ -15,8 +15,14 @@ signal s_timer_destroyed
 
 #endregion
 
-#region variables
-#	level managing
+#region	initialization
+#  tree init
+func _initialize():
+	print("GugaTree->Starting game")
+	
+#endregion
+
+#region level managing
 var current_level:Level:
 	set(level):
 		current_level = level
@@ -27,27 +33,6 @@ var cached_levels:Array[Node]:
 	get:
 		return cached_levels
  
-#	timers
-var available_timers: Dictionary[int, Timer] = {}
-
-#	actors components data
-var cdata:Dictionary = {
-	"nodo": null,                  # Aquí puedes guardar un Node
-	"recurso": null,               # Aquí puedes guardar un Resource
-	"lista_recursos": [],          # Array de Resources
-	"variante": "Hola"             # Variant (puede ser int, string, float, bool, etc.)
-}
-
-#endregion
-
-#region	initialization
-#  tree init
-func _initialize():
-	print("GugaTree->Starting game")
-	
-#endregion
-
-#region level managing
 func load_level( level:String )->Level:
 	var newlevel:Level = ( ResourceLoader.load(level).instantiate() as Level )
 	s_level_loaded.emit( newlevel )
@@ -87,6 +72,7 @@ func send_message(receiver: Object, callable:String, data:Array)->bool:
 #endregion
 
 #region timers
+var available_timers: Dictionary[int, Timer] = {}
 func connect_callable_to_timer(callableref:Callable, tickrate:int):
 	#  check first if the timer with that frequency exists 
 	#  if not create a new one
@@ -123,6 +109,48 @@ func _new_timer(hertz:int):
 	newtimerref.name = "Timer_" + str( int( hertz ) )
 	available_timers.set( hertz, newtimerref )
 
+#endregion
+
+#region actors & component system
+
+var listed_actors:Dictionary[Node,Array]
+var components:Array[ComponentBase]
+
+func list_actor(actor:Node):
+	if !is_instance_valid(actor):
+		return
+	listed_actors[actor] = []
+	
+func add_component_to_actor_key(actor:Node, component:ComponentBase):
+	if !is_instance_valid(actor):
+		return
+	if !is_instance_valid(component):
+		return
+	listed_actors[actor].append(component)
+
+func unlist_actor(actor:Node):
+	if !listed_actors.has(actor):
+		return
+	listed_actors.get(actor).clear()
+	listed_actors.erase(actor)
+
+#	for cleaning purposes
+func validate_all_keys():
+	for key in listed_actors:
+		if !is_instance_valid(key):
+			unlist_actor(key)
+	
+#	components intercommunication section
+var messages_received:Dictionary[Node,Variant]
+
+func receive_message(actor:Node, message:Variant):
+	#	add the message
+	messages_received[actor] = message
+	#	clean all messages on next tick start
+	call_deferred(clean_messages())
+	
+func clean_messages():
+	messages_received.clear()
 #endregion
 
 #region test tree
