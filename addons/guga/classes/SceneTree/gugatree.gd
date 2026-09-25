@@ -10,7 +10,8 @@ signal s_message(receiver: Object, callable:String, data:Array)
 #  tree init
 func _initialize():
 	_initialize_log_file()
-	
+	new_log_message(self, "GameStarted", LOG_MESSAGE_MODE.WARNING)
+
 #endregion
 
 #region level managing
@@ -110,7 +111,7 @@ func _new_timer(hertz:int):
 
 #endregion
 
-#region actors & component system
+#region component system
 
 var listed_actors:Dictionary[Node,Array]
 var components:Array[ComponentBase]
@@ -134,17 +135,30 @@ func unlist_actor(actor:Node):
 #endregion
 
 #region	components intercommunication section
+#	for one to one communication between actors
+#	when you know who is your receiver
+#	only it will receive the message
+#	if a component is expecting some data it can search for it here
+#	ex: know about enemy health, location, status......
+
+#	STEPS
+#	seeker ask receiver for some data trough a callable( get_health()	)
+#	receiver will send the data here
+#	seeker checks if theres new data that matches the expected
+
+#	many actor can communicate each tick
+#	so we store that data on a dictionay for fast searching by key
 var messages_received:Dictionary[Node,Variant]
 
 func receive_message(actor:Node, message:Variant):
-	#	add the message
+	#	add the message with actor as key
 	messages_received[actor] = message
-	#	clean all messages on next tick start
+	#	clean all messages on next tick
 	call_deferred(clean_messages())
 
 func find_message(actor:Node) -> Variant:
 	return messages_received.get(actor)
-	
+
 func clean_messages():
 	messages_received.clear()
 
@@ -184,18 +198,26 @@ func validate_dictionay_keys(dictionary:Dictionary):
 #endregion
 
 #region	logging system
-const LOG_ROUTE = "user://logs/"
+const LOG_ROUTE:String = "user://logs/"
+
+enum LOG_MESSAGE_MODE{
+	NORMAL,
+	ERROR,
+	WARNING
+}
 
 var log_file: FileAccess
 var current_logfile_route: String = ""
+
+var currenttime:String
 
 func _initialize_log_file():
 	var dir = DirAccess.open("user://")
 	if !dir.dir_exists("logs"):
 		dir.make_dir("logs")
 		
-	var datetime = Time.get_datetime_dict_from_system()
-	var filename = "%04d_%02d_%02d_%02d_%02d_%02d.log" % [
+	var datetime:Dictionary = Time.get_datetime_dict_from_system()
+	var filename:String = "%04d_%02d_%02d_%02d_%02d_%02d.log" % [
 		  datetime.year, datetime.month, datetime.day,
 		  datetime.hour, datetime.minute, datetime.second
 		]
@@ -208,9 +230,26 @@ func _initialize_log_file():
 		return
 	print("Log system initiated")
 
-func new_log(string:String):
-	pass
-
+func new_log_message(sender:Object, message:String, mode:LOG_MESSAGE_MODE):
+	if !is_instance_valid(sender):
+		return
+	if message.is_empty():
+		return
+	
+	currenttime = Time.get_time_string_from_system()
+	var new_message:String = "%s [%s] %s  >>>  %s" % [LOG_MESSAGE_MODE.find_key(mode), currenttime, sender, message]
+	
+	match mode:
+		LOG_MESSAGE_MODE.NORMAL:
+			print(new_message)
+		LOG_MESSAGE_MODE.ERROR:
+			push_error(new_message)
+		LOG_MESSAGE_MODE.WARNING:
+			push_error(new_message)
+	
+	if log_file:
+		log_file.store_string(new_message)
+		log_file.flush()
 #endregion
 
 #region test tree

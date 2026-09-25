@@ -10,12 +10,11 @@ class_name GameLoader
 @export var loadlevel:bool = true
 
 #	variables
-var treeref:GugaTree
+var tree:GugaTree
 
 func _ready() -> void:
-	print( "Game >> Starting game")
-	treeref = ( Engine.get_main_loop() as GugaTree )
-
+	tree = ( Engine.get_main_loop() as GugaTree )
+	tree
 	entry_config()
 	call_deferred("load_first_level")
 	
@@ -37,8 +36,8 @@ func entry_config():
 func load_first_level():
 	#load first level or not for development purposes
 	if loadlevel:
-		var newlevel:Level = treeref.load_level( firstlevel )
-		treeref.change_to_level( newlevel, true )
+		var newlevel:Level = tree.load_level( firstlevel )
+		tree.change_to_level( newlevel, true )
 		print( "Startscene >> byebye")
 		queue_free()
 		return

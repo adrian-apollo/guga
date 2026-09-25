@@ -70,7 +70,6 @@ func _notification(what: int) -> void:
 		if _input_state != null:
 			_input_state.focus_lost()
 
-
 ## Called when a node is added to the tree. If the node is a window
 ## GUIDE will instrument it to get events when the window is focused.
 func _on_node_added(node:Node) -> void:

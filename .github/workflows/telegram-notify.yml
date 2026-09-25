@@ -1,4 +1,4 @@
-name: Telegram Commit Notify Avanzado
+name: Telegram Commit Notify
 
 on:
   push:
@@ -28,10 +28,10 @@ jobs:
           message: |
             🎮 ¡Nuevo cambio en el repositorio!
             
-            👤 *Autor:* ${{ github.actor }}
-            📦 *Commit:* ${{ github.event.head_commit.message }}
+            👤 Author: ${{ github.actor }}
+            📦 Commit comment: ${{ github.event.head_commit.message }}
             
-            📁 *Archivos modificados/añadidos:*
+            📁 Modificated files:
             ${{ steps.changed-files.outputs.all_changed_files }}
             
-            🔗 [Ver cambios en GitHub](${{ github.event.head_commit.url }})
+            🔗 [See on GitHub](${{ github.event.head_commit.url }})
