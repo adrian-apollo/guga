@@ -31,27 +31,36 @@ var cached_levels:Array[Node]:
 		return cached_levels
  
 func load_level( level:String )->Level:
+	new_log_message(self, "Loading level from file: " + level, LOG_MESSAGE_MODE.NORMAL)
 	var newlevel:Level = ResourceLoader.load(level).instantiate()
+	
+	if !is_instance_valid(newlevel):
+		new_log_message(self, "FAIL LOADING LEVEL FROM FILE: " + level, LOG_MESSAGE_MODE.ERROR)
+		return
+	
 	s_level_loaded.emit( newlevel )
+	new_log_message(self, "SUCESS", LOG_MESSAGE_MODE.NORMAL)
 	return newlevel
 
 func change_to_level( levelref:Level, destroy_previous:bool ):
-	if !levelref:
+	if !levelref or !is_instance_valid( levelref ):
+		new_log_message(self, "Fail changing to level(): " + str( levelref ), LOG_MESSAGE_MODE.ERROR)
 		return
-	if current_level:
+
+	if current_level and is_instance_valid(current_level):
 		if destroy_previous:
-			current_level.queue_free()
+			destroy_level(current_level)
 		else:
 			cached_levels.push_back( current_level )
+			get_root().remove_child( current_level )
 
 	get_root().add_child( levelref )
 	current_level = levelref
 	s_level_changed.emit( levelref )
+	new_log_message(self, "Changed to level: " + str( levelref ), LOG_MESSAGE_MODE.NORMAL)
 
-func get_current_level() -> Node:
-	return get( "current_level" )
-
-func delete_level(levelref:Node):
+func destroy_level(levelref:Node):
+	current_level.queue_free()
 	s_level_destroyed.emit( levelref)
 
 #endregion
@@ -113,25 +122,48 @@ func _new_timer(hertz:int):
 
 #region component system
 
+signal s_actor_listed(actor:Node)
+signal s_actor_unlisted(actor:Node)
+signal s_component_listed(actor:Node, component:ComponentBase2)
+signal s_component_unlisted(actor:Node, component:ComponentBase2)
+
 var listed_actors:Dictionary[Node,Array]
 var components:Array[ComponentBase]
 
 func list_actor(actor:Node):
 	if !is_instance_valid(actor):
 		return
+
+	s_actor_listed.emit( actor )
 	listed_actors[actor] = []
-	
-func add_component_to_actor_key(actor:Node, component:ComponentBase):
-	if !is_instance_valid(actor):
-		return
-	if !is_instance_valid(component):
-		return
-	listed_actors[actor].append(component)
 
 func unlist_actor(actor:Node):
 	if !listed_actors.has(actor):
 		return
+	s_actor_unlisted.emit( actor )
 	listed_actors.erase(actor)
+
+func list_component(actor:Node, component:ComponentBase2):
+	if !is_instance_valid(actor):
+		return
+	if !is_instance_valid(component):
+		return
+	if !listed_actors.has(actor):
+		list_actor(actor)
+	if listed_actors[actor].has(component):
+		list_actor(actor)
+
+	s_component_listed.emit( actor, component )
+	listed_actors[actor].append(component)
+
+func unlist_component(actor:Node, component:ComponentBase2):
+	if !is_instance_valid(actor):
+		return
+	if !is_instance_valid(component):
+		return
+	listed_actors[actor].erase(component)
+	s_component_unlisted.emit(actor, component)
+
 #endregion
 
 #region	components intercommunication section
@@ -238,15 +270,15 @@ func new_log_message(sender:Object, message:String, mode:LOG_MESSAGE_MODE):
 		return
 	
 	currenttime = Time.get_time_string_from_system()
-	var new_message:String = "%s [%s] %s  >>>  %s" % [LOG_MESSAGE_MODE.find_key(mode), currenttime, sender, message]
+	var new_message:String = "%s [%s] %s  >>>  %s\n" % [LOG_MESSAGE_MODE.find_key(mode), currenttime, sender, message]
 	
 	match mode:
 		LOG_MESSAGE_MODE.NORMAL:
-			print(new_message)
+			print(new_message.strip_edges())
 		LOG_MESSAGE_MODE.ERROR:
-			push_error(new_message)
+			push_error(new_message.strip_edges())
 		LOG_MESSAGE_MODE.WARNING:
-			push_error(new_message)
+			push_error(new_message.strip_edges())
 	
 	if log_file:
 		log_file.store_string(new_message)
