@@ -4,4 +4,5 @@
 
 [node name="Game_loader" type="ColorRect" unique_id=625050732]
 script = ExtResource("1_3v0f4")
+firstlevel = "uid://due31pd0qeanx"
 metadata/_custom_type_script = "uid://mtlkrcj2f2nu"

@@ -1,15 +1,10 @@
 @tool
 class_name Level extends Node
 
-@export_group("Configuration")
-@export var component_manager:ComponentsManager
+@export_group("Player start")
 @export_tool_button("Add PlayerStart2D", "2D") var playerstart2d = add_playerstart2d
 @export_tool_button("Add PlayerStart3D", "3D") var playerstart3d = add_playerstart3d
 @export_tool_button("Remove PlayerStart", "Clear") var delete = remove_playerstart
-
-func _ready() -> void:
-	if component_manager and !Engine.is_editor_hint():
-		component_manager.start( self )
 
 #region player start managing
 func add_playerstart2d():

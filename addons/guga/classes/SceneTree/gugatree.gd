@@ -10,7 +10,7 @@ signal s_message(receiver: Object, callable:String, data:Array)
 #  tree init
 func _initialize():
 	_initialize_log_file()
-	new_log_message(self, "GameStarted", LOG_MESSAGE_MODE.WARNING)
+	new_log_message(self, "GameStarted", LOG_MESSAGE_MODE.NORMAL)
 
 #endregion
 
@@ -31,7 +31,7 @@ var cached_levels:Array[Node]:
 		return cached_levels
  
 func load_level( level:String )->Level:
-	var newlevel:Level = ( ResourceLoader.load(level).instantiate() as Level )
+	var newlevel:Level = ResourceLoader.load(level).instantiate()
 	s_level_loaded.emit( newlevel )
 	return newlevel
 
@@ -228,7 +228,8 @@ func _initialize_log_file():
 	if !log_file:
 		push_error("GUGATree failed to create a log file")
 		return
-	print("Log system initiated")
+
+	print("Log system ready")
 
 func new_log_message(sender:Object, message:String, mode:LOG_MESSAGE_MODE):
 	if !is_instance_valid(sender):

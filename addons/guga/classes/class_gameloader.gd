@@ -14,8 +14,11 @@ var tree:GugaTree
 
 func _ready() -> void:
 	tree = ( Engine.get_main_loop() as GugaTree )
-	tree
 	entry_config()
+	if firstlevel.is_empty():
+		tree.new_log_message(self, "Empty level reference", tree.LOG_MESSAGE_MODE.NORMAL)
+		return
+
 	call_deferred("load_first_level")
 	
 func entry_config():
@@ -38,8 +41,4 @@ func load_first_level():
 	if loadlevel:
 		var newlevel:Level = tree.load_level( firstlevel )
 		tree.change_to_level( newlevel, true )
-		print( "Startscene >> byebye")
 		queue_free()
-		return
-
-	print("No start level set")

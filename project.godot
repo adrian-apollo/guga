@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="guga_development"
-run/main_scene="uid://drntav8oq17ax"
+run/main_scene="uid://cs0qruqtr2bqe"
 run/main_loop_type="GugaTree"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
