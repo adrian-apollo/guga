@@ -86,7 +86,7 @@ func connect_callable_to_timer(callableref:Callable, tickrate:int):
 	#  check first if the timer with that frequency exists 
 	#  if not create a new one
 	if tickrate < 1:
-		print(" GugaTree >> Invalid tick rate value: < 1 ")
+		#print(" GugaTree >> Invalid tick rate value: < 1 ")
 		return
 	
 	if !available_timers.has(tickrate):
@@ -98,11 +98,11 @@ func connect_callable_to_timer(callableref:Callable, tickrate:int):
 func disconnect_callable_from_timer( callableref:Callable, tickrate:int ):
 	var timerref:Timer = available_timers.get( tickrate )
 	if !is_instance_valid( timerref ):
-		print("GUGATree >> timer disconnection failed, invalid timer reference")
+		#print("GUGATree >> timer disconnection failed, invalid timer reference")
 		return
 	
 	if !timerref.timeout.is_connected( callableref ):
-		print("GUGATree >> timer disconnection failed, unexistent conncetion")
+		#print("GUGATree >> timer disconnection failed, unexistent conncetion")
 		return
 	
 	timerref.timeout.disconnect(callableref)
@@ -154,10 +154,11 @@ func list_component(actor:Node, component:ComponentBase2):
 	if !listed_actors.has(actor):
 		list_actor(actor)
 	if listed_actors[actor].has(component):
-		list_actor(actor)
+		return
 
 	s_component_listed.emit( actor, component )
 	listed_actors[actor].append(component)
+	component._setup(actor)
 
 func unlist_component(actor:Node, component:ComponentBase2):
 	if !is_instance_valid(actor):

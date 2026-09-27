@@ -20,17 +20,15 @@ var tree:GugaTree
 func _init():
 	tree = Engine.get_main_loop()
 
-func _setup_local_to_scene():
+func _setup(_owner:Node):
+	print( get_local_scene() )
 	if !is_local_to_scene:
 		return
-	if !is_instance_valid(get_local_scene()):
-		return
 
-	owner = get_local_scene()
-	tree.list_component(owner,self)
-	setup_tick()
+	owner = _owner
+	_setup_tick()
 
-func setup_tick():
+func _setup_tick():
 	if enabled:
 		if custom:
 			tree.connect_callable_to_timer(event_tick, tick_rate)
@@ -65,4 +63,5 @@ func _destructor():
 		return
 
 	tree.disconnect_callable_from_timer( event_tick, tick_rate )
+	print(get_reference_count())
 #endregion

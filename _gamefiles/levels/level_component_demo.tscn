@@ -31,5 +31,5 @@ grow_vertical = 2
 color = Color(0.2, 0.4, 0.2666667, 1)
 
 [node name="ATest" parent="." unique_id=1090430803 instance=ExtResource("2_akkkn")]
-position = Vector2(684, 255)
+position = Vector2(580, 332)
 metadata/components = SubResource("Resource_jw1lj")
