@@ -1,23 +1,35 @@
 [gd_scene format=3 uid="uid://due31pd0qeanx"]
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/Resources/class_level.gd" id="1_5kk20"]
+[ext_resource type="PackedScene" uid="uid://bxrpel1wjgpuq" path="res://_gamefiles/Actors/a_test.tscn" id="2_akkkn"]
 [ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase2.gd" id="2_ldfc3"]
-[ext_resource type="Script" uid="uid://ibschcbn25t4" path="res://_gamefiles/Components/c2_print_debug.gd" id="3_akkkn"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_components_holder.gd" id="3_ldfc3"]
+[ext_resource type="Script" uid="uid://ibschcbn25t4" path="res://_gamefiles/Components/c2_print_debug.gd" id="4_r1irp"]
 
-[sub_resource type="Resource" id="Resource_ldfc3"]
+[sub_resource type="Resource" id="Resource_r1irp"]
 resource_local_to_scene = true
-script = ExtResource("3_akkkn")
+script = ExtResource("4_r1irp")
 custom = true
 metadata/_custom_type_script = "uid://ibschcbn25t4"
 
 [sub_resource type="Resource" id="Resource_jw1lj"]
 resource_local_to_scene = true
 script = ExtResource("3_ldfc3")
-components = Array[ExtResource("2_ldfc3")]([SubResource("Resource_ldfc3")])
+components = Array[ExtResource("2_ldfc3")]([SubResource("Resource_r1irp")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [node name="LevelComponentDemo" type="Node" unique_id=85773899]
 script = ExtResource("1_5kk20")
 metadata/_custom_type_script = "uid://dx7ipnqchnxei"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1033618195]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0.4, 0.2666667, 1)
+
+[node name="ATest" parent="." unique_id=1090430803 instance=ExtResource("2_akkkn")]
+position = Vector2(684, 255)
 metadata/components = SubResource("Resource_jw1lj")

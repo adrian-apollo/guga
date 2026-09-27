@@ -15,14 +15,12 @@ class_name ComponentBase2 extends Resource
 #endregion
 
 var owner:Node
-var componentmanager:ComponentsManager
 var tree:GugaTree
 
 func _init():
 	tree = Engine.get_main_loop()
-	call_deferred("find_local_scene")
 
-func find_local_scene():
+func _setup_local_to_scene():
 	if !is_local_to_scene:
 		return
 	if !is_instance_valid(get_local_scene()):

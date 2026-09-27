@@ -138,10 +138,13 @@ func list_actor(actor:Node):
 	listed_actors[actor] = []
 
 func unlist_actor(actor:Node):
+	if !is_instance_valid(actor):
+		return
 	if !listed_actors.has(actor):
 		return
 	s_actor_unlisted.emit( actor )
 	listed_actors.erase(actor)
+	actor.queue_free()
 
 func list_component(actor:Node, component:ComponentBase2):
 	if !is_instance_valid(actor):
