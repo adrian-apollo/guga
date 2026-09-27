@@ -102,7 +102,7 @@ func _new_timer(hertz:int):
 
 #endregion
 
-#region component system
+#region actor component system
 
 signal s_actor_listed(actor:Node)
 signal s_actor_unlisted(actor:Node)
@@ -286,6 +286,25 @@ func get_node_from_nodepath(location:Node, path:NodePath) -> Node:
 	
 	return get_node_from_name(location, get_name_from_nodepath(path) )
 
+#	for finding a specific component inside an actor with the specific method
+func get_component_with_method_from_actor(actor:Node, method_name:String) -> ComponentBase:
+	if !is_instance_valid( actor ):
+		return
+	if !listed_actors.has(actor):
+		return
+	if method_name.is_empty():
+		return
+
+	var ac:Array[ComponentBase] = listed_actors.get(actor)
+	for d in ac:
+		if d.has_method( method_name ):
+			return d
+			break
+
+	return null
+
+#	for getting a callable reference inside a component
+#	usefull for fast calling
 func get_callable_from_component(method_name:String, component:ComponentBase) -> Callable:
 	var c:Callable
 	
@@ -299,6 +318,7 @@ func get_callable_from_component(method_name:String, component:ComponentBase) ->
 		
 	return c
 
+#	for getting how many arguments a component methods has
 func get_callable_argument_count_from_component(method_name:String, component:ComponentBase) -> int:
 	return get_callable_from_component(method_name, component).get_argument_count()
 
