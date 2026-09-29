@@ -8,6 +8,7 @@
 [sub_resource type="Resource" id="Resource_7fn5o"]
 resource_local_to_scene = true
 script = ExtResource("2_ecx6y")
+active = false
 custom = true
 metadata/_custom_type_script = "uid://ibschcbn25t4"
 
@@ -18,6 +19,7 @@ components = Array[ExtResource("1_7fn5o")]([SubResource("Resource_7fn5o")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [node name="ATest" type="Node2D" unique_id=1090430803]
+use_parent_material = true
 metadata/components = SubResource("Resource_5kk20")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1403254051]

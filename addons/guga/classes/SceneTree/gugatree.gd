@@ -1,11 +1,5 @@
 class_name GugaTree extends SceneTree
 
-#region	signals
-#	message bus
-signal s_message(receiver: Object, callable:String, data:Array)
-
-#endregion
-
 #region	initialization
 #  tree init
 func _initialize():
@@ -62,18 +56,6 @@ func change_to_level( levelref:Level, destroy_previous:bool ):
 func destroy_level(levelref:Node):
 	current_level.queue_free()
 	s_level_destroyed.emit( levelref)
-
-#endregion
-
-#region message system
-func send_message(receiver: Object, callable:String, data:Array)->bool:
-	if !is_instance_valid( receiver ):
-		return false
-	if callable.is_empty():
-		return false
-
-	s_message.emit(receiver, callable, data)
-	return true
 
 #endregion
 
@@ -168,9 +150,55 @@ func unlist_component(actor:Node, component:ComponentBase2):
 	listed_actors[actor].erase(component)
 	s_component_unlisted.emit(actor, component)
 
+func actor_add_component(actor:Node, component:Script) -> ComponentBase2:
+	var newc:ComponentBase2 = component.new().duplicate_deep( Resource.DeepDuplicateMode.DEEP_DUPLICATE_ALL )
+	list_component(actor, newc)
+	return newc
+
+func destroy_actor(actor:Node):
+	unlist_actor( actor )
+	actor.queue_free()
 #endregion
 
-#region	components intercommunication section
+#region component inter execution system
+#	system dedicated to execute orders
+#	on other actor's components
+#	ex: actor A calls method damage(int) on actor B
+#	actor A needs to know whos is the receiver
+
+func execute(receiver: Node, callable:String, data:Array) -> bool:
+	if !is_instance_valid( receiver ):
+		return false
+	if callable.is_empty():
+		return false
+	if !listed_actors.has(receiver):
+		return false
+	
+	var acomponents:Array = listed_actors.get(receiver)
+	if acomponents.size() == 0:
+		return false
+	
+	for c in acomponents:
+		if c.has_method(callable):
+			if data.size() == 0:
+				c.call( callable )
+			if data.size() == 1:
+				c.call( callable, data[0] )
+			if data.size() == 2:
+				c.call( callable, data[0], data[1] )
+			if data.size() == 3:
+				c.call( callable, data[0], data[1], data[2] )
+			if data.size() > 4:
+				c.call( callable, data)
+			break
+			return true
+
+	return false
+
+#endregion
+
+#	TODO test and finish
+#region	components intercommunication system
 #	for one to one communication between actors
 #	when you know who is your receiver
 #	only it will receive the message
@@ -182,15 +210,17 @@ func unlist_component(actor:Node, component:ComponentBase2):
 #	receiver will send the data here
 #	seeker checks if theres new data that matches the expected
 
-#	many actor can communicate each tick
+#	many actors can communicate each tick
 #	so we store that data on a dictionay for fast searching by key
-var messages_received:Dictionary[Node,Variant]
+var messages_received:Dictionary[Node, Variant]
 
 func receive_message(actor:Node, message:Variant):
 	#	add the message with actor as key
 	messages_received[actor] = message
-	#	clean all messages on next tick
-	call_deferred(clean_messages())
+	#	auto cleaning next physics frame 
+	#	unpersistant connection
+	physics_frame.connect(clean_messages, 4)
+	#call_deferred(clean_messages())
 
 func find_message(actor:Node) -> Variant:
 	return messages_received.get(actor)
@@ -231,6 +261,44 @@ func validate_dictionay_keys(dictionary:Dictionary):
 	for key in dictionary:
 		if !is_instance_valid(key):
 			listed_actors.erase(key)
+
+func get_name_from_nodepath(path:NodePath) -> String:
+	if path.is_empty():
+		return ""
+
+	return path.get_name( path.get_name_count() - 1 )
+	
+func get_node_from_name(location:Node, name:String) -> Node:
+	if !is_instance_valid(location):
+		return null
+	if name.is_empty():
+		return null
+		
+	return location.find_child( name )
+
+func get_node_from_nodepath(location:Node, path:NodePath) -> Node:
+	if !is_instance_valid(location):
+		return
+	if path.is_empty():
+		return
+	
+	return get_node_from_name(location, get_name_from_nodepath(path) )
+
+func get_callable_from_component(method_name:String, component:ComponentBase2) -> Callable:
+	var c:Callable
+	
+	if method_name.is_empty():
+		return c
+	if !is_instance_valid(component):
+		return c
+		
+	if component.has_method( method_name ):
+		c = Callable(component, method_name)
+		
+	return c
+
+func get_callable_argument_count_from_component(method_name:String, component:ComponentBase2) -> int:
+	return get_callable_from_component(method_name, component).get_argument_count()
 #endregion
 
 #region	logging system

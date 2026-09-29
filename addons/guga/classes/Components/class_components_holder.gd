@@ -10,17 +10,17 @@ func _init():
 
 func _setup_local_to_scene():
 	owner = get_local_scene()
-	owner.ready.connect(_setup, 4)
-	
+	if !owner.ready.is_connected(_setup):
+		owner.ready.connect(_setup, 4)
+
 func _setup():
-	tree.s_component_listed.connect(add_component)
-	tree.s_component_unlisted.connect(remove_component)
-	tree.s_actor_unlisted.connect(owner_destroyed)
-	print(components)
+	tree.s_component_listed.connect( _add_component)
+	tree.s_component_unlisted.connect( _remove_component)
+	tree.s_actor_unlisted.connect( _owner_destroyed)
 	for c in components:
 		tree.list_component( owner, c )
 
-func remove_component(actor:Node, component:ComponentBase2):
+func _remove_component(actor:Node, component:ComponentBase2):
 	if actor!=owner:
 		return
 	if !components.has(component):
@@ -28,7 +28,7 @@ func remove_component(actor:Node, component:ComponentBase2):
 	component._destructor()
 	components.erase(component)
 
-func add_component( actor:Node, component:ComponentBase2 ):
+func _add_component( actor:Node, component:ComponentBase2 ):
 	if actor != owner:
 		return
 	if components.has(component):
@@ -36,13 +36,14 @@ func add_component( actor:Node, component:ComponentBase2 ):
 	
 	components.push_back(component)
 
-func owner_destroyed(actor:Node):
+func _owner_destroyed(actor:Node):
 	if !is_instance_valid( actor ):
 		return
 	if actor!=owner:
 		return
 	for component in components:
-		remove_component( actor, component )
+		_remove_component( actor, component )
 	
-	tree.s_component_unlisted.disconnect(remove_component)
-	tree.s_actor_unlisted.disconnect(owner_destroyed)
+	tree.s_actor_unlisted.disconnect( _owner_destroyed)
+	tree.s_component_unlisted.disconnect( _remove_component)
+	tree.s_component_listed.disconnect( _add_component)
