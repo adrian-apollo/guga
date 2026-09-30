@@ -1,0 +1,21 @@
+GUGA Documentation
+
+Topic:	ComponentsHolder class
+	
+	A Components holder is a special class designed to serve as a container of 
+components. It inherits from Resource so you can save it on your project files 
+and share it across many actors wtih the same components and configurations. It
+exposes a single variable of type Array[ ComponentBase ].
+
+Setup:
+	1)	Go to the inspector tab and scroll down to the Node section
+	2)	There locate Metadata and preess on Add Metadata
+	3)	A small window will apprear
+	4)	On Name write components
+	5)	On Type select Resource
+	6)	Press Add
+	7)	Now go to the Components metada and select ComponentsHolder
+	8)	There go to Resource and select Local to Scene if you want to have unique
+data.
+	9)	Now go to the Components array inside the ComponentHolder and select an
+already created component and on it select Local to Scene under Resource if you like to.

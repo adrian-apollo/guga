@@ -1,4 +1,4 @@
-class_name CSenderTest extends ComponentBase2
+class_name CSenderTest extends ComponentBase
 
 @export var receiver_path:NodePath
 

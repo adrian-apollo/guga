@@ -1,4 +1,4 @@
-class_name CReceiverTest extends ComponentBase2
+class_name CReceiverTest extends ComponentBase
 
 @export var label_path:NodePath
 

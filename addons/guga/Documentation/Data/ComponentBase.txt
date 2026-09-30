@@ -1,0 +1,24 @@
+GUGA Documentation
+
+Topic:	ComponentBase class
+
+	ComponentBase is the base class of every component on the GUGA plugin. To create a new one just create a new script
+that inherits from ComponentBase.
+
+Inspector entries:
+	Component
+		Active: enables or disables the component
+	Tick
+		Enabled:	enables ticking on the component
+		Custom: *if disabled event_tick will fire on every physics frame
+				*enabled event_tick will fire based on the selected tick rate value
+		Tick Rate: the value will set the ticking rate if custom ticking is true
+		
+Properties:
+	owner:	a reference to the actor scene that contains the component.
+	tree:	a reference to the SceneTree of class GugaTree
+
+Exposed methods:
+	event_begin():	fires when the owner scene is ready
+	event_tick():	if ticking is enabled this method will fire regulary
+	event_destroy():	fired when the owner scene is queue_free or the component is going to be deleted

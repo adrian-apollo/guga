@@ -1,0 +1,20 @@
+GUGA Documentation
+
+Topic:	Main scene class
+
+	Any Godot project needs a main scene. It will be the first godot scene to be loaded when the
+game starts. Because of that GUGA plugin defines a MainScene class with the solely job of serving
+as the mainscene that any Godot game expects to have. It is composed of a ColorRect node with some
+options visible on the inspector:
+	-Start level: A text entry pointing with the UID or file address of the first Level class to be loaded.
+	-Hue: The hue of the ColorRect.
+	-Delay: A delay time before loading the Level from Start Level.
+	-Mouse confined: For confine the mouse to the game window or not, useful for windowed games on desktop.
+	-Mouse captured: Show or hide the mouse pointer at the game start.
+	-Load level: An option to load or not the Level on Start Level.
+
+Setup:
+	1)	On FileSystem or Scene tree, create a new MainScene scene file.
+	2) Open it and go to Inspector panel at the top and search for the entry Start Level.
+	3) Copy the UID from a Level class already created and paste the string on Start Level.
+	4) Inspect the others option and change them according to your demands.

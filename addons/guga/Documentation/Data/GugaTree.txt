@@ -1,0 +1,60 @@
+GUGA Documentation
+
+Topic:	GugaTree class
+	
+Description
+	This class Inheriths from SceneTree class but uses none of its methods or properties.
+Its sole purpose is to serve as the core of any game that relies on GUGA Plugin
+trough the entire game. When the plugin is activated GugaTree will automatically be set to be
+the default root class of the tree.
+
+Purposes
+	-Level managing
+	-Timers managing
+	-Execution of events on components
+	-Gathering of data from other components
+	-Notification of global events
+	-Logging system
+	-Storage of utilitary methods
+
+Level managing
+	Signals
+		s_level_changed( Level )
+		s_level_destroyed( Level )
+		s_level_loaded( Level )
+
+	Properties
+		-current_level: stores a reference to the current level
+		-cached_levels: an array of Levels previously loaded and outside the tree
+	Methods
+		-load_level: loads a level into memory from a string
+		-change_to_level: changes to level of the input and optionally destroy it or store it on cache
+		-destroy_level: queue free the input level
+
+Timers managing
+	Signals
+		s_timer_created
+		s_timer_destroyed
+	Properties
+		available_timers: a dictionay containing a list of the current active timers
+	Methods
+		connect_callable_to_timer(callableref:Callable, tickrate:int)
+		disconnect_callable_from_timer( callableref:Callable, tickrate:int )
+
+Component managing
+	Signals
+		s_actor_listed(actor:Node)
+		s_actor_unlisted(actor:Node)
+		s_component_listed(actor:Node, component:ComponentBase2)
+		s_component_unlisted(actor:Node, component:ComponentBase2)
+	Properties
+		listed_actors:	stores a reference to every actor created and its components
+		listed_components:	stores a reference to every component currently accesible
+
+	Methods
+		-list_actor
+		-unlist_actor
+		-list_component
+		-unlist_component
+		-actor_add_componet
+		-destroy_actor

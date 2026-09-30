@@ -1,7 +1,7 @@
 extends Resource
 class_name ComponentsHolder
 
-@export var components:Array[ComponentBase2]
+@export var components:Array[ComponentBase]
 var tree:GugaTree
 var owner:Node
 
@@ -20,7 +20,7 @@ func _setup():
 	for c in components:
 		tree.list_component( owner, c )
 
-func _remove_component(actor:Node, component:ComponentBase2):
+func _remove_component(actor:Node, component:ComponentBase):
 	if actor!=owner:
 		return
 	if !components.has(component):
@@ -28,7 +28,7 @@ func _remove_component(actor:Node, component:ComponentBase2):
 	component._destructor()
 	components.erase(component)
 
-func _add_component( actor:Node, component:ComponentBase2 ):
+func _add_component( actor:Node, component:ComponentBase ):
 	if actor != owner:
 		return
 	if components.has(component):

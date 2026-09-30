@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bxrpel1wjgpuq"]
 
-[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase2.gd" id="1_7fn5o"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="1_7fn5o"]
 [ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="1_hqr65"]
 [ext_resource type="Script" uid="uid://ibschcbn25t4" path="res://_gamefiles/Components/c2_print_debug.gd" id="2_ecx6y"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_components_holder.gd" id="2_f00dk"]

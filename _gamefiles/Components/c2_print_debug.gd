@@ -1,4 +1,4 @@
-class_name CPrintDebug extends ComponentBase2
+class_name CPrintDebug extends ComponentBase
 
 func event_begin( ):
 	print("EVENT BEGIN")

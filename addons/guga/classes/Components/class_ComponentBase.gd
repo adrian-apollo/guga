@@ -7,56 +7,69 @@ class_name ComponentBase extends Resource
 		active = value
 	get:
 		return active
-@export var start_with_tick_enabled:bool = true
-@export var custom_tick:bool = false
-@export var tick_rate:int = 30
+@export_group("Tick")
+@export var enabled:bool = true
+@export var custom:bool = false
+@export_range(1, 60, 1, "or_greater") var tick_rate:int = 1
 
 #endregion
-
-#region Properties
 
 var owner:Node
-var componentmanager:ComponentsManager
 var tree:GugaTree
-var conector:Connector = Connector.new()
-#endregion
 
-#region initialization
 func _init():
-	tree = ( Engine.get_main_loop() as GugaTree )
+	tree = Engine.get_main_loop()
 
-#endregion
+func _setup(_owner:Node):
+	owner = _owner
+	owner.tree_exiting.connect(_stop_tick)
+	owner.tree_entered.connect(_start_tick)
+	_start_tick()
+	call_deferred("event_begin")
 
-#region component initialization
-func _prebegin():
-	if owner:
-		conector.setup_connector([owner,self])
-	
-	if start_with_tick_enabled:
-		if custom_tick:
-			tree.connect_callable_to_timer(tick, tick_rate)
+func _start_tick():
+	if enabled:
+		if custom:
+			tree.connect_callable_to_timer(event_tick, tick_rate)
 		else:
-			tree.physics_frame.connect(tick)
+			tree.physics_frame.connect(event_tick)
+	
+func _stop_tick():
+	if tree.physics_frame.is_connected( event_tick ):
+		tree.physics_frame.disconnect(event_tick)
+		return
 
-	call_deferred("begin")
-#endregion
+	tree.disconnect_callable_from_timer( event_tick, tick_rate )
 
+func _reset_tick(_enabled:bool, _custom:bool, _tickrate:int):
+	enabled = _enabled
+	custom = _custom
+	tick_rate = _tickrate
+	_stop_tick()
+	_start_tick()
+	
 #region virtual methods
-func begin( ):
+func event_begin():
 	pass
 
-func tick():
+func event_tick():
+	pass
+	
+func event_destroy():
 	pass
 
 #endregion
 
 #region the end
-func safe_delete():
-	#conector.call_deferred( "free" )
-	
-	if tree.physics_frame.is_connected( tick ):
-		tree.physics_frame.disconnect(tick)
-		return
-	
-	tree.disconnect_callable_from_timer( tick, tick_rate )
+#func _notification(what):
+	#if !is_instance_valid(self):
+		#return
+	#if what == NOTIFICATION_PREDELETE:
+		#_destructor()
+
+func _destructor():
+	event_destroy()
+	_stop_tick()
+	owner.tree_exiting.disconnect(_stop_tick)
+	owner.tree_entered.disconnect(_start_tick)
 #endregion

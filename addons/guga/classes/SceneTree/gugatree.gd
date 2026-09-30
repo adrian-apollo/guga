@@ -20,7 +20,7 @@ var current_level:Level:
 	get:
 		return current_level
 
-var cached_levels:Array[Node]:
+var cached_levels:Array[Level]:
 	get:
 		return cached_levels
  
@@ -54,8 +54,8 @@ func change_to_level( levelref:Level, destroy_previous:bool ):
 	new_log_message(self, "Changed to level: " + str( levelref ), LOG_MESSAGE_MODE.NORMAL)
 
 func destroy_level(levelref:Node):
-	current_level.queue_free()
 	s_level_destroyed.emit( levelref)
+	current_level.queue_free()
 
 #endregion
 
@@ -64,6 +64,7 @@ signal s_timer_created
 signal s_timer_destroyed
 
 var available_timers: Dictionary[int, Timer] = {}
+
 func connect_callable_to_timer(callableref:Callable, tickrate:int):
 	#  check first if the timer with that frequency exists 
 	#  if not create a new one
@@ -76,7 +77,6 @@ func connect_callable_to_timer(callableref:Callable, tickrate:int):
 	
 	( available_timers.get(tickrate) as Timer ).connect("timeout", callableref)
 
-#	pending test
 func disconnect_callable_from_timer( callableref:Callable, tickrate:int ):
 	var timerref:Timer = available_timers.get( tickrate )
 	if !is_instance_valid( timerref ):
@@ -106,11 +106,11 @@ func _new_timer(hertz:int):
 
 signal s_actor_listed(actor:Node)
 signal s_actor_unlisted(actor:Node)
-signal s_component_listed(actor:Node, component:ComponentBase2)
-signal s_component_unlisted(actor:Node, component:ComponentBase2)
+signal s_component_listed(actor:Node, component:ComponentBase)
+signal s_component_unlisted(actor:Node, component:ComponentBase)
 
 var listed_actors:Dictionary[Node,Array]
-var components:Array[ComponentBase]
+var listed_components:Array[ComponentBase]
 
 func list_actor(actor:Node):
 	if !is_instance_valid(actor):
@@ -128,7 +128,7 @@ func unlist_actor(actor:Node):
 	listed_actors.erase(actor)
 	actor.queue_free()
 
-func list_component(actor:Node, component:ComponentBase2):
+func list_component(actor:Node, component:ComponentBase):
 	if !is_instance_valid(actor):
 		return
 	if !is_instance_valid(component):
@@ -140,18 +140,20 @@ func list_component(actor:Node, component:ComponentBase2):
 
 	s_component_listed.emit( actor, component )
 	listed_actors[actor].append(component)
+	listed_components.push_back( component )
 	component._setup(actor)
 
-func unlist_component(actor:Node, component:ComponentBase2):
+func unlist_component(actor:Node, component:ComponentBase):
 	if !is_instance_valid(actor):
 		return
 	if !is_instance_valid(component):
 		return
 	listed_actors[actor].erase(component)
+	listed_components.erase( component )
 	s_component_unlisted.emit(actor, component)
 
-func actor_add_component(actor:Node, component:Script) -> ComponentBase2:
-	var newc:ComponentBase2 = component.new().duplicate_deep( Resource.DeepDuplicateMode.DEEP_DUPLICATE_ALL )
+func actor_add_component(actor:Node, component:Script) -> ComponentBase:
+	var newc:ComponentBase = component.new().duplicate_deep( Resource.DeepDuplicateMode.DEEP_DUPLICATE_ALL )
 	list_component(actor, newc)
 	return newc
 
@@ -284,7 +286,7 @@ func get_node_from_nodepath(location:Node, path:NodePath) -> Node:
 	
 	return get_node_from_name(location, get_name_from_nodepath(path) )
 
-func get_callable_from_component(method_name:String, component:ComponentBase2) -> Callable:
+func get_callable_from_component(method_name:String, component:ComponentBase) -> Callable:
 	var c:Callable
 	
 	if method_name.is_empty():
@@ -297,8 +299,60 @@ func get_callable_from_component(method_name:String, component:ComponentBase2) -
 		
 	return c
 
-func get_callable_argument_count_from_component(method_name:String, component:ComponentBase2) -> int:
+func get_callable_argument_count_from_component(method_name:String, component:ComponentBase) -> int:
 	return get_callable_from_component(method_name, component).get_argument_count()
+
+func raycastfromposition(
+	node:Node,
+	distance:int,
+	debug:bool,
+	color:Color,
+	duration:float,
+	radius,
+	varmin:float,
+	varmax:float ) -> Dictionary:
+
+	var worldspace = node.get_world_3d().direct_space_state
+
+	var mousepos = node.get_viewport().get_mouse_position()
+	var start:Vector3 = node.get_viewport().get_camera_3d().project_ray_origin( mousepos )
+	var end:Vector3 = node.get_viewport().get_camera_3d().project_position( mousepos, distance)
+	#rand offset end
+	end.x += randf_range( varmin, varmax )
+	end.y += randf_range( varmin, varmax )
+
+	var result:Dictionary = worldspace.intersect_ray(
+		PhysicsRayQueryParameters3D.create( start, end )
+		)
+
+	#if result and debug:
+		#DebugDraw3D.draw_sphere(result.position, radius, color, duration)
+
+	return result
+
+static func _raycastfromcameracenter(
+	node:Node,
+	distance:int,
+	debug:bool,
+	radius:float,
+	color:Color,
+	duration:float ) -> Dictionary:
+	var worldspace = node.get_world_3d().direct_space_state
+
+	var mouseposition:Vector2 = node.get_viewport().get_window().get_size() / 2.0
+
+	var start:Vector3 = node.get_viewport().get_camera_3d().project_ray_origin( mouseposition )
+	var end:Vector3 = node.get_viewport().get_camera_3d().project_position( mouseposition, distance)
+
+	var result:Dictionary = worldspace.intersect_ray(
+		 PhysicsRayQueryParameters3D.create( start, end )
+		 )
+
+	#if result and debug:
+		#DebugDraw3D.draw_sphere(result.position, radius, color, duration)
+
+	return result
+
 #endregion
 
 #region	logging system

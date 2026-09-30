@@ -1,5 +1,0 @@
-GUGA Documentation
-
-Topic:	Main scene
-
-Any Godot project 

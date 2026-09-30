@@ -1,0 +1,33 @@
+GUGA Documentation
+
+Topic:	Level class
+
+	Level is a a special class from the GUGA Plugin. Its main purpose is to have
+a particular class that differentiates from the typical scene since anything can
+be a scene and to add extra functionality.
+	On the inspector you can find the Level tab and under it some buttons and entries.
+They purpose is to add an easy way to set the location of the player when the game
+begins.
+	-Add PlayerStart2D button:	Spawn a PlayerStart actor of PlayerStart2D class
+to the	level, useful for 2D games.
+	-Add PlayerStart3D button:	Spawn a PlayerStart actor of PlayerStart3D class
+to the level, useful for 3D games.
+	-Remove PlayerStart: Deletes the node called PlayerStart from the Level.
+	-Player scene:	An entry where you can place the scene that represent the player
+you want to have when the level is displayed.
+	-Spawn Player: An option for if you want to spawn the player or not.
+	-Possess:	An option to communicate to the current controller to possess the player.
+
+Setup:
+	1)	Open the level.
+	2)	Go to Inspector and under Level tab press one of the buttons to add a 
+PlayerStart node to the current Level. If there is already a PlayerStart node it
+will be replaced.
+	3)	Press the remove button to delete the actor called PlayerStart.
+	4)	On Player Scene place a PackedScene that repressents your player.
+	5)	Check Spawn Player option if you want to spawn the player.
+	6)	Check Possess if you want the controller to possess the player(	not implemented yet )
+	
+ATTENTION:
+	-Only one PlayerStart node should exist under the Level tree, if theres is
+more than one the Level code will not cleand them and should be erased manually.
