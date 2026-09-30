@@ -1,5 +1,5 @@
 extends ColorRect
-class_name GameLoader
+class_name MainScene
 
 #	configuration
 @export_file() var firstlevel:String
