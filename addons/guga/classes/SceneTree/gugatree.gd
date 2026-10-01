@@ -167,7 +167,7 @@ func destroy_actor(actor:Node):
 #	ex: actor A calls method damage(int) on actor B
 #	actor A needs to know whos is the receiver
 
-func execute(receiver: Node, callable:String, data:Array) -> bool:
+func execute(receiver: Node, callable:StringName, data:Array) -> bool:
 	if !is_instance_valid( receiver ):
 		return false
 	if callable.is_empty():
@@ -268,13 +268,13 @@ func get_name_from_nodepath(path:NodePath) -> String:
 		return ""
 
 	return path.get_name( path.get_name_count() - 1 )
-	
+
 func get_node_from_name(location:Node, name:String) -> Node:
 	if !is_instance_valid(location):
 		return null
 	if name.is_empty():
 		return null
-		
+
 	return location.find_child( name )
 
 func get_node_from_nodepath(location:Node, path:NodePath) -> Node:
@@ -286,10 +286,10 @@ func get_node_from_nodepath(location:Node, path:NodePath) -> Node:
 	return get_node_from_name(location, get_name_from_nodepath(path) )
 
 #	for finding a specific component inside an actor with the specific method
-func get_component_with_method_from_actor(actor:Node, method_name:String) -> ComponentBase:
+func get_component_with_method_from_actor(actor:Node, method_name:StringName) -> ComponentBase:
 	if !is_instance_valid( actor ):
 		return
-	if !listed_actors.has(actor):
+	if !listed_actors.has( actor ):
 		return
 	if method_name.is_empty():
 		return
@@ -304,7 +304,7 @@ func get_component_with_method_from_actor(actor:Node, method_name:String) -> Com
 
 #	for getting a callable reference inside a component
 #	usefull for fast calling
-func get_callable_from_component(method_name:String, component:ComponentBase) -> Callable:
+func get_callable_from_component(method_name:StringName, component:ComponentBase) -> Callable:
 	var c:Callable
 	
 	if method_name.is_empty():
@@ -318,7 +318,7 @@ func get_callable_from_component(method_name:String, component:ComponentBase) ->
 	return c
 
 #	for getting how many arguments a component methods has
-func get_callable_argument_count_from_component(method_name:String, component:ComponentBase) -> int:
+func get_callable_argument_count_from_component(method_name:StringName, component:ComponentBase) -> int:
 	return get_callable_from_component(method_name, component).get_argument_count()
 
 func raycastfromposition(
@@ -372,38 +372,20 @@ static func _raycastfromcameracenter(
 
 	return result
 
-func safe_load(uid: String, on_progress: Callable, on_complete: Callable):
-	if !on_complete.is_valid():
+func safe_load(_uid: String, _on_progress: Callable, _on_complete: Callable):
+	if _uid.is_empty():
+		_on_complete.call(null)
 		return
-	if !ResourceLoader.exists(uid):
-		on_complete.call(null)
+	if !ResourceLoader.exists(_uid):
+		_on_complete.call(null)
 		return
-									
-	if ResourceLoader.load_threaded_request( uid, "", true, ResourceLoader.CACHE_MODE_REUSE ) != OK:
-		on_complete.call(null)
+	if ResourceLoader.load_threaded_request( _uid, "", true, ResourceLoader.CACHE_MODE_REUSE ) != OK:
+		_on_complete.call(null)
 		return
 
-	var progress: Array = []
-	var status
-	while true:
-		status = ResourceLoader.load_threaded_get_status(uid, progress)
-		match status:
-			ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-				if on_progress.is_valid():
-					on_progress.call(progress[0])
-				await physics_frame
-			
-			ResourceLoader.THREAD_LOAD_LOADED:
-				if on_progress.is_valid():
-					on_progress.call(1.0)
-				on_complete.call( ResourceLoader.load_threaded_get( uid ))
-				return
-			
-			ResourceLoader.THREAD_LOAD_FAILED:
-				if on_progress.is_valid():
-					on_progress.call( 0.0 )
-				on_complete.call(null)
-				return
+	var watcher = ThreadWatcher.new(_uid, _on_progress, _on_complete)
+	get_root().add_child( watcher )
+	watcher.owner = get_root()
 
 #endregion
 
