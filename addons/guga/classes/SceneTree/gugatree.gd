@@ -376,6 +376,7 @@ func safe_load(_uid: String, _on_progress: Callable, _on_complete: Callable):
 	if _uid.is_empty():
 		_on_complete.call(null)
 		return
+<<<<<<< HEAD
 	if !ResourceLoader.exists(_uid):
 		_on_complete.call(null)
 		return
@@ -383,6 +384,17 @@ func safe_load(_uid: String, _on_progress: Callable, _on_complete: Callable):
 		_on_complete.call(null)
 		return
 
+=======
+	if !_on_complete.is_valid():
+		return
+	if !ResourceLoader.exists(_uid):
+		_on_complete.call(null)
+		return
+	if ResourceLoader.load_threaded_request( _uid, "", true, ResourceLoader.CACHE_MODE_REUSE ) != OK:
+		_on_complete.call(null)
+		return
+	
+>>>>>>> 23825e5ad482122c7d0f55cf15ee89cdc0f45a25
 	var watcher = ThreadWatcher.new(_uid, _on_progress, _on_complete)
 	get_root().add_child( watcher )
 	watcher.owner = get_root()
