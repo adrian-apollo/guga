@@ -9,4 +9,4 @@ func event_begin():
 
 func event_tick():
 	if receiver:
-		tree.execute(receiver, "event_hit", [randf_range(0, -5)])
+		tree.execute(receiver, &"event_hit", [randf_range(0, -5)])

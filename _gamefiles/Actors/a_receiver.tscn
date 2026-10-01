@@ -1,26 +1,26 @@
 [gd_scene format=3 uid="uid://dosteb17o4g47"]
 
-[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="1_ri20m"]
-[ext_resource type="Script" uid="uid://bjdwxonsrcngb" path="res://_gamefiles/Components/c2_receiver_test.gd" id="2_ri20m"]
-[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_components_holder.gd" id="3_as3nr"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="1_hm6to"]
+[ext_resource type="Script" uid="uid://bjdwxonsrcngb" path="res://_gamefiles/Components/c2_receiver_test.gd" id="2_2xogt"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_components_holder.gd" id="2_ri20m"]
 [ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="4_be5a0"]
 
 [sub_resource type="Resource" id="Resource_2xogt"]
 resource_local_to_scene = true
-script = ExtResource("2_ri20m")
+script = ExtResource("2_2xogt")
 label_path = NodePath("Label")
 enabled = false
 metadata/_custom_type_script = "uid://bjdwxonsrcngb"
 
-[sub_resource type="Resource" id="Resource_5kk20"]
+[sub_resource type="Resource" id="Resource_5htwj"]
 resource_local_to_scene = true
-script = ExtResource("3_as3nr")
-components = Array[ExtResource("1_ri20m")]([SubResource("Resource_2xogt")])
+script = ExtResource("2_ri20m")
+components = Array[ExtResource("1_hm6to")]([SubResource("Resource_2xogt")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [node name="AReceiver" type="Node2D" unique_id=1090430803]
 use_parent_material = true
-metadata/components = SubResource("Resource_5kk20")
+metadata/component = SubResource("Resource_5htwj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1403254051]
 texture = ExtResource("4_be5a0")

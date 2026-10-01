@@ -1,27 +1,14 @@
 [gd_scene format=3 uid="uid://due31pd0qeanx"]
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_5kk20"]
-[ext_resource type="PackedScene" uid="uid://dosteb17o4g47" path="res://_gamefiles/Actors/a_receiver.tscn" id="2_r1irp"]
-[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="3_jw1lj"]
-[ext_resource type="Script" uid="uid://bjdwxonsrcngb" path="res://_gamefiles/Components/c2_receiver_test.gd" id="4_f3mke"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="4_7o8v0"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_components_holder.gd" id="5_5g2el"]
 [ext_resource type="PackedScene" uid="uid://ca87k1n0fn18c" path="res://_gamefiles/Actors/a_sender.tscn" id="6_f3mke"]
 [ext_resource type="Script" uid="uid://8hr1pm72840t" path="res://_gamefiles/Components/c2_sender_test.gd" id="7_5g2el"]
+[ext_resource type="PackedScene" uid="uid://dosteb17o4g47" path="res://_gamefiles/Actors/a_receiver.tscn" id="8_5b0id"]
 [ext_resource type="PackedScene" uid="uid://bxrpel1wjgpuq" path="res://_gamefiles/Actors/a_test.tscn" id="8_7o8v0"]
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="9_7o8v0"]
-
-[sub_resource type="Resource" id="Resource_54j7l"]
-resource_local_to_scene = true
-script = ExtResource("7_5g2el")
-receiver_path = NodePath("../AReceiver")
-custom = true
-metadata/_custom_type_script = "uid://8hr1pm72840t"
-
-[sub_resource type="Resource" id="Resource_7o8v0"]
-resource_local_to_scene = true
-script = ExtResource("5_5g2el")
-components = Array[ExtResource("3_jw1lj")]([SubResource("Resource_54j7l")])
-metadata/_custom_type_script = "uid://bjs6owgj3feat"
+[ext_resource type="Script" uid="uid://bjdwxonsrcngb" path="res://_gamefiles/Components/c2_receiver_test.gd" id="9_54j7l"]
 
 [sub_resource type="GDScript" id="GDScript_g7b7a"]
 script/source = "extends Label
@@ -37,23 +24,39 @@ func update_value(message:String, data:Variant):
 		text = \"Life: \" + str( data )
 "
 
-[sub_resource type="Resource" id="Resource_5g2el"]
+[sub_resource type="Resource" id="Resource_54j7l"]
 resource_local_to_scene = true
-script = ExtResource("4_f3mke")
-label_path = NodePath("Label")
-enabled = false
-metadata/_custom_type_script = "uid://bjdwxonsrcngb"
+script = ExtResource("7_5g2el")
+receiver_path = NodePath("../AReceiver")
+custom = true
+metadata/_custom_type_script = "uid://8hr1pm72840t"
 
 [sub_resource type="Resource" id="Resource_5b0id"]
 resource_local_to_scene = true
 script = ExtResource("5_5g2el")
-components = Array[ExtResource("3_jw1lj")]([SubResource("Resource_5g2el")])
+components = Array[ExtResource("4_7o8v0")]([SubResource("Resource_54j7l")])
+metadata/_custom_type_script = "uid://bjs6owgj3feat"
+
+[sub_resource type="Resource" id="Resource_7o8v0"]
+resource_local_to_scene = true
+script = ExtResource("9_54j7l")
+label_path = NodePath("Label")
+enabled = false
+metadata/_custom_type_script = "uid://bjdwxonsrcngb"
+
+[sub_resource type="Resource" id="Resource_pnevs"]
+resource_local_to_scene = true
+script = ExtResource("5_5g2el")
+components = Array[ExtResource("4_7o8v0")]([SubResource("Resource_7o8v0")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [node name="LevelComponentDemo" type="Node" unique_id=85773899]
 script = ExtResource("1_5kk20")
 player_scene = ExtResource("8_7o8v0")
 metadata/_custom_type_script = "uid://dx7ipnqchnxei"
+
+[node name="PlayerStart" parent="." unique_id=875178709 instance=ExtResource("9_7o8v0")]
+position = Vector2(642, 415)
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1033618195]
 anchors_preset = 15
@@ -62,10 +65,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.2, 0.4, 0.2666667, 1)
-
-[node name="ASender" parent="." unique_id=874028144 instance=ExtResource("6_f3mke")]
-position = Vector2(243, 250)
-metadata/components = SubResource("Resource_7o8v0")
 
 [node name="Label" type="Label" parent="." unique_id=1183464922]
 offset_left = 755.0
@@ -76,9 +75,10 @@ theme_override_font_sizes/font_size = 30
 text = "Life"
 script = SubResource("GDScript_g7b7a")
 
-[node name="AReceiver" parent="." unique_id=1090430803 instance=ExtResource("2_r1irp")]
-position = Vector2(923, 253)
+[node name="ASender" parent="." unique_id=874028144 instance=ExtResource("6_f3mke")]
+position = Vector2(243, 250)
 metadata/components = SubResource("Resource_5b0id")
 
-[node name="PlayerStart" parent="." unique_id=875178709 instance=ExtResource("9_7o8v0")]
-position = Vector2(642, 415)
+[node name="AReceiver" parent="." unique_id=1090430803 instance=ExtResource("8_5b0id")]
+position = Vector2(890, 236)
+metadata/component = SubResource("Resource_pnevs")

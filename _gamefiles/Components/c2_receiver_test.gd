@@ -9,8 +9,6 @@ func event_begin():
 	comment_label = tree.get_node_from_nodepath(owner, label_path)
 	tree.send_global_notification("hit", life)
 
-#func event_tick():
-
 func event_hit(damage:float):
 	comment_label.text = "hit aggg!!!!\nstill alive "
 	life += damage

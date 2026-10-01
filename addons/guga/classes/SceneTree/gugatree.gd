@@ -183,16 +183,19 @@ func execute(receiver: Node, callable:StringName, data:Array) -> bool:
 		if c.has_method(callable):
 			if data.size() == 0:
 				c.call( callable )
+				return true
 			if data.size() == 1:
 				c.call( callable, data[0] )
+				return true
 			if data.size() == 2:
 				c.call( callable, data[0], data[1] )
+				return true
 			if data.size() == 3:
 				c.call( callable, data[0], data[1], data[2] )
+				return true
 			if data.size() > 4:
 				c.call( callable, data)
-			break
-			return true
+				return true
 
 	return false
 
@@ -379,6 +382,10 @@ func safe_load(_uid: String, _on_progress: Callable, _on_complete: Callable):
 	if !ResourceLoader.exists(_uid):
 		_on_complete.call(null)
 		return
+	if ResourceLoader.load_threaded_request( _uid, "", true, ResourceLoader.CACHE_MODE_REUSE ) != OK:
+		_on_complete.call(null)
+		return
+
 	if ResourceLoader.load_threaded_request( _uid, "", true, ResourceLoader.CACHE_MODE_REUSE ) != OK:
 		_on_complete.call(null)
 		return
