@@ -5,7 +5,6 @@ class_name GugaTree extends SceneTree
 func _initialize():
 	_initialize_log_file()
 	new_log_message(self, "GameStarted", LOG_MESSAGE_MODE.NORMAL)
-
 #endregion
 
 #region level managing
