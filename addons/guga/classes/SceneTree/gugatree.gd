@@ -372,38 +372,22 @@ static func _raycastfromcameracenter(
 
 	return result
 
-func safe_load(uid: String, on_progress: Callable, on_complete: Callable):
-	if !on_complete.is_valid():
+func safe_load(_uid: String, _on_progress: Callable, _on_complete: Callable):
+	if _uid.is_empty():
+		_on_complete.call(null)
 		return
-	if !ResourceLoader.exists(uid):
-		on_complete.call(null)
+	if !_on_complete.is_valid():
 		return
-									
-	if ResourceLoader.load_threaded_request( uid, "", true, ResourceLoader.CACHE_MODE_REUSE ) != OK:
-		on_complete.call(null)
+	if !ResourceLoader.exists(_uid):
+		_on_complete.call(null)
 		return
-
-	var progress: Array = []
-	var status
-	while true:
-		status = ResourceLoader.load_threaded_get_status(uid, progress)
-		match status:
-			ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-				if on_progress.is_valid():
-					on_progress.call(progress[0])
-				await physics_frame
-			
-			ResourceLoader.THREAD_LOAD_LOADED:
-				if on_progress.is_valid():
-					on_progress.call(1.0)
-				on_complete.call( ResourceLoader.load_threaded_get( uid ))
-				return
-			
-			ResourceLoader.THREAD_LOAD_FAILED:
-				if on_progress.is_valid():
-					on_progress.call( 0.0 )
-				on_complete.call(null)
-				return
+	if ResourceLoader.load_threaded_request( _uid, "", true, ResourceLoader.CACHE_MODE_REUSE ) != OK:
+		_on_complete.call(null)
+		return
+	
+	var watcher = ThreadWatcher.new(_uid, _on_progress, _on_complete)
+	get_root().add_child( watcher )
+	watcher.owner = get_root()
 
 #endregion
 
