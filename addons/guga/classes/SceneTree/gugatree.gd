@@ -372,6 +372,39 @@ static func _raycastfromcameracenter(
 
 	return result
 
+func safe_load(uid: String, on_progress: Callable, on_complete: Callable):
+	if !on_complete.is_valid():
+		return
+	if !ResourceLoader.exists(uid):
+		on_complete.call(null)
+		return
+									
+	if ResourceLoader.load_threaded_request( uid, "", true, ResourceLoader.CACHE_MODE_REUSE ) != OK:
+		on_complete.call(null)
+		return
+
+	var progress: Array = []
+	var status
+	while true:
+		status = ResourceLoader.load_threaded_get_status(uid, progress)
+		match status:
+			ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+				if on_progress.is_valid():
+					on_progress.call(progress[0])
+				await physics_frame
+			
+			ResourceLoader.THREAD_LOAD_LOADED:
+				if on_progress.is_valid():
+					on_progress.call(1.0)
+				on_complete.call( ResourceLoader.load_threaded_get( uid ))
+				return
+			
+			ResourceLoader.THREAD_LOAD_FAILED:
+				if on_progress.is_valid():
+					on_progress.call( 0.0 )
+				on_complete.call(null)
+				return
+
 #endregion
 
 #region	logging system
