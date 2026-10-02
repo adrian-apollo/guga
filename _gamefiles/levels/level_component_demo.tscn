@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://due31pd0qeanx"]
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_5kk20"]
-[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="4_7o8v0"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_components_holder.gd" id="5_5g2el"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="5_7o8v0"]
 [ext_resource type="PackedScene" uid="uid://ca87k1n0fn18c" path="res://_gamefiles/Actors/a_sender.tscn" id="6_f3mke"]
 [ext_resource type="Script" uid="uid://8hr1pm72840t" path="res://_gamefiles/Components/c2_sender_test.gd" id="7_5g2el"]
 [ext_resource type="PackedScene" uid="uid://dosteb17o4g47" path="res://_gamefiles/Actors/a_receiver.tscn" id="8_5b0id"]
@@ -34,7 +34,7 @@ metadata/_custom_type_script = "uid://8hr1pm72840t"
 [sub_resource type="Resource" id="Resource_5b0id"]
 resource_local_to_scene = true
 script = ExtResource("5_5g2el")
-components = Array[ExtResource("4_7o8v0")]([SubResource("Resource_54j7l")])
+components = Array[ExtResource("5_7o8v0")]([SubResource("Resource_54j7l")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [sub_resource type="Resource" id="Resource_7o8v0"]
@@ -47,7 +47,7 @@ metadata/_custom_type_script = "uid://bjdwxonsrcngb"
 [sub_resource type="Resource" id="Resource_pnevs"]
 resource_local_to_scene = true
 script = ExtResource("5_5g2el")
-components = Array[ExtResource("4_7o8v0")]([SubResource("Resource_7o8v0")])
+components = Array[ExtResource("5_7o8v0")]([SubResource("Resource_7o8v0")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [node name="LevelComponentDemo" type="Node" unique_id=85773899]
