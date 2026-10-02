@@ -1,12 +1,31 @@
 @tool
 class_name Level extends Node
 
+var current_player:Node
+var tree:GugaTree
+
+func _init():
+	if !Engine.is_editor_hint():
+		tree = Engine.get_main_loop() as GugaTree
+		tree.s_level_changed.connect( _setup )
+		tree.s_level_destroyed.connect( _destroy )
+
+
+#region player controller managing
+@export_group("Controllers")
+@export var controllers_uids:Dictionary[ PlayerController, PackedScene ]
+
+var controllers:Array[ PlayerController ]
+
+#endregion
+
+#region player start managing
+
 @export_group("Player start")
 @export_tool_button("Add PlayerStart2D", "2D") var playerstart2d = add_playerstart2d
 @export_tool_button("Add PlayerStart3D", "3D") var playerstart3d = add_playerstart3d
 @export_tool_button("Remove PlayerStart", "Clear") var delete = remove_playerstart
 
-#region player start managing
 func add_playerstart2d():
 	if find_child("PlayerStart"):
 		print( "This level already has a PlayerStart. Delete it first before adding another one")
@@ -41,15 +60,6 @@ func remove_playerstart():
 @export var player_scene:PackedScene
 @export var spawn_player:bool = true
 @export var possess:bool = true
-
-var current_player:Node
-var tree:GugaTree
-
-func _init():
-	if !Engine.is_editor_hint():
-		tree = Engine.get_main_loop() as GugaTree
-		tree.s_level_changed.connect( _setup )
-		tree.s_level_destroyed.connect( _destroy )
 
 func _setup( level:Level ):
 	if !level == self:
