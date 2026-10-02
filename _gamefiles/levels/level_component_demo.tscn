@@ -28,7 +28,7 @@ func update_value(message:String, data:Variant):
 resource_local_to_scene = true
 script = ExtResource("7_5g2el")
 receiver_path = NodePath("../AReceiver")
-custom = true
+tick_source = 3
 metadata/_custom_type_script = "uid://8hr1pm72840t"
 
 [sub_resource type="Resource" id="Resource_5b0id"]
@@ -41,7 +41,6 @@ metadata/_custom_type_script = "uid://bjs6owgj3feat"
 resource_local_to_scene = true
 script = ExtResource("9_54j7l")
 label_path = NodePath("Label")
-enabled = false
 metadata/_custom_type_script = "uid://bjdwxonsrcngb"
 
 [sub_resource type="Resource" id="Resource_pnevs"]

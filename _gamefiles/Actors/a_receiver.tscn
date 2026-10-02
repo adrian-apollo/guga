@@ -9,7 +9,7 @@
 resource_local_to_scene = true
 script = ExtResource("2_2xogt")
 label_path = NodePath("Label")
-enabled = false
+tick_source = 3
 metadata/_custom_type_script = "uid://bjdwxonsrcngb"
 
 [sub_resource type="Resource" id="Resource_5htwj"]

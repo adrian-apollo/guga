@@ -12,4 +12,4 @@ func event_tick():
 func event_destroy():
 	print("EVENT DESTROYED")
 	var newc:CPrintDebug = tree.actor_add_component( owner, CPrintDebug )
-	newc._reset_tick(true, true, 1)
+	newc._reset_tick( TICK_SOURCE.CUSTOM, 1)
