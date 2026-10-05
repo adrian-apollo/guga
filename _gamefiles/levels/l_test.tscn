@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://ej67qdswlude"]
+
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_hf2ay"]
+[ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="2_cpwls"]
+[ext_resource type="PackedScene" uid="uid://d34l3obx1dmyb" path="res://_gamefiles/Actors/a_AI_test.tscn" id="2_dwtou"]
+
+[node name="LTest" type="Node" unique_id=204834252]
+script = ExtResource("1_hf2ay")
+player_scene = ExtResource("2_dwtou")
+metadata/_custom_type_script = "uid://dx7ipnqchnxei"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1644653455]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.30476767, 0.5610542, 0.3493632, 1)
+
+[node name="PlayerStart" type="Node2D" parent="." unique_id=875178709 instance=ExtResource("2_cpwls")]
+position = Vector2(578, 415)
+metadata/_edit_vertical_guides_ = [-179.0]

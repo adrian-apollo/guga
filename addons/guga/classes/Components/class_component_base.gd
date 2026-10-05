@@ -1,4 +1,5 @@
-class_name ComponentBase extends Resource
+class_name ComponentBase
+extends Resource
 
 #region configuration
 @export_group("Component")
@@ -16,7 +17,7 @@ enum TICK_SOURCE {
 }
 @export_group("Tick")
 @export var tick_source:TICK_SOURCE
-@export_range(1, 60, 1, "or_greater") var tick_rate:int = 1
+@export_range(0, 60,0.001, "or_greater") var tick_rate:float = 1
 
 #endregion
 
@@ -31,7 +32,7 @@ func _setup(_owner:Node):
 	owner.tree_exiting.connect(_stop_tick)
 	owner.tree_entered.connect(_start_tick)
 	_start_tick()
-	call_deferred("event_begin")
+	call_deferred(&"event_begin")
 
 #region tick
 

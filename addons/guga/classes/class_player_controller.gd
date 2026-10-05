@@ -1,4 +1,6 @@
-class_name PlayerController extends Node
+@abstract
+class_name PlayerController
+extends Node
 
 #region	signals
 signal s_possession( Node )

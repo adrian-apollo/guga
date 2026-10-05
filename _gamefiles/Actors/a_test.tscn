@@ -1,20 +1,12 @@
 [gd_scene format=3 uid="uid://bxrpel1wjgpuq"]
 
-[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="1_7fn5o"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_component_base.gd" id="1_7fn5o"]
 [ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="1_hqr65"]
-[ext_resource type="Script" uid="uid://ibschcbn25t4" path="res://_gamefiles/Components/c2_print_debug.gd" id="2_ecx6y"]
-[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_components_holder.gd" id="2_f00dk"]
-
-[sub_resource type="Resource" id="Resource_7fn5o"]
-resource_local_to_scene = true
-script = ExtResource("2_ecx6y")
-tick_source = 3
-metadata/_custom_type_script = "uid://ibschcbn25t4"
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="2_f00dk"]
 
 [sub_resource type="Resource" id="Resource_5kk20"]
 resource_local_to_scene = true
 script = ExtResource("2_f00dk")
-components = Array[ExtResource("1_7fn5o")]([SubResource("Resource_7fn5o")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [node name="ATest" type="Node2D" unique_id=1090430803]

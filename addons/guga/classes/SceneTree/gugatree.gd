@@ -62,42 +62,39 @@ func destroy_level(levelref:Node):
 signal s_timer_created
 signal s_timer_destroyed
 
-var available_timers: Dictionary[int, Timer] = {}
+var available_timers: Dictionary[float, Timer] = {}
 
-func connect_callable_to_timer(callableref:Callable, tickrate:int):
-	#  check first if the timer with that frequency exists 
-	#  if not create a new one
-	if tickrate < 1:
-		#print(" GugaTree >> Invalid tick rate value: < 1 ")
+func connect_callable_to_timer(callable:Callable, tickrate:float):
+	if !callable.is_valid():
 		return
-	
+	if tickrate < 0:
+		return
 	if !available_timers.has(tickrate):
 		_new_timer( tickrate )
 	
-	( available_timers.get(tickrate) as Timer ).connect("timeout", callableref)
+	( available_timers.get(tickrate) as Timer ).connect(&"timeout", callable)
 
-func disconnect_callable_from_timer( callableref:Callable, tickrate:int ):
+func disconnect_callable_from_timer( callable:Callable, tickrate:float ):
 	var timerref:Timer = available_timers.get( tickrate )
 	if !is_instance_valid( timerref ):
-		#print("GUGATree >> timer disconnection failed, invalid timer reference")
+		return	
+	if !timerref.timeout.is_connected( callable ):
 		return
 	
-	if !timerref.timeout.is_connected( callableref ):
-		#print("GUGATree >> timer disconnection failed, unexistent conncetion")
-		return
-	
-	timerref.timeout.disconnect(callableref)
+	timerref.timeout.disconnect( callable )
 	if timerref.timeout.get_connections().size() == 0:
 		timerref.queue_free()
 		available_timers.erase( tickrate )
 
-func _new_timer(hertz:int):
-	var newtimerref:Timer = Timer.new()
-	get_root().add_child( newtimerref )
-	newtimerref.start( 1/float( hertz ) )
-	newtimerref.set_autostart( true )
-	newtimerref.name = "Timer_" + str( int( hertz ) )
-	available_timers.set( hertz, newtimerref )
+func _new_timer( hertz:float ):
+	if hertz < 0:
+		return
+	var newtimer:Timer = Timer.new()
+	get_root().add_child( newtimer )
+	newtimer.start( 1/ hertz )
+	newtimer.set_autostart( true )
+	newtimer.name = "Timer_" + str( hertz )
+	available_timers.set( hertz, newtimer )
 
 #endregion
 
@@ -201,39 +198,6 @@ func execute(receiver: Node, callable:StringName, data:Array) -> bool:
 
 #endregion
 
-#	TODO test and finish
-#region	components intercommunication system
-#	for one to one communication between actors
-#	when you know who is your receiver
-#	only it will receive the message
-#	if a component is expecting some data it can search for it here
-#	ex: know about enemy health, location, status......
-
-#	STEPS
-#	seeker ask receiver for some data trough a callable( get_health()	)
-#	receiver will send the data here
-#	seeker checks if theres new data that matches the expected
-
-#	many actors can communicate each tick
-#	so we store that data on a dictionay for fast searching by key
-var messages_received:Dictionary[Node, Variant]
-
-func receive_message(actor:Node, message:Variant):
-	#	add the message with actor as key
-	messages_received[actor] = message
-	#	auto cleaning next physics frame 
-	#	unpersistant connection
-	physics_frame.connect(clean_messages, 4)
-	#call_deferred(clean_messages())
-
-func find_message(actor:Node) -> Variant:
-	return messages_received.get(actor)
-
-func clean_messages():
-	messages_received.clear()
-
-#endregion
-
 #region	global nitification system
 #	objective: communicate new events to many receivers
 #	example: new day started, player death, objective reached, update UI data
@@ -308,17 +272,15 @@ func get_component_with_method_from_actor(actor:Node, method_name:StringName) ->
 #	for getting a callable reference inside a component
 #	usefull for fast calling
 func get_callable_from_component(method_name:StringName, component:ComponentBase) -> Callable:
-	var c:Callable
-	
 	if method_name.is_empty():
-		return c
+		return Callable()
 	if !is_instance_valid(component):
-		return c
+		return Callable()
 		
 	if component.has_method( method_name ):
-		c = Callable(component, method_name)
+		return Callable(component, method_name)
 		
-	return c
+	return Callable()
 
 #	for getting how many arguments a component methods has
 func get_callable_argument_count_from_component(method_name:StringName, component:ComponentBase) -> int:
@@ -391,6 +353,20 @@ func safe_load(_uid: String, _on_progress: Callable, _on_complete: Callable):
 	get_root().add_child( watcher )
 	watcher.owner = get_root()
 
+func get_property_value_from_actor( actor:Node, property:StringName ) -> Variant:
+	if !is_instance_valid( actor ):
+		return
+	if property.is_empty():
+		return
+	if !listed_actors.has(actor):
+		return
+	
+	for c in listed_actors[actor]:
+		if c.get( property ):
+			return c.get( property )
+			break
+
+	return
 #endregion
 
 #region	logging system

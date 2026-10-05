@@ -10,15 +10,6 @@ func _init():
 		tree.s_level_changed.connect( _setup )
 		tree.s_level_destroyed.connect( _destroy )
 
-
-#region player controller managing
-@export_group("Controllers")
-@export var controllers_uids:Dictionary[ PlayerController, PackedScene ]
-
-var controllers:Array[ PlayerController ]
-
-#endregion
-
 #region player start managing
 
 @export_group("Player start")

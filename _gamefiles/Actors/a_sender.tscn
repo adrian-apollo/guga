@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ca87k1n0fn18c"]
 
-[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_ComponentBase.gd" id="1_2pm20"]
-[ext_resource type="Script" uid="uid://8hr1pm72840t" path="res://_gamefiles/Components/c2_sender_test.gd" id="2_2pm20"]
-[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_components_holder.gd" id="3_brha1"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_component_base.gd" id="1_2pm20"]
+[ext_resource type="Script" uid="uid://8hr1pm72840t" path="res://_gamefiles/Components/c_sender_test.gd" id="2_2pm20"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_brha1"]
 [ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="4_kulcx"]
 
 [sub_resource type="Resource" id="Resource_2pm20"]

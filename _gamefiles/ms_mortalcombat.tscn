@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="uid://ummwtoty7u3"]
-
-[ext_resource type="Script" uid="uid://bk4btha1bcq4n" path="res://addons/guga/classes/class_mainscene.gd" id="1_gn642"]
-
-[node name="MsMortalcombat" type="ColorRect" unique_id=168136214]
-script = ExtResource("1_gn642")
-start_level = "uid://due31pd0qeanx"

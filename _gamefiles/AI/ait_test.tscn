@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://bn81e17yxdwdx"]
+
+[ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/guga/classes/AI/class_aitree_base.gd" id="1_r8ifx"]
+[ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/guga/classes/AI/class_aitree_state.gd" id="2_i07qb"]
+
+[node name="AitTest" type="Node" unique_id=96905514]
+script = ExtResource("1_r8ifx")
+metadata/_custom_type_script = "uid://cjgcru8uc64dc"
+
+[node name="AIState" type="Node" parent="." unique_id=953043934]
+script = ExtResource("2_i07qb")
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="AIState3" type="Node" parent="AIState" unique_id=477964272]
+script = ExtResource("2_i07qb")
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="AIState2" type="Node" parent="." unique_id=1616621611]
+script = ExtResource("2_i07qb")
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

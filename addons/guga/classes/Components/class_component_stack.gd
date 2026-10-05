@@ -1,5 +1,5 @@
 extends Resource
-class_name ComponentsHolder
+class_name ComponentStack
 
 @export var components:Array[ComponentBase]
 var tree:GugaTree
