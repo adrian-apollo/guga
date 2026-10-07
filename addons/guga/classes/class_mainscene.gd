@@ -12,14 +12,19 @@ class_name MainScene
 #	variables
 var tree:GugaTree
 
+func _init() -> void:
+	tree = Engine.get_main_loop()
+
 func _ready() -> void:
-	tree = ( Engine.get_main_loop() as GugaTree )
 	entry_config()
+	
 	if start_level.is_empty():
-		tree.new_log_message(self, "Empty level reference", tree.LOG_MESSAGE_MODE.NORMAL)
+		tree.new_log_message(self, "No level to load", tree.LOG_MESSAGE_MODE.NORMAL)
 		return
 
-	call_deferred("load_first_level")
+	if !load_level:
+		return
+	tree.safe_load( start_level, Callable(), startgame )
 	
 func entry_config():
 	#for toggling control and visibility of cursor at game start
@@ -36,9 +41,6 @@ func entry_config():
 	#Delay before loading first level
 	await get_tree().create_timer( delay ).timeout
 
-func load_first_level():
-	#load first level or not for development purposes
-	if load_level:
-		var newlevel:Level = tree.load_level( start_level )
-		tree.change_to_level( newlevel, true )
-		queue_free()
+func startgame( level:PackedScene ):
+	tree.change_to_level( level.instantiate(), true )
+	queue_free()

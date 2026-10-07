@@ -6,6 +6,4 @@
 script = ExtResource("1_ibo02")
 start_level = "uid://ej67qdswlude"
 hue = Color(0.4702536, 0.6919853, 0.31922665, 1)
-mouse_confined = true
-mouse_captured = true
 metadata/_custom_type_script = "uid://bk4btha1bcq4n"

@@ -350,8 +350,7 @@ func safe_load(_uid: String, _on_progress: Callable, _on_complete: Callable):
 		return
 	
 	var watcher = ThreadWatcher.new(_uid, _on_progress, _on_complete)
-	get_root().add_child( watcher )
-	watcher.owner = get_root()
+	get_root().call_deferred("add_child", watcher )
 
 func get_property_value_from_actor( actor:Node, property:StringName ) -> Variant:
 	if !is_instance_valid( actor ):
