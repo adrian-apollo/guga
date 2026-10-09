@@ -15,23 +15,19 @@ func _init():
 	p_tree = Engine.get_main_loop()
 
 func _ready():
+	print( owner.owner )
 	#	check if theres a condition and test it
 	if condition:
-		#	creates a one time temporal image of that condition
+		#	creates a one time image of that condition
 		var newc:AITCondition = condition.duplicate(true)
 		newc.setup( owner, self )	#	initialize the condition
-		if newc.evaulate():	#	evaluate the condition terms
-			if tasks.size()>0:
-				run_next_task(tasks[0])	#	if returns true run first task
-				return
-			make_transition( RESULT.SUCCESS )
-			return
-		else:
+		if !newc.evaulate():	#	evaluate the condition terms
 			make_transition( RESULT.FAIL )	#	if not go directly to transition
 			return
 	
-	#	if theres no condition set just go to run tasks
-	run_next_task(tasks[0])
+	if tasks.size()>0:
+		run_next_task(tasks[0])
+	make_transition(RESULT.SUCCESS)
 	return
 	
 func run_next_task( task:AITTaskBase ):
