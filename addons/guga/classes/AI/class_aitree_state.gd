@@ -1,8 +1,13 @@
 class_name AIState extends Node
 
 @export var condition:AITCondition = null
-@export var tasks:Array[ Resource ] = []
+@export var tasks:Array[ AITTaskBase ]
 @export var transition:Resource = null
+
+enum RESULT{
+	SUCCESS,
+	FAIL
+}
 
 var p_tree:GugaTree
 
@@ -10,8 +15,37 @@ func _init():
 	p_tree = Engine.get_main_loop()
 
 func _ready():
+	#	check if theres a condition and test it
 	if condition:
+		#	creates a one time temporal image of that condition
 		var newc:AITCondition = condition.duplicate(true)
-		newc.setup(owner,self)
-		newc.evaulate()
-		
+		newc.setup( owner, self )	#	initialize the condition
+		if newc.evaulate():	#	evaluate the condition terms
+			if tasks.size()>0:
+				run_next_task(tasks[0])	#	if returns true run first task
+				return
+			make_transition( RESULT.SUCCESS )
+			return
+		else:
+			make_transition( RESULT.FAIL )	#	if not go directly to transition
+			return
+	
+	#	if theres no condition set just go to run tasks
+	run_next_task(tasks[0])
+	return
+	
+func run_next_task( task:AITTaskBase ):
+	if !is_instance_valid( task ):
+		make_transition( RESULT.SUCCESS )
+	if !tasks.has( task ):
+		make_transition( RESULT.SUCCESS )
+	
+	var t:AITTaskBase = task.duplicate(true)
+	t.aitree = owner
+	t.state = self
+	t.original = task
+	t.enter()
+
+func make_transition(result:RESULT):
+	print( result )
+	return

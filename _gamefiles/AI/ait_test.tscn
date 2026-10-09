@@ -19,7 +19,7 @@ ticksource = 3
 tickrate = 0.1
 metadata/_custom_type_script = "uid://dtnp0f5og7ixh"
 
-[node name="AIState" type="Node" parent="." unique_id=953043934]
+[node name="AIS_1" type="Node" parent="." unique_id=953043934]
 script = ExtResource("2_i07qb")
 condition = SubResource("Resource_gydyx")
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

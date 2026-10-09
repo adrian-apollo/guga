@@ -1,17 +1,19 @@
 @abstract
 class_name AITTaskBase
-extends RefCounted
+extends Resource
 
-enum result {
-	SUCCESS,
-	FAIL
-}
+var aitree:AITreeBase
+var state:AIState
+var original:AITTaskBase
 
 func enter():
-	pass
+	finish()
 
 func update():
-	pass
+	finish()
 
-func exit() -> result:
-	return result.SUCCESS
+func finish():
+	#	find next task from state task list
+	var next_task_index:int = state.tasks.find( original ) + 1
+	#	tell state to run the next task from index
+	state.run_next_task( state.run_next_task( state.tasks.get( next_task_index )))
