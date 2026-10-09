@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_hf2ay"]
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="2_cpwls"]
-[ext_resource type="PackedScene" uid="uid://d34l3obx1dmyb" path="res://_gamefiles/Actors/a_AI_test.tscn" id="2_dwtou"]
+[ext_resource type="PackedScene" uid="uid://d34l3obx1dmyb" path="res://_gamefiles/Actors/a_ai_test.tscn" id="2_dwtou"]
 
 [node name="LTest" type="Node" unique_id=204834252]
 script = ExtResource("1_hf2ay")

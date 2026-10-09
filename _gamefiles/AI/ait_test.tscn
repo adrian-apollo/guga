@@ -3,6 +3,11 @@
 [ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/guga/classes/AI/class_aitree_base.gd" id="1_r8ifx"]
 [ext_resource type="Script" uid="uid://dtnp0f5og7ixh" path="res://_gamefiles/AI/aiw_test.gd" id="2_gydyx"]
 [ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/guga/classes/AI/class_aitree_state.gd" id="2_i07qb"]
+[ext_resource type="Script" uid="uid://dt7q5er4twddh" path="res://_gamefiles/AI/aie_actor_is_valid.gd" id="4_0cmdg"]
+
+[sub_resource type="Resource" id="Resource_gydyx"]
+script = ExtResource("4_0cmdg")
+metadata/_custom_type_script = "uid://dt7q5er4twddh"
 
 [node name="AitTest" type="Node" unique_id=96905514]
 script = ExtResource("1_r8ifx")
@@ -11,16 +16,10 @@ metadata/_custom_type_script = "uid://cjgcru8uc64dc"
 [node name="AIW_Test" type="Node" parent="." unique_id=1262882684]
 script = ExtResource("2_gydyx")
 ticksource = 3
+tickrate = 0.1
 metadata/_custom_type_script = "uid://dtnp0f5og7ixh"
 
 [node name="AIState" type="Node" parent="." unique_id=953043934]
 script = ExtResource("2_i07qb")
-metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
-
-[node name="AIState3" type="Node" parent="AIState" unique_id=477964272]
-script = ExtResource("2_i07qb")
-metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
-
-[node name="AIState2" type="Node" parent="." unique_id=1616621611]
-script = ExtResource("2_i07qb")
+condition = SubResource("Resource_gydyx")
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

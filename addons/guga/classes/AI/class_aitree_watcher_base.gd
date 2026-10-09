@@ -13,23 +13,25 @@ enum TICKSOURCE {
 }
 
 var tree:GugaTree
+var actor:Node
 
 func _init() -> void:
 	tree = Engine.get_main_loop()
 
 func _ready():
+	
 	set_process( false )
 	set_physics_process( false )
 	if tickrate > 0:
 		_start_tick()
 		
 	if owner is AITreeBase:
-		owner.list_watcher(self)
+		owner.add_watcher(self)
 
 	call_deferred(&"event_start")
 
 func event_start():
-	pass
+	actor = owner.owner
 
 func event_update():
 	pass
