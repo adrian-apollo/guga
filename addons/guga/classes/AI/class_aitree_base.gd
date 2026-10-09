@@ -1,6 +1,11 @@
 class_name AITreeBase
 extends Node
 
+func _ready() -> void:
+	if is_instance_valid( get_child(0) ):
+		get_child(0).call_deferred("start")
+
+#region watchers
 var watchers:Array[AIWatcherBase]
 
 func add_watcher(watcher:AIWatcherBase):
@@ -20,3 +25,4 @@ func get_watcher_with_property(property:StringName) -> AIWatcherBase:
 		if w.get(property) != null:
 			return w
 	return null
+#endregion

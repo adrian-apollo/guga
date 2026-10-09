@@ -1,10 +1,10 @@
 @abstract
-class_name AITTaskBase
+class_name AITaskBase
 extends Resource
 
 var aitree:AITreeBase
 var state:AIState
-var original:AITTaskBase
+var original:AITaskBase
 
 func enter():
 	finish()
@@ -16,4 +16,4 @@ func finish():
 	#	find next task from state task list
 	var next_task_index:int = state.tasks.find( original ) + 1
 	#	tell state to run the next task from index
-	state.run_next_task( state.run_next_task( state.tasks.get( next_task_index )))
+	state.run_next_task( next_task_index )

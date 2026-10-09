@@ -2,6 +2,17 @@
 
 [ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/guga/classes/AI/class_aitree_base.gd" id="1_r8ifx"]
 [ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/guga/classes/AI/class_aitree_state.gd" id="2_i07qb"]
+[ext_resource type="Script" uid="uid://dt7q5er4twddh" path="res://_gamefiles/AI/aie_actor_is_valid.gd" id="3_gydyx"]
+[ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/guga/classes/AI/class_aitree_task_base.gd" id="4_2e0hh"]
+[ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://_gamefiles/AI/ait_print.gd" id="5_fsvyc"]
+
+[sub_resource type="Resource" id="Resource_i07qb"]
+script = ExtResource("3_gydyx")
+metadata/_custom_type_script = "uid://dt7q5er4twddh"
+
+[sub_resource type="Resource" id="Resource_tch0o"]
+script = ExtResource("5_fsvyc")
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
 [node name="AitTest" type="Node" unique_id=96905514]
 process_mode = 4
@@ -10,4 +21,6 @@ metadata/_custom_type_script = "uid://cjgcru8uc64dc"
 
 [node name="state_1" type="Node" parent="." unique_id=953043934]
 script = ExtResource("2_i07qb")
+condition = SubResource("Resource_i07qb")
+tasks = Array[ExtResource("4_2e0hh")]([SubResource("Resource_tch0o")])
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
