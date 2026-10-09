@@ -3,7 +3,7 @@ class_name AIWatcherBase
 extends Node
 
 @export var ticksource:TICKSOURCE
-@export var tickrate:float
+@export var tickrate:float = 1
 
 enum TICKSOURCE {
 	NONE,
@@ -16,14 +16,16 @@ var tree:GugaTree
 
 func _init() -> void:
 	tree = Engine.get_main_loop()
-	set_process( false )
-	set_physics_process( false )
 
 func _ready():
-	if tickrate < 0 || null:
-		return
+	set_process( false )
+	set_physics_process( false )
+	if tickrate > 0:
+		_start_tick()
+		
+	if owner is AITreeBase:
+		owner.list_watcher(self)
 
-	_start_tick()
 	call_deferred(&"event_start")
 
 func event_start():
