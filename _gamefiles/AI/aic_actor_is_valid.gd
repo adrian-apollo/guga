@@ -1,4 +1,4 @@
-class_name IsValid extends AITCondition
+class_name CIsValid extends AITCondition
 
 func evaulate() -> bool:
 	if is_instance_valid( aitree.owner ):

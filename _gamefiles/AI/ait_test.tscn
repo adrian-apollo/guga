@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/guga/classes/AI/class_aitree_task_base.gd" id="4_2e0hh"]
 [ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://_gamefiles/AI/ait_print.gd" id="5_fsvyc"]
 [ext_resource type="Script" uid="uid://byg2klqj5gked" path="res://_gamefiles/AI/tran_test.gd" id="6_fsvyc"]
+[ext_resource type="Script" uid="uid://fqxve15r2b5w" path="res://_gamefiles/AI/t_try_result.gd" id="6_s7e06"]
 
 [sub_resource type="Resource" id="Resource_i07qb"]
 script = ExtResource("3_gydyx")
@@ -16,14 +17,15 @@ script = ExtResource("5_fsvyc")
 text = "Task1"
 metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
-[sub_resource type="Resource" id="Resource_k1nw6"]
-script = ExtResource("6_fsvyc")
-nodepath = NodePath("../state_2")
-metadata/_custom_type_script = "uid://byg2klqj5gked"
+[sub_resource type="Resource" id="Resource_twdpx"]
+script = ExtResource("6_s7e06")
+on_success_go_to = NodePath("../state_2")
+tick_source = 1
+metadata/_custom_type_script = "uid://fqxve15r2b5w"
 
 [sub_resource type="Resource" id="Resource_fsvyc"]
 script = ExtResource("5_fsvyc")
-text = "Task4"
+text = "sucess"
 metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
 [sub_resource type="Resource" id="Resource_s7e06"]
@@ -40,7 +42,7 @@ metadata/_custom_type_script = "uid://cjgcru8uc64dc"
 script = ExtResource("2_i07qb")
 condition = SubResource("Resource_i07qb")
 tasks = Array[ExtResource("4_2e0hh")]([SubResource("Resource_tch0o")])
-transition = SubResource("Resource_k1nw6")
+transition = SubResource("Resource_twdpx")
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
 
 [node name="state_2" type="Node" parent="." unique_id=337180292]

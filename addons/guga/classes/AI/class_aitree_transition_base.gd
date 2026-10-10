@@ -2,6 +2,14 @@
 class_name AITransition
 extends Resource
 
+@export_group("Transition on:")
+@export var tick_source:TICKSOURCE
+
+enum TICKSOURCE {
+	PHYSICS_START,
+	PROCESS_START
+}
+
 var tree:GugaTree = null
 var aitree:AITreeBase
 var state:AIState
