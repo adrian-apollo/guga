@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ComponentStack" format=3 uid="uid://dkbrpchbfkw0c"]
+
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/class_component_base.gd" id="1_mehgj"]
+[ext_resource type="PackedScene" uid="uid://bn81e17yxdwdx" path="res://_gamefiles/AI/ait_test.tscn" id="2_m0fuk"]
+[ext_resource type="Script" uid="uid://clm7uxqvv4n01" path="res://addons/guga/classes/AI/class_cai_base.gd" id="3_2an3c"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="4_jwocm"]
+
+[sub_resource type="Resource" id="Resource_yoidp"]
+resource_local_to_scene = true
+script = ExtResource("3_2an3c")
+enabled = true
+aI_tree_scene = ExtResource("2_m0fuk")
+metadata/_custom_type_script = "uid://clm7uxqvv4n01"
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("4_jwocm")
+components = Array[ExtResource("1_mehgj")]([SubResource("Resource_yoidp")])
+metadata/_custom_type_script = "uid://bjs6owgj3feat"

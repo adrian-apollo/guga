@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d34l3obx1dmyb"]
 
-[ext_resource type="Resource" uid="uid://dcyq0kwtmckdw" path="res://_gamefiles/Components/cs_ai_test.res" id="1_yoidp"]
+[ext_resource type="Resource" uid="uid://dkbrpchbfkw0c" path="res://_gamefiles/Components/cs_ai_test.tres" id="1_yoidp"]
 [ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="2_3dbdu"]
 
 [sub_resource type="GDScript" id="GDScript_3nyl8"]

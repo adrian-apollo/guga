@@ -4,14 +4,14 @@ extends Resource
 
 var tree:GugaTree
 var aitree:AITreeBase
-var aistate:AIState
+var state:AIState
 
 func _init():
 	tree = Engine.get_main_loop()
 
 func setup(_aitree:AITreeBase, _state:AIState):
 	aitree = _aitree
-	aistate = _state
+	state = _state
 
 func evaulate() -> bool:
 	return true

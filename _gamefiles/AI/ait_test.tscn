@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/guga/classes/AI/class_aitree_base.gd" id="1_r8ifx"]
 [ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/guga/classes/AI/class_aitree_state.gd" id="2_i07qb"]
-[ext_resource type="Script" uid="uid://dt7q5er4twddh" path="res://_gamefiles/AI/aie_actor_is_valid.gd" id="3_gydyx"]
+[ext_resource type="Script" uid="uid://dt7q5er4twddh" path="res://_gamefiles/AI/aic_actor_is_valid.gd" id="3_gydyx"]
 [ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/guga/classes/AI/class_aitree_task_base.gd" id="4_2e0hh"]
 [ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://_gamefiles/AI/ait_print.gd" id="5_fsvyc"]
+[ext_resource type="Script" uid="uid://byg2klqj5gked" path="res://_gamefiles/AI/tran_test.gd" id="6_fsvyc"]
 
 [sub_resource type="Resource" id="Resource_i07qb"]
 script = ExtResource("3_gydyx")
@@ -12,7 +13,23 @@ metadata/_custom_type_script = "uid://dt7q5er4twddh"
 
 [sub_resource type="Resource" id="Resource_tch0o"]
 script = ExtResource("5_fsvyc")
+text = "Task1"
 metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_k1nw6"]
+script = ExtResource("6_fsvyc")
+nodepath = NodePath("../state_2")
+metadata/_custom_type_script = "uid://byg2klqj5gked"
+
+[sub_resource type="Resource" id="Resource_fsvyc"]
+script = ExtResource("5_fsvyc")
+text = "Task4"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_s7e06"]
+script = ExtResource("6_fsvyc")
+nodepath = NodePath("../state_1")
+metadata/_custom_type_script = "uid://byg2klqj5gked"
 
 [node name="AitTest" type="Node" unique_id=96905514]
 process_mode = 4
@@ -23,4 +40,11 @@ metadata/_custom_type_script = "uid://cjgcru8uc64dc"
 script = ExtResource("2_i07qb")
 condition = SubResource("Resource_i07qb")
 tasks = Array[ExtResource("4_2e0hh")]([SubResource("Resource_tch0o")])
+transition = SubResource("Resource_k1nw6")
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="state_2" type="Node" parent="." unique_id=337180292]
+script = ExtResource("2_i07qb")
+tasks = Array[ExtResource("4_2e0hh")]([SubResource("Resource_fsvyc")])
+transition = SubResource("Resource_s7e06")
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

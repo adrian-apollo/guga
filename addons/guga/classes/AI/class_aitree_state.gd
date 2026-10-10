@@ -2,7 +2,7 @@ class_name AIState extends Node
 
 @export var condition:AITCondition = null
 @export var tasks:Array[ AITaskBase ]
-@export var transition:Resource = null
+@export var transition:AITransition = null
 
 enum RESULT{
 	SUCCESS,
@@ -44,5 +44,9 @@ func _duplicate_task(task:AITaskBase) -> AITaskBase:
 	return t
 
 func make_transition( result:RESULT ):
-	print( result )
-	return
+	if !transition:
+		return
+	var t:AITransition = transition.duplicate(true)
+	t.aitree = owner
+	t.state = self
+	t.make_transition( result )
