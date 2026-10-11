@@ -1,15 +1,13 @@
 @abstract
-class_name AITCondition
-extends Resource
+class_name AITCondition extends AITElement
+@export_group("Property name")
 
-var tree:GugaTree
-var aitree:AITreeBase
-var aistate:AIState
+@export var watcher_property_name:StringName
 
-func _init( _aitree:AITreeBase, _aistate:AIState ):
-	tree = Engine.get_main_loop()
-	aitree = _aitree
-	aistate = _aistate
+var property
+
+func fetch():
+	property = aitree.get_watcher_property( watcher_property_name )
 
 func evaulate() -> bool:
 	return true

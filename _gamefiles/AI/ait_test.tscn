@@ -2,19 +2,56 @@
 
 [ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/guga/classes/AI/class_aitree_base.gd" id="1_r8ifx"]
 [ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/guga/classes/AI/class_aitree_state.gd" id="2_i07qb"]
+[ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/guga/classes/AI/class_aitree_task_base.gd" id="4_2e0hh"]
+[ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://addons/guga/classes/AI/Prefabs/Tasks/task_console_print.gd" id="5_fsvyc"]
+[ext_resource type="Script" uid="uid://djsxx2y6psl54" path="res://addons/guga/classes/AI/Prefabs/Tasks/task_wait.gd" id="5_twdpx"]
+[ext_resource type="Script" uid="uid://byg2klqj5gked" path="res://addons/guga/classes/AI/Prefabs/Transition/tran_goto_state.gd" id="6_fsvyc"]
+[ext_resource type="Script" uid="uid://fqxve15r2b5w" path="res://addons/guga/classes/AI/Prefabs/Transition/tran_try_result.gd" id="6_s7e06"]
+[ext_resource type="Script" uid="uid://dtnp0f5og7ixh" path="res://addons/guga/classes/AI/Prefabs/Watchers/watcher_get_actor_property.gd" id="8_twdpx"]
+
+[sub_resource type="Resource" id="Resource_tch0o"]
+script = ExtResource("5_fsvyc")
+text = "Task1"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_s7e06"]
+script = ExtResource("5_twdpx")
+metadata/_custom_type_script = "uid://djsxx2y6psl54"
+
+[sub_resource type="Resource" id="Resource_x7y77"]
+script = ExtResource("6_s7e06")
+on_success_go_to = NodePath("../state_2")
+metadata/_custom_type_script = "uid://fqxve15r2b5w"
+
+[sub_resource type="Resource" id="Resource_fsvyc"]
+script = ExtResource("5_fsvyc")
+text = "2"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_twdpx"]
+script = ExtResource("6_fsvyc")
+nodepath = NodePath("../state_1")
+metadata/_custom_type_script = "uid://byg2klqj5gked"
 
 [node name="AitTest" type="Node" unique_id=96905514]
+process_mode = 4
 script = ExtResource("1_r8ifx")
 metadata/_custom_type_script = "uid://cjgcru8uc64dc"
 
-[node name="AIState" type="Node" parent="." unique_id=953043934]
+[node name="state_1" type="Node" parent="." unique_id=953043934]
 script = ExtResource("2_i07qb")
+tasks = Array[ExtResource("4_2e0hh")]([SubResource("Resource_tch0o"), SubResource("Resource_s7e06")])
+transition = SubResource("Resource_x7y77")
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
 
-[node name="AIState3" type="Node" parent="AIState" unique_id=477964272]
+[node name="state_2" type="Node" parent="." unique_id=337180292]
 script = ExtResource("2_i07qb")
+tasks = Array[ExtResource("4_2e0hh")]([SubResource("Resource_fsvyc")])
+transition = SubResource("Resource_twdpx")
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
 
-[node name="AIState2" type="Node" parent="." unique_id=1616621611]
-script = ExtResource("2_i07qb")
-metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+[node name="AIWActorProperty" type="Node" parent="." unique_id=505932021]
+script = ExtResource("8_twdpx")
+actor_property_name = &"health"
+ticksource = 2
+metadata/_custom_type_script = "uid://dtnp0f5og7ixh"

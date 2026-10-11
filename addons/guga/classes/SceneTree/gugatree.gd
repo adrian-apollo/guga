@@ -360,6 +360,7 @@ func get_property_value_from_actor( actor:Node, property:StringName ) -> Variant
 	if !listed_actors.has(actor):
 		return
 	
+	#	search the property from components
 	for c in listed_actors[actor]:
 		if c.get( property ):
 			return c.get( property )

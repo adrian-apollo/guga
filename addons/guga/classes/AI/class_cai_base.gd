@@ -28,7 +28,7 @@ func aitree_spawn():
 		return
 	
 	owner.add_child( aitree )
-	aitree.owner = owner
+	aitree.set("owner", owner)
 
 func event_destroy():
 	if aitree:

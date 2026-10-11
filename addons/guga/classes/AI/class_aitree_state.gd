@@ -1,16 +1,45 @@
 class_name AIState extends Node
 
-@export var condition:AITCondition
-@export var tasks:Array[ Resource ]
-@export var transition:Resource
+@export var condition:AITCondition = null
+@export var tasks:Array[ AITaskBase ]
+@export var transition:AITransition = null
 
-var p_tree:GugaTree
-
-var b_conditon_result:bool = true
+var tree:GugaTree
 
 func _init():
-	p_tree = Engine.get_main_loop()
+	tree = Engine.get_main_loop()
 
-func _ready():
+func start():
+	#	check if theres a condition and test it
 	if condition:
-		b_conditon_result = condition.new()
+		#	creates a one time image of that condition
+		var newc:AITCondition = condition.duplicate(true)
+		newc.setup( owner, self )	#	initialize the condition
+		if !newc.evaulate():	#	evaluate the condition terms
+			make_transition( AITElement.RESULT.FAIL )	#	if not go directly to transition
+			return
+	
+	run_next_task( 0 )
+
+func run_next_task( index:int ):
+	if !tasks.size() > index:
+		make_transition( AITElement.RESULT.SUCCESS )
+		return
+	if !is_instance_valid( tasks.get(index) ):
+		make_transition( AITElement.RESULT.SUCCESS )
+		return
+
+	_duplicate_task( tasks[index] ).enter()
+
+func _duplicate_task(task:AITaskBase) -> AITaskBase:
+	var t:AITaskBase = task.duplicate(true)
+	t.setup( owner, self)
+	t.original = task
+	return t
+
+func make_transition( result:AITElement.RESULT ):
+	if !transition:
+		return
+	var t:AITransition = transition.duplicate(true)
+	t.setup( owner, self)
+	t.make_transition( result )

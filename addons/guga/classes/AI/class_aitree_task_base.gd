@@ -1,17 +1,17 @@
 @abstract
-class_name AITTaskBase
-extends RefCounted
+class_name AITaskBase
+extends AITElement
 
-enum result {
-	SUCCESS,
-	FAIL
-}
+var original:AITaskBase
 
 func enter():
-	pass
+	finish()
 
 func update():
-	pass
+	finish()
 
-func exit() -> result:
-	return result.SUCCESS
+func finish():
+	#	find next task from state task list
+	var next_task_index:int = state.tasks.find( original ) + 1
+	#	tell state to run the next task from index
+	state.run_next_task( next_task_index )
