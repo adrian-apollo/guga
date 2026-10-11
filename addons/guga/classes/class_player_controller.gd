@@ -3,13 +3,13 @@ class_name PlayerController
 extends Node
 
 #region	signals
-signal s_possession( Node )
-signal s_unpossession( Node )
+signal s_possessed( Node )
+signal s_unpossessed( Node )
 #endregion
 
 #region	properties
 var tree:GugaTree
-var possessed_pawn:Node = null
+var pawn:Node = null
 var level:Level
 var id:int
 #endregion
@@ -24,11 +24,11 @@ func _init():
 #region	external methods
 
 func possess(actor:Node):
-	s_possession.emit( actor )
-	possessed_pawn = actor
+	s_possessed.emit( actor )
+	pawn = actor
 	
 func unpossess(actor:Node):
-	s_unpossession.emit( actor )
-	possessed_pawn = null
+	s_unpossessed.emit( actor )
+	pawn = null
 
 #endregion

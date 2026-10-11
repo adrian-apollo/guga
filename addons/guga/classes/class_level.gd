@@ -7,9 +7,7 @@ var tree:GugaTree
 func _init():
 	if !Engine.is_editor_hint():
 		tree = Engine.get_main_loop() as GugaTree
-		tree.s_level_changed.connect( _setup )
-		tree.s_level_destroyed.connect( _destroy )
-
+		
 #region player start managing
 
 @export_group("Player start")
@@ -47,43 +45,7 @@ func remove_playerstart():
 #endregion
 
 #region player spawning
-@export_group("Player")
-@export var player_scene:PackedScene
-@export var spawn_player:bool = true
-@export var possess:bool = true
-
-func _setup( level:Level ):
-	if !level == self:
-		return
-	if !player_scene:
-		return
-	if !spawn_player:
-		return
-	loadplayer()
-
-func _destroy( level:Level ):
-	if level == self:
-		tree.s_level_changed.disconnect( _setup )
-		tree.s_level_destroyed.disconnect( _destroy )
-
-func loadplayer():
-	current_player = player_scene.instantiate()
-	if !is_instance_valid( current_player ):
-		return
-	
-	add_child( current_player )
-	current_player.owner = self
-	
-	movetostart()
-
-func movetostart():
-	var start:= get_node("PlayerStart")
-	if  !is_instance_valid( start ):
-		return
-
-	current_player.global_position = start.global_position
-	current_player.global_rotation = start.global_rotation
-	current_player.global_scale = start.global_scale
-	start.queue_free()
+@export_group("Controllers")
+@export var controllers:PackedScene
 
 #endregion
