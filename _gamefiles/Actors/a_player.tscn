@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dslp8lpxgprpr"]
+
+[node name="APlayer" type="Node2D" unique_id=1998402021]
+
+[node name="Label" type="Label" parent="." unique_id=1140726539]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Playerw"

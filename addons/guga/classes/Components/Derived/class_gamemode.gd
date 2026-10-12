@@ -1,35 +1,40 @@
-class_name GameMode extends PseudoNode
+class_name GameModeBase extends PseudoNode
 
 @export var player_with_controller:Array[ ControllerDuo ]
 
-var duo:Dictionary[ PlayerController, Node ]
+var controllers:Array[ PlayerController ]
+var players:Array[ Node ]
 
 #region setup
 func _setup_local_to_scene():
 	owner = get_local_scene()
 	if !owner.ready.is_connected(_setup):
 		owner.ready.connect(_setup, 4)
+	controllers.resize( 8 )
+	players.resize( 8 )
 
 func _setup():
-	_create_controllers()
-	_spawn_players()
-	_possess()
+	for i in player_with_controller.size():
+		#	spawn players
+		if player_with_controller[i].player_scene:	
+			players[i] = player_with_controller[i].player_scene.instantiate()
+			owner.add_child(players[i])
+			players[i].owner = owner
+			players[i].name = "PLAYER_" + str(i)
+		#	create controllers
+		if player_with_controller[i].controller:
+			controllers[i] = player_with_controller[i].controller.duplicate(true)
+			#	possess players
+			if players[i]:
+				tree.execute( players[i], &"event_possess", [ controllers[i] ] )
+
+	_teleport_player()
 #endregion
 
-#region player
-func _spawn_players():
-	for p in player_with_controller:
-		p.player_scene.instantiate()
-
-func _create_controllers():
-	pass
-
-func _possess():
-	pass
-
-func _search_player_start():
-	_teleport_player()
+#region player start
 
 func _teleport_player():
-	pass	
+	for p in players:
+		print( owner.find_children( "PlayerStart_*", &"PlayerStart", false, true))
+
 #endregion

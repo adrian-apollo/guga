@@ -2,16 +2,39 @@
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_hf2ay"]
 [ext_resource type="Script" uid="uid://dgirem3xa4kux" path="res://addons/guga/Resources/res_controller_duo.gd" id="2_0jj0q"]
+[ext_resource type="Script" uid="uid://dg86uhcgq1qmf" path="res://addons/guga/classes/class_player_controller.gd" id="3_idqn2"]
 [ext_resource type="Script" uid="uid://bvvesnmxeu5fr" path="res://addons/guga/classes/Components/Derived/class_gamemode.gd" id="3_oo8nj"]
+[ext_resource type="PackedScene" uid="uid://dslp8lpxgprpr" path="res://_gamefiles/Actors/a_player.tscn" id="4_0jj0q"]
+[ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="6_a3mok"]
+
+[sub_resource type="Resource" id="Resource_idqn2"]
+script = ExtResource("3_idqn2")
+metadata/_custom_type_script = "uid://dg86uhcgq1qmf"
 
 [sub_resource type="Resource" id="Resource_dwtou"]
 script = ExtResource("2_0jj0q")
+controller = SubResource("Resource_idqn2")
+player_scene = ExtResource("4_0jj0q")
+metadata/_custom_type_script = "uid://dgirem3xa4kux"
+
+[sub_resource type="Resource" id="Resource_0jj0q"]
+script = ExtResource("2_0jj0q")
+player_scene = ExtResource("4_0jj0q")
+metadata/_custom_type_script = "uid://dgirem3xa4kux"
+
+[sub_resource type="Resource" id="Resource_a3mok"]
+script = ExtResource("3_idqn2")
+metadata/_custom_type_script = "uid://dg86uhcgq1qmf"
+
+[sub_resource type="Resource" id="Resource_oo8nj"]
+script = ExtResource("2_0jj0q")
+controller = SubResource("Resource_a3mok")
 metadata/_custom_type_script = "uid://dgirem3xa4kux"
 
 [sub_resource type="Resource" id="Resource_hf2ay"]
 resource_local_to_scene = true
 script = ExtResource("3_oo8nj")
-player_with_controller = Array[ExtResource("2_0jj0q")]([SubResource("Resource_dwtou"), null, null])
+player_with_controller = Array[ExtResource("2_0jj0q")]([SubResource("Resource_dwtou"), SubResource("Resource_0jj0q"), SubResource("Resource_oo8nj")])
 metadata/_custom_type_script = "uid://bvvesnmxeu5fr"
 
 [node name="LTest" type="Node" unique_id=204834252]
@@ -26,3 +49,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.30476767, 0.5610542, 0.3493632, 1)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="PlayerStart_5" parent="." unique_id=875178709 instance=ExtResource("6_a3mok")]
+position = Vector2(668, 349)
+player_number = 5
+
+[node name="PlayerStart_3" parent="." unique_id=1857517995 instance=ExtResource("6_a3mok")]
+position = Vector2(312, 369)
+player_number = 3
