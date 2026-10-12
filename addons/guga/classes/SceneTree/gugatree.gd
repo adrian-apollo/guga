@@ -13,11 +13,7 @@ signal s_level_changed( Level )
 signal s_level_destroyed( Level )
 signal s_level_loaded( Level )
 
-var current_level:Level:
-	set(level):
-		current_level = level
-	get:
-		return current_level
+var current_level:Level
 
 var cached_levels:Array[Level]:
 	get:
@@ -47,14 +43,30 @@ func change_to_level( levelref:Level, destroy_previous:bool ):
 			cached_levels.push_back( current_level )
 			get_root().remove_child( current_level )
 
-	get_root().add_child( levelref )
 	current_level = levelref
+	get_root().add_child( levelref )
 	s_level_changed.emit( levelref )
 	new_log_message(self, "Changed to level: " + str( levelref ), LOG_MESSAGE_MODE.NORMAL)
 
 func destroy_level(levelref:Node):
 	s_level_destroyed.emit( levelref)
 	current_level.queue_free()
+
+#endregion
+
+#region player related
+func get_player_by_index(index:int) -> Node :
+	if index > 7 and index < 0:
+		return null
+	return current_level.game_mode.players[index]
+
+func get_controller_by_index( index:int ) -> PlayerController :
+	if index > 7 and index < 0:
+		return null
+	return current_level.game_mode.controllers[ index ]
+	
+func get_gamemode() -> GameModeBase:
+	return current_level.game_mode
 
 #endregion
 

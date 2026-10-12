@@ -5,7 +5,7 @@ class_name GameModeBase extends PseudoNode
 var controllers:Array[ PlayerController ]
 var players:Array[ Node ]
 
-#region setup
+#region
 func _setup_local_to_scene():
 	owner = get_local_scene()
 	if !owner.ready.is_connected(_setup):
@@ -27,14 +27,13 @@ func _setup():
 			#	possess players
 			if players[i]:
 				tree.execute( players[i], &"event_possess", [ controllers[i] ] )
+	
+	_teleport_players()
 
-	_teleport_player()
-#endregion
-
-#region player start
-
-func _teleport_player():
-	for p in players:
-		print( owner.find_children( "PlayerStart_*", &"PlayerStart", false, true))
-
+func _teleport_players():
+	var playerstarts:Array[Node] = owner.find_children( "PlayerStart_*", &"PlayerStart", false, true)
+	for ps in playerstarts:
+		if players[ ps.player_number ]:
+			players[ ps.player_number ].set_global_position( ps.get_global_position())
+			ps.queue_free()
 #endregion

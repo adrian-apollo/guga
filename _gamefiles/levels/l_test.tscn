@@ -17,8 +17,13 @@ controller = SubResource("Resource_idqn2")
 player_scene = ExtResource("4_0jj0q")
 metadata/_custom_type_script = "uid://dgirem3xa4kux"
 
+[sub_resource type="Resource" id="Resource_uvbn7"]
+script = ExtResource("3_idqn2")
+metadata/_custom_type_script = "uid://dg86uhcgq1qmf"
+
 [sub_resource type="Resource" id="Resource_0jj0q"]
 script = ExtResource("2_0jj0q")
+controller = SubResource("Resource_uvbn7")
 player_scene = ExtResource("4_0jj0q")
 metadata/_custom_type_script = "uid://dgirem3xa4kux"
 
@@ -29,6 +34,7 @@ metadata/_custom_type_script = "uid://dg86uhcgq1qmf"
 [sub_resource type="Resource" id="Resource_oo8nj"]
 script = ExtResource("2_0jj0q")
 controller = SubResource("Resource_a3mok")
+player_scene = ExtResource("4_0jj0q")
 metadata/_custom_type_script = "uid://dgirem3xa4kux"
 
 [sub_resource type="Resource" id="Resource_hf2ay"]
@@ -52,10 +58,9 @@ color = Color(0.30476767, 0.5610542, 0.3493632, 1)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="PlayerStart_5" parent="." unique_id=875178709 instance=ExtResource("6_a3mok")]
+[node name="PlayerStart_0" parent="." unique_id=875178709 instance=ExtResource("6_a3mok")]
 position = Vector2(668, 349)
-player_number = 5
 
-[node name="PlayerStart_3" parent="." unique_id=1857517995 instance=ExtResource("6_a3mok")]
+[node name="PlayerStart_1" parent="." unique_id=1857517995 instance=ExtResource("6_a3mok")]
 position = Vector2(312, 369)
-player_number = 3
+player_number = 1
