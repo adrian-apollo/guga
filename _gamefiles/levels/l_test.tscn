@@ -1,10 +1,22 @@
 [gd_scene format=3 uid="uid://ej67qdswlude"]
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_hf2ay"]
+[ext_resource type="Script" uid="uid://dgirem3xa4kux" path="res://addons/guga/Resources/res_controller_duo.gd" id="2_0jj0q"]
+[ext_resource type="Script" uid="uid://bvvesnmxeu5fr" path="res://addons/guga/classes/Components/Derived/class_gamemode.gd" id="3_oo8nj"]
+
+[sub_resource type="Resource" id="Resource_dwtou"]
+script = ExtResource("2_0jj0q")
+metadata/_custom_type_script = "uid://dgirem3xa4kux"
+
+[sub_resource type="Resource" id="Resource_hf2ay"]
+resource_local_to_scene = true
+script = ExtResource("3_oo8nj")
+player_with_controller = Array[ExtResource("2_0jj0q")]([SubResource("Resource_dwtou"), null, null])
+metadata/_custom_type_script = "uid://bvvesnmxeu5fr"
 
 [node name="LTest" type="Node" unique_id=204834252]
 script = ExtResource("1_hf2ay")
-player_scene = null
+game_mode = SubResource("Resource_hf2ay")
 metadata/_custom_type_script = "uid://dx7ipnqchnxei"
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1644653455]

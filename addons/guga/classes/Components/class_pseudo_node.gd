@@ -1,13 +1,6 @@
-class_name ComponentBase
+@abstract
+class_name PseudoNode
 extends Resource
-
-#region configuration
-@export_group("Component")
-@export var active:bool = true:
-	set(value):
-		active = value
-	get:
-		return active
 
 enum TICK_SOURCE {
 	NONE,
@@ -27,10 +20,7 @@ var tree:GugaTree
 func _init():
 	tree = Engine.get_main_loop()
 
-func _setup(_owner:Node):
-	owner = _owner
-	owner.tree_exiting.connect(_stop_tick)
-	owner.tree_entered.connect(_start_tick)
+func _start():
 	_start_tick()
 	call_deferred(&"event_begin")
 

@@ -7,7 +7,10 @@ var tree:GugaTree
 func _init():
 	if !Engine.is_editor_hint():
 		tree = Engine.get_main_loop() as GugaTree
-		
+
+func _ready():
+	pass
+
 #region player start managing
 
 @export_group("Player start")
@@ -37,15 +40,12 @@ func add_playerstart3d():
 func remove_playerstart():
 	if find_child("PlayerStart"):
 		find_child("PlayerStart").queue_free()
-		print( "PlayerStart deleted sucessfully" )
 		return
-	
-	print("Theres no PlayerStart")
 
 #endregion
 
-#region player spawning
-@export_group("Controllers")
-@export var controllers:PackedScene
-
+#region
+@export_group("Configuration")
+@export var components:ComponentStack
+@export var game_mode:GameMode
 #endregion

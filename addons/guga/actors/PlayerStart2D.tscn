@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://c7iuw10w7ox4x"]
 
 [ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="1_agcrc"]
+[ext_resource type="Script" uid="uid://dkybtla476xbg" path="res://addons/guga/actors/player_start.gd" id="1_p3etc"]
 
 [node name="PlayerStart" type="Node2D" unique_id=875178709]
+script = ExtResource("1_p3etc")
 metadata/_edit_vertical_guides_ = [-179.0]
 
 [node name="Control" type="Control" parent="." unique_id=119990068]

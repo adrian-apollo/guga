@@ -15,13 +15,17 @@ run/main_scene="uid://bdrydfb6si7ff"
 run/main_loop_type="GugaTree"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-boot_splash/show_image=false
 config/icon="res://icon.svg"
+boot_splash/show_image=false
 
 [debug]
 
 gdscript/warnings/unused_variable=0
 gdscript/warnings/unused_private_class_variable=0
+
+[display]
+
+window/size/mode=3
 
 [editor_plugins]
 
@@ -33,10 +37,14 @@ folder_colors={
 "res://_gamefiles/": "blue",
 "res://addons/": "purple",
 "res://addons/guga/": "green",
-"res://addons/guga/Documentation/": "yellow",
-"res://addons/guga/Premade components/": "red"
+"res://addons/guga/Documentation/": "yellow"
 }
 
 [physics]
 
 3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

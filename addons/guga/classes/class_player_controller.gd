@@ -1,6 +1,5 @@
-@abstract
 class_name PlayerController
-extends Node
+extends PseudoNode
 
 #region	signals
 signal s_possessed( Node )
@@ -8,7 +7,6 @@ signal s_unpossessed( Node )
 #endregion
 
 #region	properties
-var tree:GugaTree
 var pawn:Node = null
 var level:Level
 var id:int
