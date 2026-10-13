@@ -55,7 +55,7 @@ func destroy_level(levelref:Node):
 #endregion
 
 #region player related
-func get_player_by_index(index:int) -> Node :
+func get_player_by_index( index:int ) -> Node :
 	if index > 7 and index < 0:
 		return null
 	return current_level.game_mode.players[index]
