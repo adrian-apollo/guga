@@ -1,16 +1,29 @@
 [gd_scene format=3 uid="uid://ej67qdswlude"]
 
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_hf2ay"]
-[ext_resource type="PackedScene" uid="uid://bxrpel1wjgpuq" path="res://_gamefiles/Actors/player_test.tscn" id="2_0jj0q"]
 [ext_resource type="Script" uid="uid://bvvesnmxeu5fr" path="res://addons/guga/classes/Components/Derived/class_gamemode.gd" id="2_cpwls"]
+[ext_resource type="Script" uid="uid://dfapohvjuuwvg" path="res://addons/guga/classes/UI/class_ui_base.gd" id="3_idqn2"]
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="4_0jj0q"]
-[ext_resource type="PackedScene" uid="uid://s26qvyaym0hc" path="res://_gamefiles/UI/ui_test.tscn" id="4_oo8nj"]
+
+[sub_resource type="PackedScene" id="PackedScene_0jj0q"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [],
+"names": PackedStringArray("UiTest", "layout_mode", "anchors_preset", "mouse_filter", "script", "metadata/_custom_type_script", "Control"),
+"node_count": 1,
+"node_ids": PackedInt32Array(1774335777),
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 6, 0, -1, 5, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 0),
+"variants": [3, 0, 2, ExtResource("3_idqn2"), "uid://dfapohvjuuwvg"],
+"version": 3
+}
 
 [sub_resource type="Resource" id="Resource_cpwls"]
 resource_local_to_scene = true
 script = ExtResource("2_cpwls")
-players_scenes = Array[PackedScene]([ExtResource("2_0jj0q"), ExtResource("2_0jj0q")])
-ui_scene = ExtResource("4_oo8nj")
+ui_scene = SubResource("PackedScene_0jj0q")
 metadata/_custom_type_script = "uid://bvvesnmxeu5fr"
 
 [node name="LTest" type="Node" unique_id=204834252]

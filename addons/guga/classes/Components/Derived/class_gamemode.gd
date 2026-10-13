@@ -26,13 +26,6 @@ func _setup():
 	_spawn_players()
 	_spawn_uis()
 	_teleport_players()
-	uitest()
-
-func uitest():
-	uis[0].add_widget_to_layer( load("uid://dx73vppotusto").instantiate(), "world")
-	uis[0].add_widget_to_layer( load("uid://ch1d0dam50f13").instantiate(), "indicators")
-	uis[0].add_widget_to_layer( load("uid://cfxuive7qfpft").instantiate(), "dialogs")
-	uis[0].add_widget_to_layer( load("uid://tija42bmagdj").instantiate(), "pause_menus")
 
 func _create_controllers():
 	if !controller_class:
