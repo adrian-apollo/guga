@@ -18,12 +18,21 @@ func _setup_local_to_scene():
 	controllers.resize( 8 )
 	players.resize( 8 )
 	players_scenes.resize(8)
+	players_scenes.resize(8)
+	uis.resize(8)
 
 func _setup():
 	_create_controllers()
 	_spawn_players()
 	_spawn_uis()
 	_teleport_players()
+	uitest()
+
+func uitest():
+	uis[0].add_widget_to_layer( load("uid://dx73vppotusto").instantiate(), "world")
+	uis[0].add_widget_to_layer( load("uid://ch1d0dam50f13").instantiate(), "indicators")
+	uis[0].add_widget_to_layer( load("uid://cfxuive7qfpft").instantiate(), "dialogs")
+	uis[0].add_widget_to_layer( load("uid://tija42bmagdj").instantiate(), "pause_menus")
 
 func _create_controllers():
 	if !controller_class:
@@ -44,6 +53,7 @@ func _spawn_uis():
 		newui.owner = owner
 		uis[0] = newui
 		uis[0].show()
+
 func _spawn_players():
 	for n in 7:
 		if !players_scenes[n]:

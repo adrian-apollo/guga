@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cfxuive7qfpft"]
+
+[ext_resource type="Script" uid="uid://g1xqgd4esugs" path="res://addons/guga/classes/UI/class_widget.gd" id="1_fjth0"]
+
+[node name="UiwTest" type="Control" unique_id=1481116193]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_fjth0")
+metadata/_custom_type_script = "uid://g1xqgd4esugs"
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1267083941]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 43.0
+offset_top = -137.0
+offset_right = -40.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+color = Color(1.1343387, 0.64582676, 0, 1)

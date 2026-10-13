@@ -5,5 +5,6 @@
 [node name="UiTest" type="Control" unique_id=1774335777]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("1_xs3gs")
 metadata/_custom_type_script = "uid://dfapohvjuuwvg"

@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://bvvesnmxeu5fr" path="res://addons/guga/classes/Components/Derived/class_gamemode.gd" id="2_cpwls"]
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="4_0jj0q"]
 [ext_resource type="PackedScene" uid="uid://s26qvyaym0hc" path="res://_gamefiles/UI/ui_test.tscn" id="4_oo8nj"]
-[ext_resource type="Script" uid="uid://dkybtla476xbg" path="res://addons/guga/actors/player_start.gd" id="5_oo8nj"]
 
 [sub_resource type="Resource" id="Resource_cpwls"]
 resource_local_to_scene = true
@@ -29,15 +28,16 @@ color = Color(0.30476767, 0.5610542, 0.3493632, 1)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="PlayerStart_0" type="Node2D" parent="." unique_id=875178709 node_paths=PackedStringArray("label") instance=ExtResource("4_0jj0q")]
+[node name="PlayerStart_0" parent="." unique_id=875178709 instance=ExtResource("4_0jj0q")]
 position = Vector2(442, 295)
-script = ExtResource("5_oo8nj")
-label = NodePath("Control/Label")
-metadata/_edit_vertical_guides_ = [-179.0]
 
-[node name="PlayerStart_1" type="Node2D" parent="." unique_id=229723785 node_paths=PackedStringArray("label") instance=ExtResource("4_0jj0q")]
+[node name="PlayerStart_1" parent="." unique_id=229723785 instance=ExtResource("4_0jj0q")]
 position = Vector2(814, 264)
-script = ExtResource("5_oo8nj")
 player_number = 1
-label = NodePath("Control/Label")
-metadata/_edit_vertical_guides_ = [-179.0]
+
+[node name="CheckButton" type="CheckButton" parent="." unique_id=442127681]
+offset_left = 157.0
+offset_top = 307.0
+offset_right = 201.0
+offset_bottom = 331.0
+scale = Vector2(3.84, 2.9600012)
