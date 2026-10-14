@@ -19,7 +19,7 @@ var cached_levels:Array[Level]:
 	get:
 		return cached_levels
  
-func load_level( level:String )->Level:
+func load_level( level:String ) -> Level:
 	new_log_message(self, "Loading level from file: " + level, LOG_MESSAGE_MODE.NORMAL)
 	var newlevel:Level = ResourceLoader.load(level).instantiate()
 	

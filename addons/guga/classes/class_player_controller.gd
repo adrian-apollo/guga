@@ -21,12 +21,17 @@ func _init():
 
 #region	external methods
 
-func possess(actor:Node):
-	s_possessed.emit( actor )
-	pawn = actor
+func possess( actor:Node ):
+	if is_instance_valid( actor):
+		s_possessed.emit( actor )
+		tree.execute( actor, &"event_possess", [])
+		tree.execute( actor, &"_set_controller", [ self ])
+		pawn = actor
 	
 func unpossess(actor:Node):
-	s_unpossessed.emit( actor )
-	pawn = null
+	if is_instance_valid( actor):
+		s_unpossessed.emit( actor )
+		pawn.call(&"event_possess")
+		pawn = null
 
 #endregion
