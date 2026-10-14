@@ -1,7 +1,7 @@
 class_name CAIBase
 extends ComponentBase
 
-@export var enabled:bool:
+@export var enabled:bool = true:
 	set(value):
 		if value:
 			enabled = true
@@ -10,18 +10,18 @@ extends ComponentBase
 	get:
 		return enabled
 
-@export var aI_tree_scene:PackedScene
+@export var aI_tree_scene:String
 
 var aitree:Node
 
 func event_begin():
-	if !aI_tree_scene:
+	if aI_tree_scene.is_empty():
 		return
 	
 	aitree_spawn()
-
+	
 func aitree_spawn():
-	aitree = aI_tree_scene.instantiate()
+	aitree = load(aI_tree_scene).instantiate()
 	
 	if aitree.get_script() != AITreeBase:
 		aitree.queue_free()

@@ -28,10 +28,10 @@ func _ready():
 	if owner is AITreeBase:
 		owner.add_watcher(self)
 
-	call_deferred(&"_event_start")
+	call_deferred(&"event_begin")
 
-func _event_start():
-	actor = owner.owner
+func event_begin():
+	pass
 
 func event_update():
 	pass
