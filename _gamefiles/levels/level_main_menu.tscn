@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://hjlfhu74dkbq"]
+
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_enscl"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Derived/class_component_base.gd" id="2_7hjrw"]
+[ext_resource type="Script" uid="uid://dh6l501e3nvsw" path="res://_gamefiles/Components/c_playbutton.gd" id="3_8ofg8"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_enscl"]
+
+[sub_resource type="Resource" id="Resource_6a0eu"]
+resource_local_to_scene = true
+script = ExtResource("3_8ofg8")
+button_path = NodePath("btn_play")
+next_level_path = "uid://ej67qdswlude"
+metadata/_custom_type_script = "uid://dh6l501e3nvsw"
+
+[sub_resource type="Resource" id="Resource_e46wd"]
+resource_local_to_scene = true
+script = ExtResource("3_enscl")
+components = Array[ExtResource("2_7hjrw")]([SubResource("Resource_6a0eu")])
+metadata/_custom_type_script = "uid://bjs6owgj3feat"
+
+[node name="level_mainmenu" type="Node" unique_id=204834252]
+script = ExtResource("1_enscl")
+components = SubResource("Resource_e46wd")
+metadata/_custom_type_script = "uid://dx7ipnqchnxei"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1032953746]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.13552722, 0.34846836, 0.30690372, 1)
+
+[node name="btn_play" type="Button" parent="." unique_id=762358774]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1.973361e-06, 0.8454188, 0.34236318, 1)
+theme_override_font_sizes/font_size = 72
+action_mode = 0
+text = "TAP TO PLAY"
+flat = true

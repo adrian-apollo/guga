@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dfapohvjuuwvg" path="res://addons/guga/classes/UI/class_ui_base.gd" id="1_xs3gs"]
 
-[node name="UiTest" type="Control" unique_id=1774335777]
+[node name="ui_game" type="Control" unique_id=1774335777]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2

@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://b0yodhvqerg58"]
+
+[ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/guga/classes/AI/class_aitree_base.gd" id="1_khc0p"]
+[ext_resource type="Script" uid="uid://72w2yeoixkve" path="res://_gamefiles/AI/Watchers/w_find_player.gd" id="2_xcxca"]
+[ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/guga/classes/AI/class_aitree_state.gd" id="3_4tcse"]
+[ext_resource type="Script" uid="uid://b15sve88pt50a" path="res://addons/guga/classes/AI/Prefabs/Condition/aic_is_class.gd" id="4_fjm71"]
+[ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/guga/classes/AI/class_aitree_task_base.gd" id="5_i5bbj"]
+[ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://addons/guga/classes/AI/Prefabs/Tasks/task_console_print.gd" id="6_v1aka"]
+
+[sub_resource type="Resource" id="Resource_i5bbj"]
+script = ExtResource("4_fjm71")
+watcher_property_name = &"player"
+metadata/_custom_type_script = "uid://b15sve88pt50a"
+
+[sub_resource type="Resource" id="Resource_i11n0"]
+script = ExtResource("6_v1aka")
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[node name="AitAlien" type="Node" unique_id=97782916]
+script = ExtResource("1_khc0p")
+metadata/_custom_type_script = "uid://cjgcru8uc64dc"
+
+[node name="AIWFindPlayer" type="Node" parent="." unique_id=1958854770]
+script = ExtResource("2_xcxca")
+ticksource = 3
+metadata/_custom_type_script = "uid://72w2yeoixkve"
+
+[node name="AIState" type="Node" parent="." unique_id=175304705]
+script = ExtResource("3_4tcse")
+condition = SubResource("Resource_i5bbj")
+tasks = Array[ExtResource("5_i5bbj")]([SubResource("Resource_i11n0")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bjui8nq1l4vu3"]
+
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Derived/class_component_base.gd" id="1_lgp7o"]
+[ext_resource type="Script" uid="uid://brjg0rn3t0o7m" path="res://_gamefiles/Components/c_health.gd" id="2_fhk1p"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_4eb3w"]
+[ext_resource type="Script" uid="uid://clm7uxqvv4n01" path="res://addons/guga/classes/Components/Derived/class_cai_base.gd" id="4_15j7l"]
+
+[sub_resource type="GDScript" id="GDScript_w7q1g"]
+script/source = "extends ComponentsSetup
+"
+
+[sub_resource type="Resource" id="Resource_wuy6c"]
+resource_local_to_scene = true
+script = ExtResource("2_fhk1p")
+max_health = 915.0
+initial_health = 780.0
+metadata/_custom_type_script = "uid://brjg0rn3t0o7m"
+
+[sub_resource type="Resource" id="Resource_lgp7o"]
+script = ExtResource("4_15j7l")
+aI_tree_scene = "uid://b0yodhvqerg58"
+metadata/_custom_type_script = "uid://clm7uxqvv4n01"
+
+[sub_resource type="Resource" id="Resource_35atg"]
+resource_local_to_scene = true
+script = ExtResource("3_4eb3w")
+components = Array[ExtResource("1_lgp7o")]([SubResource("Resource_wuy6c"), SubResource("Resource_lgp7o")])
+metadata/_custom_type_script = "uid://bjs6owgj3feat"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_35atg"]
+radius = 47.38143
+
+[node name="Alien" type="Node2D" unique_id=1635967849]
+script = SubResource("GDScript_w7q1g")
+component_stack = SubResource("Resource_35atg")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1777188682]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=704603358]
+shape = SubResource("CircleShape2D_35atg")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=688740662]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 35.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
