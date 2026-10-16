@@ -1,19 +1,18 @@
 @tool
 extends Window
-#	"Edit game tags" window (Project > Tools).
-#	Shows the tag hierarchy of one .gts file and lets the user add, remove,
-#	refresh and save tags.
+## "Edit game tags" window (Project > Tools).
+## Shows the tag hierarchy of one .gts file and lets the user add, remove,
+## refresh and save tags.
 
-#region Constants
 const Registry := preload("res://addons/gameplay_tags/game_play_tags_registry.gd")
 const TreeBuilder := preload("res://addons/gameplay_tags/editor/tag_tree_builder.gd")
+const Generator := preload("res://addons/gameplay_tags/editor/game_tags_generator.gd")
 
 const WINDOW_TITLE := "Edit game tags"
 const DEFAULT_FILE_NAME := "game_tags.gts"
 const ERROR_COLOR := Color(1.0, 0.45, 0.45)
-#endregion
 
-#region	Explicit tags of the file being edited (tag path -> true).
+# Explicit tags of the file being edited (tag path -> true).
 var _tags: Dictionary = {}
 var _current_file := ""
 var _current_index := 0
@@ -28,7 +27,6 @@ var _add_edit: LineEdit
 var _add_hint: Label
 var _confirm_dialog: ConfirmationDialog
 
-#endregion
 
 func _init() -> void:
 	title = WINDOW_TITLE
@@ -38,11 +36,10 @@ func _init() -> void:
 	visible = false # Windows are visible by default when added to the tree.
 	close_requested.connect(hide)
 
-
 func _ready() -> void:
 	_build_ui()
 
-#	Opens the window. Unsaved changes are kept if the window was closed while dirty.
+## Opens the window. Unsaved changes are kept if the window was closed while dirty.
 func open_editor() -> void:
 	if not _dirty:
 		reload()
@@ -51,7 +48,7 @@ func open_editor() -> void:
 	else:
 		popup_centered(Vector2i(720, 620))
 
-#	Re-scans the .gts folder and reloads the selected file from disk.
+## Re-scans the .gts folder and reloads the selected file from disk.
 func reload() -> void:
 	Registry.reload()
 	_refresh_file_list()
@@ -143,7 +140,6 @@ func _build_add_dialog() -> void:
 	box.add_child(_add_hint)
 
 	add_child(_add_dialog)
-
 #endregion
 
 #region File handling
@@ -175,6 +171,7 @@ func _refresh_file_list() -> void:
 	_current_index = selected_index
 	_current_file = files[selected_index]
 
+
 func _load_current_file() -> void:
 	_tags.clear()
 	for tag in Registry.load_file(_current_file):
@@ -182,6 +179,7 @@ func _load_current_file() -> void:
 	_set_dirty(false)
 	_rebuild_tree()
 	_set_status("Loaded %d tag(s) from %s." % [_tags.size(), _current_file.get_file()])
+
 
 func _on_file_selected(index: int) -> void:
 	if _dirty:
@@ -191,7 +189,6 @@ func _on_file_selected(index: int) -> void:
 	_current_index = index
 	_current_file = _file_option.get_item_metadata(index)
 	_load_current_file()
-
 #endregion
 
 #region Buttons
@@ -204,6 +201,7 @@ func _on_add_pressed() -> void:
 	_add_dialog.popup_centered()
 	_add_edit.grab_focus()
 	_add_edit.caret_column = _add_edit.text.length()
+
 
 func _on_add_text_changed(text: String) -> void:
 	var tag := text.strip_edges()
@@ -219,6 +217,7 @@ func _on_add_text_changed(text: String) -> void:
 	_add_hint.text = message
 	_add_dialog.get_ok_button().disabled = not valid
 
+
 func _on_add_confirmed() -> void:
 	var tag := _add_edit.text.strip_edges()
 	if not Registry.is_valid_tag_name(tag) or _tags.has(tag):
@@ -227,6 +226,7 @@ func _on_add_confirmed() -> void:
 	_set_dirty(true)
 	_rebuild_tree(tag)
 	_set_status("Added '%s'." % tag)
+
 
 func _on_remove_pressed() -> void:
 	var item := _tree.get_selected()
@@ -238,6 +238,7 @@ func _on_remove_pressed() -> void:
 		"Remove \"%s\" and all of its child tags?" % path,
 		_remove_tag.bind(path))
 
+
 func _remove_tag(path: String) -> void:
 	var prefix := path + Registry.SEPARATOR
 	for key in _tags.keys():
@@ -247,11 +248,13 @@ func _remove_tag(path: String) -> void:
 	_rebuild_tree()
 	_set_status("Removed '%s'." % path)
 
+
 func _on_refresh_pressed() -> void:
 	if _dirty:
 		_ask_confirmation("Discard unsaved changes and reload from disk?", reload)
 	else:
 		reload()
+
 
 func _on_save_pressed() -> void:
 	var error := Registry.save_file(_current_file, PackedStringArray(_tags.keys()))
@@ -260,11 +263,24 @@ func _on_save_pressed() -> void:
 		return
 	_set_dirty(false)
 	Registry.reload()
-	# Make the new file visible in the FileSystem dock and refresh the file list.
+
+	var status := "Saved %d tag(s) to %s." % [_tags.size(), _current_file.get_file()]
+	var has_error := false
+
+	# Regenerate the GameTags constants (covers the tags of every .gts file).
+	var generated_path := Registry.get_generated_file_path()
+	if not generated_path.is_empty():
+		var generate_error := Generator.write_file(generated_path, Registry.get_all_tags())
+		if generate_error == OK:
+			status += " Updated %s." % generated_path.get_file()
+		else:
+			status += " Could not write '%s' (error %d)." % [generated_path, generate_error]
+			has_error = true
+
+	# Make new files visible in the FileSystem dock and refresh the file list.
 	EditorInterface.get_resource_filesystem().scan()
 	_refresh_file_list()
-	_set_status("Saved %d tag(s) to %s." % [_tags.size(), _current_file.get_file()])
-
+	_set_status(status, has_error)
 #endregion
 
 #region Helpers
@@ -274,10 +290,12 @@ func _ask_confirmation(text: String, action: Callable) -> void:
 	_confirm_dialog.dialog_text = text
 	_confirm_dialog.popup_centered()
 
+
 func _on_confirm_accepted() -> void:
 	if _pending_action.is_valid():
 		_pending_action.call()
 	_pending_action = Callable()
+
 
 func _rebuild_tree(select_path: String = "") -> void:
 	var items := TreeBuilder.build(_tree, PackedStringArray(_tags.keys()))
@@ -286,9 +304,11 @@ func _rebuild_tree(select_path: String = "") -> void:
 		item.select(0)
 		_tree.scroll_to_item(item)
 
+
 func _set_dirty(value: bool) -> void:
 	_dirty = value
 	title = WINDOW_TITLE + (" *" if _dirty else "")
+
 
 func _set_status(text: String, is_error: bool = false) -> void:
 	_status.text = text
@@ -296,5 +316,4 @@ func _set_status(text: String, is_error: bool = false) -> void:
 		_status.add_theme_color_override("font_color", ERROR_COLOR)
 	else:
 		_status.remove_theme_color_override("font_color")
-
 #endregion

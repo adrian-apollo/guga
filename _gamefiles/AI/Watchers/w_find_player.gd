@@ -6,6 +6,5 @@ var player:Node:
 
 func event_begin():
 	player = tree.get_player_by_index(0)
-
 func event_update():
 	player = tree.get_player_by_index(0)

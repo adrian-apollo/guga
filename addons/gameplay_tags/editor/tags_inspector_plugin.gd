@@ -1,12 +1,14 @@
 @tool
 extends EditorInspectorPlugin
-#	Replaces the default array editor of GamePlayTagsContainer.tags
-#	with a tag picker button.
+## Replaces the default array editor of GamePlayTagsContainer.tags
+## with a tag picker button.
 
 const PropertyEditor := preload("res://addons/gameplay_tags/editor/tags_property_editor.gd")
 
+
 func _can_handle(object: Object) -> bool:
 	return object is GamePlayTagsContainer
+
 
 func _parse_property(
 		_object: Object,

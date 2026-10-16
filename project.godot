@@ -35,7 +35,7 @@ window/size/maximize_disabled=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gameplay_tags/plugin.cfg", "res://addons/git_console/plugin.cfg", "res://addons/guga/plugin.cfg", "res://addons/logging/plugin.cfg")
+enabled=PackedStringArray("res://addons/gameplay_tags/plugin.cfg", "res://addons/git_console/plugin.cfg", "res://addons/guga/plugin.cfg")
 
 [file_customization]
 
@@ -45,6 +45,11 @@ folder_colors={
 "res://addons/guga/": "green",
 "res://addons/guga/Documentation/": "yellow"
 }
+
+[gameplay_tags]
+
+tag_files_directory="res://"
+generated_constants_file="res://game_tags.gd"
 
 [input]
 
