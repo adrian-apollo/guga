@@ -6,3 +6,4 @@
 script = ExtResource("1_ibo02")
 start_level = "uid://hjlfhu74dkbq"
 metadata/_custom_type_script = "uid://bk4btha1bcq4n"
+metadata/_edit_vertical_guides_ = [-39.0]
