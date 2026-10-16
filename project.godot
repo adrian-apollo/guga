@@ -15,8 +15,12 @@ run/main_scene="uid://bdrydfb6si7ff"
 run/main_loop_type="GugaTree"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-config/icon="res://icon.svg"
 boot_splash/show_image=false
+config/icon="res://icon.svg"
+
+[autoload]
+
+Logging="*uid://dyiilh7p87kre"
 
 [debug]
 
@@ -31,7 +35,7 @@ window/size/maximize_disabled=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/git_console/plugin.cfg", "res://addons/guga/plugin.cfg")
+enabled=PackedStringArray("res://addons/gameplay_tags/plugin.cfg", "res://addons/git_console/plugin.cfg", "res://addons/guga/plugin.cfg", "res://addons/logging/plugin.cfg")
 
 [file_customization]
 

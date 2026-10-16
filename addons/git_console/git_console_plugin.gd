@@ -45,7 +45,7 @@ func _on_comando_enviado(text: String) -> void:
 	if command.begins_with("git "):
 		command = command.substr(4).strip_edges()
 	
-	_print("\n[color=cyan]$ git %s[/color]" % command )
+	_print("\n[color=white]$ git %s[/color]" % command )
 
 	#	Separates every argument with blank spaces
 	var arguments: PackedStringArray = command.split(" ", false)

@@ -11,6 +11,7 @@ func _init(uid: String, progress_cb: Callable, complete_cb: Callable):
 
 var progress_array:Array = []
 var status
+
 func _physics_process(_delta: float):
 	status = ResourceLoader.load_threaded_get_status( target_uid, progress_array )
 	

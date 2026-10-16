@@ -171,11 +171,10 @@ func destroy_actor(actor:Node):
 #endregion
 
 #region component inter execution system
-#	system dedicated to execute orders
-#	on other actor's components
-#	ex: actor A calls method damage(int) on actor B
-#	actor A needs to know whos is the receiver
-
+##	system dedicated to execute orders
+##	on other actor's components
+##	ex: actor A calls method damage(int) on actor B
+##	actor A needs to know whos is the receiver
 func execute(receiver: Node, callable:StringName, data:Array) -> bool:
 	if !is_instance_valid( receiver ):
 		return false
@@ -211,20 +210,33 @@ func execute(receiver: Node, callable:StringName, data:Array) -> bool:
 #endregion
 
 #region	global nitification system
-#	objective: communicate new events to many receivers
-#	example: new day started, player death, objective reached, update UI data
-#	just connect a callable to the signal, wait for to trigger, check the message and get the data
-
+##	objective: communicate new events to many receivers
+##	example: new day started, player death, objective reached, update UI data
+##	just connect a callable to the signal, wait for to trigger, check the message and get the data
 signal global_notification(message:String, data:Variant)
 
-func connect_to_notification_signal(callable:Callable):
-	global_notification.connect(callable)
+##	connects a callable to the signal and receives its data
+func connect_to_notification_signal( callable:Callable, flags:Object.ConnectFlags ):
+	if global_notification.is_connected( callable ):
+		return
+	global_notification.connect( callable,  flags )
 
-func disconnect_from_notificaiton_signal(callable:Callable):
+##	disconnects the given callable from the signal
+func disconnect_from_notificaiton_signal( callable:Callable ):
+	if !global_notification.is_connected( callable ):
+		return
 	global_notification.disconnect(callable)
-
-func send_global_notification(message:String, data:Variant):
-	global_notification.emit(message, data)
+	
+##	send a notification trough global_notification signal
+##	returns true if succed
+##	example message could be: "update_health_bar" and data a number
+##	message must have a value, but data not
+func send_global_notification( message:String, data:Variant ) -> bool:
+	if message.is_empty():
+		return false
+	
+	global_notification.emit( message, data )
+	return true
 
 #endregion
 
