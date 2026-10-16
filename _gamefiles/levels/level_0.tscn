@@ -98,5 +98,5 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_2hpmw")
 
 [node name="ActorSpawner2d" parent="." unique_id=137280826 instance=ExtResource("10_2hpmw")]
-position = Vector2(570, 231)
+position = Vector2(229, 175)
 component_stack = SubResource("Resource_2hpmw")

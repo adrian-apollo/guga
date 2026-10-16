@@ -33,9 +33,11 @@ func run_next_task( index:int ):
 
 func make_transition( result:AITElement.RESULT ):
 	if !transition:
-		owner.get_tree().physics_frame.connect( owner.enter_first_state, 4 )
-		#owner.call_deferred(&"enter_first_state")
+		if owner.get_tree().physics_frame.is_connected( owner.enter_first_state ):
+			owner.get_tree().physics_frame.disconnect(owner.enter_first_state)
+		owner.get_tree().physics_frame.connect( owner.enter_first_state, ConnectFlags.CONNECT_ONE_SHOT )
 		return
+
 	var t:AITransition = transition.duplicate(true)
 	t.setup( owner, self)
 	t.make_transition( result )
