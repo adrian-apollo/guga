@@ -13,6 +13,6 @@ func enter():
 		finish()
 	
 	(actor as Node2D ).look_at( node.global_position )
-	(actor as Node2D ).position.y += 1
+	(actor as Node2D ).position += 1 * (actor as Node2D ).global_position.direction_to( node.global_position )
 	
 	finish()
