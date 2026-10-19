@@ -4,5 +4,6 @@ class_name AIWActorProperty extends AIWatcherBase
 
 var property
 
-func event_update():
-	property = tree.get_property_value_from_actor( actor, actor_property_name)
+func event_update(  aitree:AITreeBase ):
+	#property = tree.get_property_value_from_actor( actor, actor_property_name)
+	pass

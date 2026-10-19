@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bn81e17yxdwdx"]
+
+[ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/guga/classes/AI/class_aitree_base.gd" id="1_r8ifx"]
+[ext_resource type="Script" uid="uid://dpqpvnacgt3ev" path="res://addons/guga/classes/AI/class_aitree_watcher_base.gd" id="2_i07qb"]
+[ext_resource type="Script" uid="uid://b8pymdphiovhu" path="res://addons/guga/classes/AI/Prefabs/Watchers/watcher_console_print.gd" id="3_gydyx"]
+[ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/guga/classes/AI/class_aitree_state.gd" id="4_0cmdg"]
+
+[sub_resource type="Resource" id="Resource_i07qb"]
+script = ExtResource("3_gydyx")
+metadata/_custom_type_script = "uid://b8pymdphiovhu"
+
+[node name="AitTest" type="Node" unique_id=568051682]
+script = ExtResource("1_r8ifx")
+watchers = Array[ExtResource("2_i07qb")]([SubResource("Resource_i07qb")])
+metadata/_custom_type_script = "uid://cjgcru8uc64dc"
+
+[node name="AIState" type="Node" parent="." unique_id=1440868531]
+script = ExtResource("4_0cmdg")
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

@@ -1,53 +1,8 @@
 class_name AIState extends Node
 
-@export var condition:AITCondition = null
+@export var condition:Array[ AITCondition ] = []
 @export var tasks:Array[ AITaskBase ]
-@export var transition:AITransition = null
+@export var transition:Array [ AITransition ]
 
-var tree:GugaTree
-
-func _init():
-	tree = Engine.get_main_loop()
-
-func start():
-	#	check if theres a condition and test it
-	if condition:
-		#	creates a one time image of that condition
-		var newc:AITCondition = condition.duplicate(true)
-		newc.setup( owner, self )	#	initialize the condition
-		if !newc.evaulate():	#	evaluate the condition terms
-			make_transition( AITElement.RESULT.FAIL )	#	if not go directly to transition
-			return
-	
-	run_next_task( 0 )
-
-func run_next_task( index:int ):
-	if !tasks.size() > index:
-		make_transition( AITElement.RESULT.SUCCESS )
-		return
-	if !is_instance_valid( tasks.get(index) ):
-		make_transition( AITElement.RESULT.SUCCESS )
-		return
-
-	_duplicate_task( tasks[index] ).enter()
-
-func make_transition( result:AITElement.RESULT ):
-	if !transition:
-<<<<<<< Updated upstream
-		if owner.get_tree().physics_frame.is_connected( owner.enter_first_state ):
-			owner.get_tree().physics_frame.disconnect(owner.enter_first_state)
-		owner.get_tree().physics_frame.connect( owner.enter_first_state, ConnectFlags.CONNECT_ONE_SHOT )
-=======
-		owner.get_tree().physics_frame.connect( owner.enter_first_state, 4 )
->>>>>>> Stashed changes
-		return
-
-	var t:AITransition = transition.duplicate(true)
-	t.setup( owner, self)
-	t.make_transition( result )
-
-func _duplicate_task(task:AITaskBase) -> AITaskBase:
-	var t:AITaskBase = task.duplicate(true)
-	t.setup( owner, self)
-	t.original = task
-	return t
+func evaluate( aitree:AITreeBase ) -> bool:
+	return true

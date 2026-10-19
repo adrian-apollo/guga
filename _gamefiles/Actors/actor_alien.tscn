@@ -19,7 +19,7 @@ metadata/_custom_type_script = "uid://brjg0rn3t0o7m"
 
 [sub_resource type="Resource" id="Resource_lgp7o"]
 script = ExtResource("4_15j7l")
-aI_tree_scene = "uid://b0yodhvqerg58"
+aI_tree_scene = "uid://bn81e17yxdwdx"
 metadata/_custom_type_script = "uid://clm7uxqvv4n01"
 
 [sub_resource type="Resource" id="Resource_35atg"]

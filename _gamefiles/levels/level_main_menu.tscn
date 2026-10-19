@@ -9,7 +9,7 @@
 resource_local_to_scene = true
 script = ExtResource("3_8ofg8")
 button_path = NodePath("btn_play")
-next_level_path = "uid://ej67qdswlude"
+next_level_path = "uid://col6w80jxays7"
 metadata/_custom_type_script = "uid://dh6l501e3nvsw"
 
 [sub_resource type="Resource" id="Resource_e46wd"]
@@ -40,7 +40,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(1.973361e-06, 0.8454188, 0.34236318, 1)
-theme_override_font_sizes/font_size = 72
 action_mode = 0
 text = "TAP TO PLAY"
 flat = true

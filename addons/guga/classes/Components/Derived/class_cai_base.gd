@@ -21,7 +21,7 @@ func event_begin():
 	aitree_spawn()
 	
 func aitree_spawn():
-	aitree = load(aI_tree_scene).instantiate()
+	aitree = load( aI_tree_scene ).instantiate()
 	
 	if aitree.get_script() != AITreeBase:
 		aitree.queue_free()

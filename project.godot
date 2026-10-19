@@ -31,7 +31,6 @@ gdscript/warnings/unused_private_class_variable=0
 
 window/size/viewport_width=320
 window/size/viewport_height=180
-window/size/mode=4
 window/size/borderless=true
 window/size/extend_to_title=true
 window/stretch/mode="canvas_items"
@@ -53,7 +52,6 @@ folder_colors={
 
 [gameplay_tags]
 
-tag_files_directory="res://"
 generated_constants_file="res://game_tags.gd"
 
 [input]

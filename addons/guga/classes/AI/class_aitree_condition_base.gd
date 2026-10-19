@@ -9,5 +9,5 @@ var property
 func fetch():
 	property = aitree.get_watcher_property( watcher_property_name )
 
-func evaulate() -> bool:
+func evaulate( aitree:AITreeBase, state:AIState ) -> bool:
 	return true

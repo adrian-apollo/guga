@@ -1,35 +1,52 @@
 class_name AITreeBase
 extends Node
 
-func _ready() -> void:
-	enter_first_state()
+@export var watchers:Array[ AIWatcherBase ]
+@export var initial_state:AIState
 
-func enter_first_state():
-	for c in get_children():
-		if c is AIState:
-			c.call_deferred("start")
-			return
+signal tree_completed
 
-#region watchers
-var watchers:Array[ AIWatcherBase ]
+var blackboard:Dictionary[ StringName, Variant ]
+var states:Array[ Node ]
+var current_state:AIState
+var state_evaluation:bool = true
+var lock_in_task:AITaskBase
 
-func add_watcher( w:AIWatcherBase ):
-	watchers.push_back( w )
+func _ready():
+	if get_child_count() > 0:
+		states = get_children()
+		if initial_state:
+			current_state = initial_state
+		else:
+			current_state = states[0]
 
-func remove_watcher( watcher:AIWatcherBase ):
-	watchers.erase( watcher )
+func _physics_process(delta: float):
+	blackboard.clear()
+	state_evaluation = true
+	update_watchers()
+	
+	if !evaluate_state_conditions():
+		state_evaluation = false
+	
+	if state_evaluation:
+		run_next_state_task( null )
 
-func get_watcher_property( property:StringName ) -> Variant:
-	if property.is_empty():
-		return null
+	make_transition()	
+	
+func update_watchers():
 	for w in watchers:
-		if w.get( &"player" ):
-			return w.get( property )
-	return null
+		w.event_update( self )
 
-func get_watcher_with_property( property:StringName ) -> AIWatcherBase:
-	for w in watchers:
-		if w.get( property ) != null:
-			return w
-	return null
-#endregion
+##	Check if all conditons are meet, if true then run tasks.
+func evaluate_state_conditions() -> bool:
+	for e in current_state.condition:
+		if !e.evaulate( self, current_state ):
+			return false
+	return true
+
+func run_next_state_task( previous:AITaskBase ):
+	pass
+	
+
+func make_transition():
+	pass
