@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="7_66b66"]
 [ext_resource type="PackedScene" uid="uid://cne6tvl5hsp1e" path="res://addons/guga/actors/actor_spawner_2d.tscn" id="10_2hpmw"]
 [ext_resource type="Script" uid="uid://dkd5jkxikkefm" path="res://addons/guga/classes/Components/Derived/c_spawner.gd" id="11_lsg44"]
+[ext_resource type="Script" uid="uid://dkybtla476xbg" path="res://addons/guga/actors/player_start.gd" id="12_lsg44"]
 
 [sub_resource type="Resource" id="Resource_pkhcm"]
 script = ExtResource("3_pkhcm")
@@ -35,10 +36,10 @@ ui_scene = ExtResource("3_1iq2n")
 metadata/_custom_type_script = "uid://bvvesnmxeu5fr"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kwx6n"]
-size = Vector2(1868, 49)
+size = Vector2(929, 45.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hpmw"]
-size = Vector2(1290, 49)
+size = Vector2(718, 49)
 
 [sub_resource type="Resource" id="Resource_v16j0"]
 resource_local_to_scene = true
@@ -51,7 +52,7 @@ destroy = true
 tick_source = 3
 metadata/_custom_type_script = "uid://dkd5jkxikkefm"
 
-[sub_resource type="Resource" id="Resource_2hpmw"]
+[sub_resource type="Resource" id="Resource_16y5s"]
 resource_local_to_scene = true
 script = ExtResource("3_xmk2t")
 components = Array[ExtResource("2_4vi21")]([SubResource("Resource_v16j0")])
@@ -62,8 +63,10 @@ script = ExtResource("1_hf2ay")
 components = SubResource("Resource_n02pn")
 game_mode = SubResource("Resource_cpwls")
 metadata/_custom_type_script = "uid://dx7ipnqchnxei"
+metadata/_edit_vertical_guides_ = [-48.0]
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1644653455]
+z_index = -1000
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -73,30 +76,50 @@ color = Color(5.565118e-08, 0.051948987, 0.08005533, 1)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="PlayerStart_0" parent="." unique_id=875178709 instance=ExtResource("7_66b66")]
-position = Vector2(572, 537)
-
 [node name="Area2D" type="Area2D" parent="." unique_id=478461167]
-position = Vector2(580, -94)
+position = Vector2(657, -94)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1993555906]
-position = Vector2(0, -165)
+position = Vector2(-469.5, -181.75)
 shape = SubResource("RectangleShape2D_kwx6n")
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=388255171]
-position = Vector2(0, 1076)
+position = Vector2(-487, 530.875)
 shape = SubResource("RectangleShape2D_kwx6n")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D" unique_id=1474952233]
-position = Vector2(-967, 453)
+position = Vector2(-914, 162)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_2hpmw")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Area2D" unique_id=1860322861]
-position = Vector2(962, 455)
+position = Vector2(-39, 169)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_2hpmw")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="ActorSpawner2d" parent="." unique_id=137280826 instance=ExtResource("10_2hpmw")]
+<<<<<<< Updated upstream
 position = Vector2(229, 175)
 component_stack = SubResource("Resource_2hpmw")
+=======
+position = Vector2(158, 30)
+component_stack = SubResource("Resource_16y5s")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="PlayerStart_0" type="Node2D" parent="." unique_id=875178709 node_paths=PackedStringArray("label") instance=ExtResource("7_66b66")]
+position = Vector2(253, 136)
+script = ExtResource("12_lsg44")
+label = NodePath("Control/Label")
+metadata/_edit_vertical_guides_ = [-179.0]
+>>>>>>> Stashed changes

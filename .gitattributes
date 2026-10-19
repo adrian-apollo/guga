@@ -3,3 +3,5 @@
 *.odg binary
 *.svg binary
 *.png binary
+*.psd binary
+*.kra binary

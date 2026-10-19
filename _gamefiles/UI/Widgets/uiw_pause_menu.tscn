@@ -31,6 +31,8 @@ script = SubResource("GDScript_6c8fl")
 resume = NodePath("HBoxContainer/resume")
 exit = NodePath("HBoxContainer/exit")
 metadata/_custom_type_script = "uid://g1xqgd4esugs"
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1538768541]
 layout_mode = 1
@@ -40,6 +42,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.025698068, 0.47174048, 0.29566908, 1)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="." unique_id=1464086867]
 layout_mode = 1
@@ -54,9 +58,11 @@ offset_right = 0.00012207031
 offset_bottom = 44.46402
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 62
 text = "Game Paused"
 horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1546722922]
 layout_mode = 1
@@ -64,9 +70,9 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 92.0
-offset_top = -48.0
-offset_right = -92.0
+offset_left = 58.0
+offset_top = -6.0
+offset_right = -65.0
 offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -74,17 +80,17 @@ alignment = 1
 
 [node name="resume" type="Button" parent="HBoxContainer" unique_id=1405606507]
 layout_mode = 2
-theme_override_font_sizes/font_size = 33
+theme_override_font_sizes/font_size = 8
 text = "   Resume   "
 
 [node name="spacer" type="Button" parent="HBoxContainer" unique_id=271742005]
 layout_mode = 2
 theme_override_font_sizes/font_size = 33
 disabled = true
-text = "       "
+text = " "
 flat = true
 
 [node name="exit" type="Button" parent="HBoxContainer" unique_id=750349151]
 layout_mode = 2
-theme_override_font_sizes/font_size = 33
+theme_override_font_sizes/font_size = 8
 text = " Exit game"

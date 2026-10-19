@@ -15,23 +15,19 @@ metadata/_custom_type_script = "uid://g1xqgd4esugs"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1221559821]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.14660494
-grow_horizontal = 2
-grow_vertical = 2
+offset_right = 94.0
+offset_bottom = 24.0
 mouse_filter = 2
 alignment = 1
-metadata/_edit_use_anchors_ = true
 
 [node name="lb_score" type="Label" parent="HBoxContainer" unique_id=2109259309]
 layout_mode = 2
-theme_override_font_sizes/font_size = 33
+theme_override_font_sizes/font_size = 8
 text = "SCORE:  "
 
 [node name="lb_score_value" type="Label" parent="HBoxContainer" unique_id=1753964066]
 layout_mode = 2
-theme_override_font_sizes/font_size = 33
+theme_override_font_sizes/font_size = 8
 text = "00000000"
 horizontal_alignment = 2
 vertical_alignment = 1

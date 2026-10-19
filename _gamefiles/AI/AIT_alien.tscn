@@ -5,18 +5,24 @@
 [ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/guga/classes/AI/class_aitree_state.gd" id="3_4tcse"]
 [ext_resource type="Script" uid="uid://b15sve88pt50a" path="res://addons/guga/classes/AI/Prefabs/Condition/aic_is_class.gd" id="4_fjm71"]
 [ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/guga/classes/AI/class_aitree_task_base.gd" id="5_i5bbj"]
+<<<<<<< Updated upstream
 [ext_resource type="Script" uid="uid://q34a2usac8cv" path="res://_gamefiles/AI/Tasks/task_move_to.gd" id="6_4tcse"]
+=======
+>>>>>>> Stashed changes
 
 [sub_resource type="Resource" id="Resource_i5bbj"]
 script = ExtResource("4_fjm71")
 watcher_property_name = &"player"
 metadata/_custom_type_script = "uid://b15sve88pt50a"
 
+<<<<<<< Updated upstream
 [sub_resource type="Resource" id="Resource_anmtk"]
 script = ExtResource("6_4tcse")
 watcher_property = &"player"
 metadata/_custom_type_script = "uid://q34a2usac8cv"
 
+=======
+>>>>>>> Stashed changes
 [node name="AitAlien" type="Node" unique_id=97782916]
 script = ExtResource("1_khc0p")
 metadata/_custom_type_script = "uid://cjgcru8uc64dc"
@@ -29,5 +35,9 @@ metadata/_custom_type_script = "uid://72w2yeoixkve"
 [node name="AIState" type="Node" parent="." unique_id=175304705]
 script = ExtResource("3_4tcse")
 condition = SubResource("Resource_i5bbj")
+<<<<<<< Updated upstream
 tasks = Array[ExtResource("5_i5bbj")]([SubResource("Resource_anmtk")])
+=======
+tasks = Array[ExtResource("5_i5bbj")]([null])
+>>>>>>> Stashed changes
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
