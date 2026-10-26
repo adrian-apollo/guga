@@ -1,4 +1,4 @@
-class_name CAIBase
+class_name CAITreeBase
 extends ComponentBase
 
 @export var enabled:bool = true:

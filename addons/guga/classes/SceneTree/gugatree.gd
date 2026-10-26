@@ -168,14 +168,27 @@ func actor_add_component(actor:Node, component:Script) -> ComponentBase:
 func destroy_actor(actor:Node):
 	unlist_actor( actor )
 	actor.queue_free()
+
+func get_component_property_from_actor( actor_reference:Node, component:ComponentBase, property_name:StringName ) -> Variant:
+	if !actor_reference:
+		return
+	if property_name.is_empty():
+		return
+	if !listed_actors.has( actor_reference ):
+		return
+	for c in listed_actors[ actor_reference ]:
+		if c.get_script() == component.get_script():
+			return c.get( property_name )
+			break
+	return
+
 #endregion
 
-#region component inter execution system
-#	system dedicated to execute orders
-#	on other actor's components
-#	ex: actor A calls method damage(int) on actor B
-#	actor A needs to know whos is the receiver
-
+#region component execution system
+##	system dedicated to execute orders
+##	on other actor's components
+##	ex: actor A calls method damage(int) on actor B
+##	actor A needs to know whos is the receiver
 func execute(receiver: Node, callable:StringName, data:Array) -> bool:
 	if !is_instance_valid( receiver ):
 		return false

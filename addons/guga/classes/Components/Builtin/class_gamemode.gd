@@ -10,6 +10,10 @@ var players:Array[ Node ] = []
 var uis:Array[ UIBase ] = []
 
 #region
+func _init():
+	#	just in case is forgoted
+	set( &"resource_local_to_scene", true )
+
 func _setup_local_to_scene():
 	owner = get_local_scene()
 	if !owner.ready.is_connected(_setup):

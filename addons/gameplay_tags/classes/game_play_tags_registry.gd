@@ -1,20 +1,25 @@
 @tool
 class_name GamePlayTagsRegistry
 extends RefCounted
-##	Global access point to the tags defined in .gts files.
+## Global access point to the tags defined in .json files.
 ##
-##	A .gts file is plain JSON:
-##	{
-##	   "version": 1,
-##	   "tags": ["Character.State.Stunned", "Character.State.Burning"]
-##	}
+## A .json file is plain JSON:
+## {
+##     "version": 1,
+##     "tags": ["Character.State.Stunned", "Character.State.Burning"]
+## }
 ##
-##	The folder that contains the .gts files is configured in
-##	Project Settings > gameplay_tags/tag_files_directory.
+## The folder that contains the .json files is configured in
+## Project Settings > gameplay_tags/tag_files_directory.
 
+##	Project settings property
 const SETTING_PATH := "gameplay_tags/tag_files_directory"
-const DEFAULT_DIRECTORY := "res://"
-const FILE_EXTENSION := "gts"
+const GENERATED_FILE_SETTING_PATH := "gameplay_tags/generated_constants_file"
+
+const DEFAULT_DIRECTORY := "res://__project_files/gameplay_tags/"
+const DEFAULT_GENERATED_FILE := "res://__project_files/gameplay_tags/Generated/game_tags.gd"
+
+const FILE_EXTENSION := "json"
 const FILE_VERSION := 1
 const SEPARATOR := "."
 
@@ -23,14 +28,22 @@ static var _cache_valid := false
 static var _name_regex: RegEx
 
 
-##	Returns the folder (from the project settings) that holds the .gts files.
+## Returns the folder (from the project settings) that holds the .json files.
 static func get_directory() -> String:
 	var directory: String = ProjectSettings.get_setting(SETTING_PATH, DEFAULT_DIRECTORY)
 	if directory.strip_edges().is_empty():
 		directory = DEFAULT_DIRECTORY
 	return directory.simplify_path()
 
-##	Returns the full path of every .gts file found in the configured folder.
+
+## Returns the path of the generated GameTags script (from the project settings).
+## An empty string means that generation is disabled.
+static func get_generated_file_path() -> String:
+	var path: String = ProjectSettings.get_setting(GENERATED_FILE_SETTING_PATH, DEFAULT_GENERATED_FILE)
+	return path.strip_edges()
+
+
+## Returns the full path of every .json file found in the configured folder.
 static func list_files() -> PackedStringArray:
 	var result := PackedStringArray()
 	var directory := get_directory()
@@ -47,7 +60,8 @@ static func list_files() -> PackedStringArray:
 	result.sort()
 	return result
 
-##	Reads the explicit tags stored in a single .gts file.
+
+## Reads the explicit tags stored in a single .json file.
 static func load_file(path: String) -> PackedStringArray:
 	var result := PackedStringArray()
 	if not FileAccess.file_exists(path):
@@ -58,14 +72,15 @@ static func load_file(path: String) -> PackedStringArray:
 		return result
 	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) != TYPE_DICTIONARY or typeof(parsed.get("tags")) != TYPE_ARRAY:
-		#push_warning("GamePlayTags: '%s' is not a valid .gts file." % path)
+		push_warning("GamePlayTags: '%s' is not a valid .json file." % path)
 		return result
 	for entry in parsed["tags"]:
 		if typeof(entry) == TYPE_STRING and is_valid_tag_name(entry) and not result.has(entry):
 			result.append(entry)
 	return result
 
-##	Writes the given tags to a .gts file (creates the folder if needed).
+
+## Writes the given tags to a .json file (creates the folder if needed).
 static func save_file(path: String, tags: PackedStringArray) -> Error:
 	var dir_error := DirAccess.make_dir_recursive_absolute(path.get_base_dir())
 	if dir_error != OK:
@@ -83,8 +98,9 @@ static func save_file(path: String, tags: PackedStringArray) -> Error:
 	file.close()
 	return OK
 
-##	Returns every selectable tag across all .gts files, including the implicit
-##	parents of each tag (e.g. "A.B.C" also yields "A" and "A.B"). Sorted and cached.
+
+## Returns every selectable tag across all .json files, including the implicit
+## parents of each tag (e.g. "A.B.C" also yields "A" and "A.B"). Sorted and cached.
 static func get_all_tags() -> PackedStringArray:
 	if not _cache_valid:
 		var explicit := PackedStringArray()

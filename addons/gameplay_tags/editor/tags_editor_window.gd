@@ -1,15 +1,14 @@
 @tool
 extends Window
-#	"Edit game tags" window (Project > Tools).
-#	Shows the tag hierarchy of one .gts file and lets the user add, remove,
-#	refresh and save tags.
+## "Edit game tags" window (Project > Tools).
+## Shows the tag hierarchy of one .json file and lets the user add, remove,
+## refresh and save tags.
 
-#region Constants
-const Registry := preload("res://addons/gameplay_tags/game_play_tags_registry.gd")
+const Registry := preload("res://addons/gameplay_tags/classes/game_play_tags_registry.gd")
 const TreeBuilder := preload("res://addons/gameplay_tags/editor/tag_tree_builder.gd")
 
 const WINDOW_TITLE := "Edit game tags"
-const DEFAULT_FILE_NAME := "game_tags.gts"
+const DEFAULT_FILE_NAME := "game_tags.json"
 const ERROR_COLOR := Color(1.0, 0.45, 0.45)
 #endregion
 
@@ -51,7 +50,7 @@ func open_editor() -> void:
 	else:
 		popup_centered(Vector2i(720, 620))
 
-#	Re-scans the .gts folder and reloads the selected file from disk.
+## Re-scans the .json folder and reloads the selected file from disk.
 func reload() -> void:
 	Registry.reload()
 	_refresh_file_list()
@@ -260,7 +259,21 @@ func _on_save_pressed() -> void:
 		return
 	_set_dirty(false)
 	Registry.reload()
-	# Make the new file visible in the FileSystem dock and refresh the file list.
+
+	var status := "Saved %d tag(s) to %s." % [_tags.size(), _current_file.get_file()]
+	var has_error := false
+
+	# Regenerate the GameTags constants (covers the tags of every .json file).
+	var generated_path := Registry.get_generated_file_path()
+	if not generated_path.is_empty():
+		var generate_error := Generator.write_file(generated_path, Registry.get_all_tags())
+		if generate_error == OK:
+			status += " Updated %s." % generated_path.get_file()
+		else:
+			status += " Could not write '%s' (error %d)." % [generated_path, generate_error]
+			has_error = true
+
+	# Make new files visible in the FileSystem dock and refresh the file list.
 	EditorInterface.get_resource_filesystem().scan()
 	_refresh_file_list()
 	_set_status("Saved %d tag(s) to %s." % [_tags.size(), _current_file.get_file()])

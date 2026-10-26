@@ -4,7 +4,7 @@ extends EditorPlugin
 #	Registers the project setting, the "Edit game tags" tool menu entry
 #	and the inspector plugin used to pick tags on GamePlayTagsContainer properties.
 
-const Registry := preload("res://addons/gameplay_tags/game_play_tags_registry.gd")
+const Registry := preload("res://addons/gameplay_tags/classes/game_play_tags_registry.gd")
 const InspectorPlugin := preload("res://addons/gameplay_tags/editor/tags_inspector_plugin.gd")
 const EditorWindow := preload("res://addons/gameplay_tags/editor/tags_editor_window.gd")
 

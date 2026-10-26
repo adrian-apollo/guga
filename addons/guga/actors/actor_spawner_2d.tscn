@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://cne6tvl5hsp1e"]
 
-[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Derived/class_component_base.gd" id="1_5fd5j"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="1_5fd5j"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="2_cxfu2"]
-[ext_resource type="Script" uid="uid://dkd5jkxikkefm" path="res://addons/guga/classes/Components/Derived/c_spawner.gd" id="2_iuumc"]
+[ext_resource type="Script" uid="uid://dkd5jkxikkefm" path="res://addons/guga/classes/Components/Builtin/c_spawner.gd" id="2_iuumc"]
 
 [sub_resource type="GDScript" id="GDScript_jfv0x"]
 script/source = "extends ComponentsSetup
