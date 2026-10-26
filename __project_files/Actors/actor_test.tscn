@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bi44n2m8ympog"]
+
+[ext_resource type="Script" uid="uid://7pe37i7rpdfj" path="res://addons/enhanced_input/examples/example_player.gd" id="1_qe2jw"]
+[ext_resource type="Texture2D" uid="uid://dyl7iwf6vb0gm" path="res://__project_files/Assets/Sprites/Untitled6_20261014001338.png" id="2_n30o4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g7b7a"]
+
+[node name="ActorTest" type="CharacterBody2D" unique_id=1662572430]
+script = ExtResource("1_qe2jw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=605631405]
+texture = ExtResource("2_n30o4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2049598489]
+shape = SubResource("CircleShape2D_g7b7a")

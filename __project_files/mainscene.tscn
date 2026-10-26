@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bdrydfb6si7ff"]
+
+[ext_resource type="Script" uid="uid://bk4btha1bcq4n" path="res://addons/guga/classes/class_mainscene.gd" id="1_ibo02"]
+
+[node name="mainscene" type="ColorRect" unique_id=1718390492]
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_ibo02")
+start_level = "uid://hjlfhu74dkbq"
+metadata/_custom_type_script = "uid://bk4btha1bcq4n"
+metadata/_edit_vertical_guides_ = [-39.0]

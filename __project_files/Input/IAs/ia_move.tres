@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://cp5hfkp8x6vbm"]
+
+[ext_resource type="Script" uid="uid://df4jer7jfsnrv" path="res://addons/enhanced_input/modifiers/class_input_modifier.gd" id="1_c8pak"]
+[ext_resource type="Script" uid="uid://copb44yx4okbt" path="res://addons/enhanced_input/modifiers/input_modifier_negate.gd" id="2_4d2qg"]
+[ext_resource type="Script" uid="uid://c75ml1wocfm58" path="res://addons/enhanced_input/classes/input_action.gd" id="2_besjo"]
+[ext_resource type="Script" uid="uid://cn53181pdbc8o" path="res://addons/enhanced_input/triggers/class_input_trigger.gd" id="3_4d2qg"]
+
+[sub_resource type="Resource" id="Resource_qv363"]
+script = ExtResource("2_4d2qg")
+metadata/_custom_type_script = "uid://copb44yx4okbt"
+
+[resource]
+script = ExtResource("2_besjo")
+value_type = 1
+modifiers = Array[ExtResource("1_c8pak")]([SubResource("Resource_qv363")])
+metadata/_custom_type_script = "uid://c75ml1wocfm58"

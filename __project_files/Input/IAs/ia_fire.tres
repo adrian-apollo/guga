@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="InputAction" format=3 uid="uid://bopfcuh7xso2e"]
+
+[ext_resource type="Script" uid="uid://df4jer7jfsnrv" path="res://addons/enhanced_input/modifiers/class_input_modifier.gd" id="1_hcbg6"]
+[ext_resource type="Script" uid="uid://c75ml1wocfm58" path="res://addons/enhanced_input/classes/input_action.gd" id="3_adycn"]
+[ext_resource type="Script" uid="uid://cn53181pdbc8o" path="res://addons/enhanced_input/triggers/class_input_trigger.gd" id="4_0ybh6"]
+
+[resource]
+script = ExtResource("3_adycn")
+metadata/_custom_type_script = "uid://c75ml1wocfm58"

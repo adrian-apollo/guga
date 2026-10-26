@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://bn81e17yxdwdx"]
+
+[ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/ai_tree/classes/class_aitree_base.gd" id="1_r8ifx"]
+[ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/ai_tree/classes/class_aitree_state.gd" id="2_jv0dp"]
+[ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/ai_tree/classes/class_aitree_task_base.gd" id="3_8skki"]
+[ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://addons/ai_tree/Builtin/Tasks/task_console_print.gd" id="4_gi0xk"]
+[ext_resource type="Script" uid="uid://v6nqt1gjnvxi" path="res://addons/ai_tree/classes/class_aitree_transition_base.gd" id="5_yodal"]
+[ext_resource type="Script" uid="uid://dwouxwiyqhkmp" path="res://addons/ai_tree/classes/class_aitree_condition_base.gd" id="6_2wsc8"]
+
+[sub_resource type="Resource" id="Resource_e1rfy"]
+script = ExtResource("4_gi0xk")
+text = "root task"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_8skki"]
+script = ExtResource("4_gi0xk")
+text = "combat mode"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_yodal"]
+script = ExtResource("5_yodal")
+go_to_state = NodePath("../patrol")
+metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
+
+[sub_resource type="Resource" id="Resource_gi0xk"]
+script = ExtResource("4_gi0xk")
+text = "hiding"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_iiaks"]
+script = ExtResource("4_gi0xk")
+text = "attack"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_o6dpp"]
+script = ExtResource("4_gi0xk")
+text = "retreat"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_1fja8"]
+script = ExtResource("5_yodal")
+go_to_state = NodePath("../../patrol")
+metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
+
+[sub_resource type="Resource" id="Resource_bxldf"]
+script = ExtResource("4_gi0xk")
+text = "patrol 1"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_40ox1"]
+script = ExtResource("4_gi0xk")
+text = "patrol 2"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_qskqn"]
+script = ExtResource("4_gi0xk")
+text = "patrol 3"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_l5rfa"]
+script = ExtResource("4_gi0xk")
+text = "patrol 4"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[node name="AIT_npc" type="Node" unique_id=568051682 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("1_r8ifx")
+initial_state = NodePath("root")
+
+[node name="root" type="Node" parent="." unique_id=256823799]
+script = ExtResource("2_jv0dp")
+enter_behavior = 2
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_e1rfy")])
+
+[node name="combat" type="Node" parent="root" unique_id=418924197]
+script = ExtResource("2_jv0dp")
+enter_behavior = 1
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_8skki")])
+transitions = Array[ExtResource("5_yodal")]([SubResource("Resource_yodal")])
+
+[node name="cover" type="Node" parent="root/combat" unique_id=1992359698]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_gi0xk")])
+
+[node name="attack" type="Node" parent="root/combat" unique_id=209156259]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_iiaks")])
+
+[node name="retreat" type="Node" parent="root/combat" unique_id=134281756]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_o6dpp")])
+transitions = Array[ExtResource("5_yodal")]([SubResource("Resource_1fja8")])
+
+[node name="patrol" type="Node" parent="root" unique_id=1676402485]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_bxldf")])
+
+[node name="patrol2" type="Node" parent="root" unique_id=6444341]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_40ox1")])
+
+[node name="patrol3" type="Node" parent="root" unique_id=795579265]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_qskqn")])
+
+[node name="patrol4" type="Node" parent="root" unique_id=122477648]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_l5rfa")])

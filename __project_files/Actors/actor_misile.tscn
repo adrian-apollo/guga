@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://rrpne5rq22ns"]
+
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="1_7ektk"]
+[ext_resource type="Script" uid="uid://bhlc3gajsnj5m" path="res://__project_files/Components/c_linear_movement.gd" id="2_30a47"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="2_tn6ep"]
+[ext_resource type="Script" uid="uid://dbflcnscykq8u" path="res://__project_files/Components/c_area_detector.gd" id="3_30a47"]
+
+[sub_resource type="GDScript" id="GDScript_3msbq"]
+script/source = "extends ComponentsSetup
+"
+
+[sub_resource type="Resource" id="Resource_tn6ep"]
+resource_local_to_scene = true
+script = ExtResource("2_30a47")
+speed = Vector2(0, -500)
+tick_source = 2
+metadata/_custom_type_script = "uid://bhlc3gajsnj5m"
+
+[sub_resource type="Resource" id="Resource_30a47"]
+resource_local_to_scene = true
+script = ExtResource("3_30a47")
+metadata/_custom_type_script = "uid://dbflcnscykq8u"
+
+[sub_resource type="Resource" id="Resource_k1nw6"]
+resource_local_to_scene = true
+script = ExtResource("2_tn6ep")
+components = Array[ExtResource("1_7ektk")]([SubResource("Resource_tn6ep"), SubResource("Resource_30a47")])
+metadata/_custom_type_script = "uid://bjs6owgj3feat"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k1nw6"]
+size = Vector2(2.0126877, 5.0007)
+
+[node name="ActorMisile" type="Area2D" unique_id=2028937205]
+input_pickable = false
+script = SubResource("GDScript_3msbq")
+component_stack = SubResource("Resource_k1nw6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=582083827]
+position = Vector2(0.0034689903, -2.5043812)
+shape = SubResource("RectangleShape2D_k1nw6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1795975735]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -0.99988365
+offset_top = -5.205274
+offset_right = 1.0001163
+offset_bottom = -0.2052741
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

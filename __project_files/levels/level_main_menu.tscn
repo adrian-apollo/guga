@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://hjlfhu74dkbq"]
+
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_enscl"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="2_7hjrw"]
+[ext_resource type="Script" uid="uid://dh6l501e3nvsw" path="res://__project_files/Components/c_playbutton.gd" id="3_8ofg8"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_enscl"]
+[ext_resource type="Texture2D" uid="uid://buod2w0qvkn27" path="res://__project_files/Assets/Sprites/Background.png" id="5_ywl8g"]
+[ext_resource type="Texture2D" uid="uid://dwb28gg75h1vy" path="res://__project_files/Assets/Sprites/main menu bigbanner_20261022181548.png" id="6_wnqra"]
+
+[sub_resource type="Resource" id="Resource_6a0eu"]
+resource_local_to_scene = true
+script = ExtResource("3_8ofg8")
+button_path = NodePath("btn_play")
+next_level_path = "uid://col6w80jxays7"
+metadata/_custom_type_script = "uid://dh6l501e3nvsw"
+
+[sub_resource type="Resource" id="Resource_e46wd"]
+resource_local_to_scene = true
+script = ExtResource("3_enscl")
+components = Array[ExtResource("2_7hjrw")]([SubResource("Resource_6a0eu")])
+metadata/_custom_type_script = "uid://bjs6owgj3feat"
+
+[node name="level_mainmenu" type="Node" unique_id=204834252]
+script = ExtResource("1_enscl")
+components = SubResource("Resource_e46wd")
+metadata/_custom_type_script = "uid://dx7ipnqchnxei"
+
+[node name="TextureButton" type="TextureRect" parent="." unique_id=1229919261]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("5_ywl8g")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="TextureButton2" type="TextureRect" parent="." unique_id=1887053920]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -259.0
+offset_top = -83.0
+offset_right = 263.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("6_wnqra")
+stretch_mode = 4
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="btn_play" type="Button" parent="." unique_id=762358774]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 147.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1.973361e-06, 0.8454188, 0.34236318, 1)
+action_mode = 0
+text = "TAP TO PLAY"
+flat = true

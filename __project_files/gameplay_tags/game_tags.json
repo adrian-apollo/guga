@@ -1,0 +1,10 @@
+{
+	"tags": [
+		"entity",
+		"entity.machine",
+		"entity.machine.spaceship",
+		"entity.machine.spaceship.alien",
+		"entity.machine.spaceship.human"
+	],
+	"version": 1
+}

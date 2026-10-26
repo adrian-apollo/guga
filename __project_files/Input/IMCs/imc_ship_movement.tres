@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="InputMappingContext" format=3 uid="uid://dnd7jv68fdwpf"]
+
+[ext_resource type="Script" uid="uid://b64u8i2dxlpw4" path="res://addons/enhanced_input/classes/input_mapping.gd" id="1_7fm2l"]
+[ext_resource type="Resource" uid="uid://bopfcuh7xso2e" path="res://__project_files/Input/IAs/ia_fire.tres" id="2_r1a4e"]
+[ext_resource type="Script" uid="uid://df4jer7jfsnrv" path="res://addons/enhanced_input/modifiers/class_input_modifier.gd" id="3_03k4i"]
+[ext_resource type="Script" uid="uid://c2qxe5web1b7u" path="res://addons/enhanced_input/classes/input_mapping_context.gd" id="4_adi76"]
+[ext_resource type="Script" uid="uid://cn53181pdbc8o" path="res://addons/enhanced_input/triggers/class_input_trigger.gd" id="4_iyo2e"]
+[ext_resource type="Resource" uid="uid://cp5hfkp8x6vbm" path="res://__project_files/Input/IAs/ia_move.tres" id="5_03k4i"]
+[ext_resource type="Script" uid="uid://copb44yx4okbt" path="res://addons/enhanced_input/modifiers/input_modifier_negate.gd" id="6_adi76"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_hwut5"]
+device = -1
+keycode = 32
+physical_keycode = 32
+unicode = 32
+
+[sub_resource type="Resource" id="Resource_04xe7"]
+script = ExtResource("1_7fm2l")
+mapping_name = &"fire"
+action = ExtResource("2_r1a4e")
+event = SubResource("InputEventKey_hwut5")
+metadata/_custom_type_script = "uid://b64u8i2dxlpw4"
+
+[sub_resource type="InputEventKey" id="InputEventKey_adi76"]
+device = -1
+keycode = 4194319
+
+[sub_resource type="Resource" id="Resource_iyo2e"]
+script = ExtResource("1_7fm2l")
+mapping_name = &"movel"
+action = ExtResource("5_03k4i")
+event = SubResource("InputEventKey_adi76")
+metadata/_custom_type_script = "uid://b64u8i2dxlpw4"
+
+[sub_resource type="InputEventKey" id="InputEventKey_iyo2e"]
+device = -1
+keycode = 4194321
+
+[sub_resource type="Resource" id="Resource_hwut5"]
+script = ExtResource("6_adi76")
+metadata/_custom_type_script = "uid://copb44yx4okbt"
+
+[sub_resource type="Resource" id="Resource_03k4i"]
+script = ExtResource("1_7fm2l")
+mapping_name = &"mover"
+action = ExtResource("5_03k4i")
+event = SubResource("InputEventKey_iyo2e")
+modifiers = Array[ExtResource("3_03k4i")]([SubResource("Resource_hwut5")])
+metadata/_custom_type_script = "uid://b64u8i2dxlpw4"
+
+[resource]
+script = ExtResource("4_adi76")
+mappings = Array[ExtResource("1_7fm2l")]([SubResource("Resource_04xe7"), SubResource("Resource_iyo2e"), SubResource("Resource_03k4i")])
+metadata/_custom_type_script = "uid://c2qxe5web1b7u"
