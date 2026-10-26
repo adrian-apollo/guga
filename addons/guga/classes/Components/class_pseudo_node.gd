@@ -38,6 +38,8 @@ func _start_tick():
 			tree.connect_callable_to_timer(event_tick, tick_rate)
 
 func _stop_tick():
+	if !tree:
+		tree = Engine.get_main_loop()
 	if tree.physics_frame.is_connected( event_tick ):
 		tree.physics_frame.disconnect( event_tick )
 		return

@@ -2,9 +2,9 @@
 extends EditorProperty
 #	Inspector control for GamePlayTagsContainer.tags.
 #	Shows an "Edit tags" button plus the list of current tags below it.
-#	The button opens a checkbox tree with every tag defined in the project's .gts files.
+#	The button opens a checkbox tree with every tag defined in the project's .json files.
 
-const Registry := preload("res://addons/gameplay_tags/game_play_tags_registry.gd")
+const Registry := preload("res://addons/gameplay_tags/classes/game_play_tags_registry.gd")
 const TreeBuilder := preload("res://addons/gameplay_tags/editor/tag_tree_builder.gd")
 
 var _button: Button
@@ -110,7 +110,7 @@ func _rebuild_tree() -> void:
 	if known.is_empty():
 		_hint.text = "No tags defined yet. Use Project > Tools > Edit game tags."
 	elif not missing.is_empty():
-		_hint.text = "Tags in red are not defined in any .gts file."
+		_hint.text = "Tags in red are not defined in any .json file."
 	else:
 		_hint.text = ""
 

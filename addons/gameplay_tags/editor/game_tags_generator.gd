@@ -8,7 +8,7 @@ extends RefCounted
 ## - A tag without children becomes a String constant.
 ## - A tag with children becomes a nested class that exposes its own name as TAG.
 
-const Registry := preload("res://addons/gameplay_tags/game_play_tags_registry.gd")
+const Registry := preload("res://addons/gameplay_tags/classes/game_play_tags_registry.gd")
 
 const CLASS_NAME := "GameTags"
 const SELF_NAME_CONSTANT := "TAG"

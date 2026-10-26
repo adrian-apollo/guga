@@ -1,3 +1,4 @@
+@tool
 extends Resource
 class_name ComponentStack
 
@@ -6,7 +7,9 @@ var tree:GugaTree
 var owner:Node
 
 func _init():
-	tree = Engine.get_main_loop()
+	if !Engine.is_editor_hint():
+		tree = Engine.get_main_loop()
+	set( &"resource_local_to_scene", true)
 
 func _setup_local_to_scene():
 	owner = get_local_scene()
@@ -14,13 +17,15 @@ func _setup_local_to_scene():
 		owner.ready.connect(_setup, 4)
 
 func _setup():
+	if Engine.is_editor_hint():
+		return
 	tree.s_component_listed.connect( _add_component)
 	tree.s_component_unlisted.connect( _remove_component)
 	tree.s_actor_unlisted.connect( _owner_destroyed)
 	for c in components:
 		tree.list_component( owner, c )
 
-func _remove_component(actor:Node, component:ComponentBase):
+func _remove_component( actor:Node, component:ComponentBase ):
 	if actor!=owner:
 		return
 	if !components.has(component):

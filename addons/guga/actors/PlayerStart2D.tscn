@@ -3,9 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://ce0xq722gm5fj" path="res://icon.svg" id="1_agcrc"]
 [ext_resource type="Script" uid="uid://dkybtla476xbg" path="res://addons/guga/actors/player_start.gd" id="1_p3etc"]
 
-[node name="PlayerStart" type="Node2D" unique_id=875178709 node_paths=PackedStringArray("label")]
+[node name="PlayerStart_0" type="Node2D" unique_id=875178709 node_paths=PackedStringArray("sprite")]
 script = ExtResource("1_p3etc")
-label = NodePath("Control/Label")
+sprite_scale = null
+sprite = NodePath("Control/Sprite2D")
 metadata/_edit_vertical_guides_ = [-179.0]
 
 [node name="Control" type="Control" parent="." unique_id=119990068]
@@ -21,10 +22,11 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=1800523478]
 position = Vector2(20, 20)
-scale = Vector2(0.54296875, 0.5527344)
 texture = ExtResource("1_agcrc")
 metadata/_edit_lock_ = true
 
@@ -41,5 +43,6 @@ offset_right = 46.0
 offset_bottom = 61.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "PlayerStart"
+text = "PlayerStart_0"
 metadata/_edit_lock_ = true
+metadata/_edit_group_ = true

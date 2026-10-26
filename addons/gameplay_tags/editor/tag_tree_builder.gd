@@ -3,7 +3,7 @@ extends RefCounted
 #	Helper that fills a Tree control with the tag hierarchy.
 #	Shared by the "Edit game tags" window and the inspector tag picker.
 
-const Registry := preload("res://addons/gameplay_tags/game_play_tags_registry.gd")
+const Registry := preload("res://addons/gameplay_tags/classes/game_play_tags_registry.gd")
 
 const MISSING_COLOR := Color(1.0, 0.45, 0.45)
 
@@ -57,6 +57,6 @@ static func _ensure_item(
 		item.set_checked(0, selected.has(path))
 	if missing.has(path):
 		item.set_custom_color(0, MISSING_COLOR)
-		item.set_tooltip_text(0, "This tag is not defined in any .gts file.")
+		item.set_tooltip_text(0, "This tag is not defined in any .json file.")
 	items[path] = item
 	return item

@@ -1,15 +1,15 @@
 @tool
 extends Window
 ## "Edit game tags" window (Project > Tools).
-## Shows the tag hierarchy of one .gts file and lets the user add, remove,
+## Shows the tag hierarchy of one .json file and lets the user add, remove,
 ## refresh and save tags.
 
-const Registry := preload("res://addons/gameplay_tags/game_play_tags_registry.gd")
+const Registry := preload("res://addons/gameplay_tags/classes/game_play_tags_registry.gd")
 const TreeBuilder := preload("res://addons/gameplay_tags/editor/tag_tree_builder.gd")
 const Generator := preload("res://addons/gameplay_tags/editor/game_tags_generator.gd")
 
 const WINDOW_TITLE := "Edit game tags"
-const DEFAULT_FILE_NAME := "game_tags.gts"
+const DEFAULT_FILE_NAME := "game_tags.json"
 const ERROR_COLOR := Color(1.0, 0.45, 0.45)
 
 # Explicit tags of the file being edited (tag path -> true).
@@ -48,7 +48,7 @@ func open_editor() -> void:
 	else:
 		popup_centered(Vector2i(720, 620))
 
-## Re-scans the .gts folder and reloads the selected file from disk.
+## Re-scans the .json folder and reloads the selected file from disk.
 func reload() -> void:
 	Registry.reload()
 	_refresh_file_list()
@@ -267,7 +267,7 @@ func _on_save_pressed() -> void:
 	var status := "Saved %d tag(s) to %s." % [_tags.size(), _current_file.get_file()]
 	var has_error := false
 
-	# Regenerate the GameTags constants (covers the tags of every .gts file).
+	# Regenerate the GameTags constants (covers the tags of every .json file).
 	var generated_path := Registry.get_generated_file_path()
 	if not generated_path.is_empty():
 		var generate_error := Generator.write_file(generated_path, Registry.get_all_tags())
