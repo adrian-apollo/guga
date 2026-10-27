@@ -13,6 +13,14 @@ extends Control
 	"game_menus",
 	"debug"
 	]
+
+enum LAYERPOSITION{
+	TOP,
+	BOTTOM,
+	MIDDLE
+}
+
+
 	
 func _ready():
 	for l in layer_names.size():
@@ -29,9 +37,12 @@ func add_widget_to_layer( widget:UIWidgetBase, layer_name:StringName ) -> bool:
 		return false
 	if !find_child( layer_name ):
 		return false
-
-	find_child( layer_name ).add_child( widget )
+	
+	var layer:CanvasLayer = find_child( layer_name )
+	layer.add_child( widget )
+	
 	widget.owner = find_child( layer_name )
+	
 	return true
 
 func move_widget_to_layer( widget:UIWidgetBase, layer_name:StringName ):
