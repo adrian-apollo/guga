@@ -26,7 +26,8 @@ func evualte_conditons( aitree:AITreeBase ):
 		if !c.evaulate( aitree, aitree.current_state ):
 			break
 			return
-
+	if go_to_state == NodePath("."):
+		aitree.change_to_state( aitree.current_state )
 	var next_state:AIState = tree.get_node_from_nodepath( aitree, go_to_state )
 	if next_state:
 		aitree.change_to_state( next_state )

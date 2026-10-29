@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SFXPack" format=3 uid="uid://dm0enupojmc1l"]
+
+[ext_resource type="Script" uid="uid://dg5qkde21w1le" path="res://addons/guga/classes/Sound/class_sfxpack.gd" id="1_dgyk5"]
+[ext_resource type="AudioStream" uid="uid://c0qvx8ra4btf1" path="res://__project_files/Assets/SFX/sfx_ship_shot.wav" id="2_2cwom"]
+
+[resource]
+script = ExtResource("1_dgyk5")
+tracks = Array[AudioStreamWAV]([ExtResource("2_2cwom")])
+metadata/_custom_type_script = "uid://dg5qkde21w1le"

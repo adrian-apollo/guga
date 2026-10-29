@@ -1,19 +1,48 @@
 [gd_scene format=3 uid="uid://bn81e17yxdwdx"]
 
 [ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/ai_tree/classes/class_aitree_base.gd" id="1_r8ifx"]
+[ext_resource type="Script" uid="uid://dpqpvnacgt3ev" path="res://addons/ai_tree/classes/class_aitree_watcher_base.gd" id="2_gi0xk"]
 [ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/ai_tree/classes/class_aitree_state.gd" id="2_jv0dp"]
-[ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/ai_tree/classes/class_aitree_task_base.gd" id="3_8skki"]
-[ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://addons/ai_tree/Builtin/Tasks/task_console_print.gd" id="4_gi0xk"]
+[ext_resource type="Script" uid="uid://wphq1ai02mck" path="res://__project_files/AI/Wactchers/aiw_get_player.gd" id="3_yodal"]
+[ext_resource type="Script" uid="uid://re1rm1k0hcp7" path="res://__project_files/Components/c_alien.gd" id="4_iiaks"]
+[ext_resource type="Script" uid="uid://h8lkuajn7s2v" path="res://addons/ai_tree/Builtin/Watchers/watcher_get_actor_component_property.gd" id="5_bxldf"]
+[ext_resource type="Script" uid="uid://dwouxwiyqhkmp" path="res://addons/ai_tree/classes/class_aitree_condition_base.gd" id="5_yodal"]
+[ext_resource type="Script" uid="uid://dr3fw01ofsx4u" path="res://addons/ai_tree/Builtin/Condition/aic_value_compare.gd" id="8_vp7c4"]
 
-[sub_resource type="Resource" id="Resource_e1rfy"]
-script = ExtResource("4_gi0xk")
-text = "root task"
-metadata/_custom_type_script = "uid://dqlflbt72raq2"
+[sub_resource type="Resource" id="Resource_gi0xk"]
+script = ExtResource("3_yodal")
+metadata/_custom_type_script = "uid://wphq1ai02mck"
+
+[sub_resource type="Resource" id="Resource_acgov"]
+script = ExtResource("4_iiaks")
+metadata/_custom_type_script = "uid://re1rm1k0hcp7"
+
+[sub_resource type="Resource" id="Resource_312h8"]
+script = ExtResource("5_bxldf")
+actor_property_name = &"can_attack"
+component_reference = SubResource("Resource_acgov")
+metadata/_custom_type_script = "uid://h8lkuajn7s2v"
+
+[sub_resource type="Resource" id="Resource_bxldf"]
+script = ExtResource("8_vp7c4")
+_is = 4
+metadata/_custom_type_script = "uid://dr3fw01ofsx4u"
 
 [node name="AIT_npc" type="Node" unique_id=568051682 node_paths=PackedStringArray("initial_state")]
+physics_interpolation_mode = 1
 script = ExtResource("1_r8ifx")
+watchers = Array[ExtResource("2_gi0xk")]([SubResource("Resource_gi0xk"), SubResource("Resource_312h8")])
 initial_state = NodePath("root")
 
 [node name="root" type="Node" parent="." unique_id=256823799]
 script = ExtResource("2_jv0dp")
-tasks = Array[ExtResource("3_8skki")]([SubResource("Resource_e1rfy")])
+enter_behavior = 1
+
+[node name="attack" type="Node" parent="root" unique_id=1196051462]
+script = ExtResource("2_jv0dp")
+condition = Array[ExtResource("5_yodal")]([SubResource("Resource_bxldf")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="move" type="Node" parent="root" unique_id=428531511]
+script = ExtResource("2_jv0dp")
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

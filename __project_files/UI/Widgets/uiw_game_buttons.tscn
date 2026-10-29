@@ -14,6 +14,20 @@ func pause():
 	tree.get_gamemode().uis[ 0 ].add_widget_to_layer( load(\"uid://dhhdwjae0gdb\").instantiate(), \"game_menus\")
 "
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e70bt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 1
+anti_aliasing = false
+anti_aliasing_size = 0.98
+
 [node name="uiw_game_buttons" type="Control" unique_id=67918212 node_paths=PackedStringArray("button")]
 layout_mode = 3
 anchors_preset = 15
@@ -25,6 +39,8 @@ mouse_filter = 2
 script = SubResource("GDScript_xmk2t")
 button = NodePath("Button")
 metadata/_custom_type_script = "uid://g1xqgd4esugs"
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Button" type="Button" parent="." unique_id=1405606507]
 layout_mode = 1
@@ -37,4 +53,7 @@ offset_right = -15.0
 offset_bottom = 33.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_e70bt")
 text = "PAUSE"
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true

@@ -84,6 +84,8 @@ func connect_callable_to_timer(callable:Callable, tickrate:float):
 	if !available_timers.has(tickrate):
 		_new_timer( tickrate )
 	
+	if ( available_timers.get(tickrate) as Timer ).is_connected( &"timeout", callable ):
+		return
 	( available_timers.get(tickrate) as Timer ).connect(&"timeout", callable)
 
 func disconnect_callable_from_timer( callable:Callable, tickrate:float ):

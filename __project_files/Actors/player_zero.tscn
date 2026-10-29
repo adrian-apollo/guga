@@ -20,6 +20,7 @@ speed = 500.0
 imc = ExtResource("2_ln5o0")
 ia_fire = ExtResource("2_04xe7")
 ia_move = ExtResource("3_7fxn7")
+tick_source = 2
 metadata/_custom_type_script = "uid://c70j0m8xyjb8i"
 
 [sub_resource type="Resource" id="Resource_6xvse"]

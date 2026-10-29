@@ -5,3 +5,6 @@
 *.png binary
 *.psd binary
 *.kra binary
+*.ogg binary
+*.wav binary
+*.flp binary

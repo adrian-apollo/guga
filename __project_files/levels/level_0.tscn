@@ -3,17 +3,17 @@
 [ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_hf2ay"]
 [ext_resource type="Script" uid="uid://dg86uhcgq1qmf" path="res://addons/guga/classes/class_player_controller.gd" id="2_2hpmw"]
 [ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="2_4vi21"]
-[ext_resource type="PackedScene" uid="uid://c22uu58tig3i6" path="res://__project_files/Actors/player_zero.tscn" id="2_xgysc"]
 [ext_resource type="PackedScene" uid="uid://bjui8nq1l4vu3" path="res://__project_files/Actors/actor_alien.tscn" id="2_xmk2t"]
 [ext_resource type="Script" uid="uid://bvvesnmxeu5fr" path="res://addons/guga/classes/Components/Builtin/class_gamemode.gd" id="3_2hpmw"]
 [ext_resource type="Script" uid="uid://b6dkr6ui4crva" path="res://__project_files/Components/c_level_0_ui.gd" id="3_312h8"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_xmk2t"]
 [ext_resource type="PackedScene" uid="uid://s26qvyaym0hc" path="res://__project_files/UI/ui_game.tscn" id="5_e1rfy"]
 [ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="7_66b66"]
-[ext_resource type="Texture2D" uid="uid://buod2w0qvkn27" path="res://__project_files/Assets/Sprites/Background.png" id="9_acgov"]
+[ext_resource type="PackedScene" uid="uid://buwjdcyei7dne" path="res://__project_files/Actors/actor_background.tscn" id="9_f0jnn"]
+[ext_resource type="Script" uid="uid://re1rm1k0hcp7" path="res://__project_files/Components/c_alien.gd" id="11_j2qpl"]
 [ext_resource type="Script" uid="uid://doqmwaglqmwy0" path="res://addons/gameplay_tags/classes/game_play_tags_container.gd" id="12_f0jnn"]
 [ext_resource type="Script" uid="uid://inugwkbdopsm" path="res://addons/guga/classes/Components/Builtin/class_ctags.gd" id="13_nrloe"]
-[ext_resource type="Script" uid="uid://clm7uxqvv4n01" path="res://addons/guga/classes/Components/Builtin/class_c_aitree_base.gd" id="14_k0maq"]
+[ext_resource type="Script" uid="uid://clm7uxqvv4n01" path="res://addons/guga/classes/Components/Builtin/class_c_aitree.gd" id="14_k0maq"]
 
 [sub_resource type="Resource" id="Resource_cu6i8"]
 script = ExtResource("3_312h8")
@@ -31,14 +31,20 @@ metadata/_custom_type_script = "uid://dg86uhcgq1qmf"
 
 [sub_resource type="Resource" id="Resource_xgysc"]
 script = ExtResource("3_2hpmw")
-players_scenes = Array[PackedScene]([ExtResource("2_xgysc")])
+players_scenes = Array[String](["uid://c22uu58tig3i6"])
 controller_class = SubResource("Resource_lsg44")
 ui_scene = ExtResource("5_e1rfy")
 metadata/_custom_type_script = "uid://bvvesnmxeu5fr"
 
+[sub_resource type="Resource" id="Resource_eimxt"]
+resource_local_to_scene = true
+script = ExtResource("11_j2qpl")
+tick_source = 2
+metadata/_custom_type_script = "uid://re1rm1k0hcp7"
+
 [sub_resource type="Resource" id="Resource_ov73r"]
 script = ExtResource("12_f0jnn")
-tags = PackedStringArray("entity.machine.spaceship.alien")
+tags = PackedStringArray("entity", "entity.machine", "entity.machine.spaceship", "entity.machine.spaceship.alien")
 metadata/_custom_type_script = "uid://doqmwaglqmwy0"
 
 [sub_resource type="Resource" id="Resource_47nop"]
@@ -47,15 +53,16 @@ script = ExtResource("13_nrloe")
 gameplaytags = SubResource("Resource_ov73r")
 metadata/_custom_type_script = "uid://inugwkbdopsm"
 
-[sub_resource type="Resource" id="Resource_mc3oc"]
+[sub_resource type="Resource" id="Resource_kelij"]
+resource_local_to_scene = true
 script = ExtResource("14_k0maq")
 aI_tree_scene = "uid://bn81e17yxdwdx"
 metadata/_custom_type_script = "uid://clm7uxqvv4n01"
 
-[sub_resource type="Resource" id="Resource_j2qpl"]
+[sub_resource type="Resource" id="Resource_psv77"]
 resource_local_to_scene = true
 script = ExtResource("3_xmk2t")
-components = Array[ExtResource("2_4vi21")]([SubResource("Resource_47nop"), SubResource("Resource_mc3oc")])
+components = Array[ExtResource("2_4vi21")]([SubResource("Resource_eimxt"), SubResource("Resource_47nop"), SubResource("Resource_kelij")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [node name="Level0" type="Node" unique_id=83678710]
@@ -65,17 +72,7 @@ game_mode = SubResource("Resource_xgysc")
 metadata/_custom_type_script = "uid://dx7ipnqchnxei"
 metadata/_edit_vertical_guides_ = [17.0]
 
-[node name="TextureButton" type="TextureRect" parent="." unique_id=2142415830]
-texture_filter = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-texture = ExtResource("9_acgov")
+[node name="ActorBackground" parent="." unique_id=350346048 instance=ExtResource("9_f0jnn")]
 
 [node name="PlayerStart_0" parent="." unique_id=875178709 instance=ExtResource("7_66b66")]
 position = Vector2(324, 254)
@@ -83,4 +80,4 @@ sprite_scale = 0.2
 
 [node name="Alien" parent="." unique_id=1635967849 instance=ExtResource("2_xmk2t")]
 position = Vector2(321, 53)
-component_stack = SubResource("Resource_j2qpl")
+component_stack = SubResource("Resource_psv77")

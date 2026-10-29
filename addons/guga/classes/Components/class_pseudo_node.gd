@@ -21,8 +21,22 @@ func _init():
 	tree = Engine.get_main_loop()
 
 func _start():
-	_start_tick()
-	call_deferred(&"event_begin")
+	call_deferred( &"event_begin" )
+	call_deferred( &"_start_tick" )
+
+#region virtual methods
+##	called when the component is ready
+func event_begin():
+	pass
+
+##	called on every physics, process or custom tick update
+func event_tick():
+	pass
+	
+func event_destroy():
+	pass
+
+#endregion
 
 #region tick
 
@@ -33,7 +47,8 @@ func _start_tick():
 		TICK_SOURCE.PROCESS:
 			tree.process_frame.connect(event_tick)
 		TICK_SOURCE.PHYSICS:
-			tree.physics_frame.connect(event_tick)
+			if !tree.physics_frame.is_connected( event_tick ):
+				tree.physics_frame.connect(event_tick)
 		TICK_SOURCE.CUSTOM:
 			tree.connect_callable_to_timer(event_tick, tick_rate)
 
@@ -57,18 +72,6 @@ func _reset_tick( _ticksource:TICK_SOURCE, _tickrate:float ):
 
 #endregion
 
-#region virtual methods
-func event_begin():
-	pass
-
-func event_tick():
-	pass
-	
-func event_destroy():
-	pass
-
-#endregion
-
 #region the end
 #func _notification(what):
 	#if !is_instance_valid(self):
@@ -79,6 +82,6 @@ func event_destroy():
 func _destructor():
 	event_destroy()
 	_stop_tick()
-	owner.tree_exiting.disconnect(_stop_tick)
-	owner.tree_entered.disconnect(_start_tick)
+	owner.tree_exiting.disconnect( _stop_tick )
+	owner.tree_entered.disconnect( _start_tick )
 #endregion

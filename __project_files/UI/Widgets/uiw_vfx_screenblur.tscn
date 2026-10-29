@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://1x441e255mnh"]
+
+[ext_resource type="Script" uid="uid://g1xqgd4esugs" path="res://addons/guga/classes/UI/class_widget.gd" id="1_j80q4"]
+[ext_resource type="Shader" uid="uid://drgeqj3tro3bk" path="res://addons/guga/Shaders/2D/sh_blur.gdshader" id="2_1mqgr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mqgr"]
+shader = ExtResource("2_1mqgr")
+shader_parameter/blur_strength = 0.50000002375
+
+[node name="uiw_vfx_screen_blur" type="Control" unique_id=355206308]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_behavior_recursive = 1
+script = ExtResource("1_j80q4")
+metadata/_custom_type_script = "uid://g1xqgd4esugs"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=292038442]
+material = SubResource("ShaderMaterial_1mqgr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+mouse_behavior_recursive = 1

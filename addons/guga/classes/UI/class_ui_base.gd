@@ -11,6 +11,7 @@ extends Control
 	"gameplay_menus",
 	"effects2",
 	"game_menus",
+	"effects3",
 	"debug"
 	]
 

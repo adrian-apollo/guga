@@ -34,6 +34,7 @@ func _ready():
 			current_state = get_child( 0 )
 
 func _physics_process( delta: float ):
+	print( Engine.get_physics_frames() )
 	if !current_state:
 		return
 
@@ -56,6 +57,8 @@ func update_watchers():
 	if !current_state:
 		return
 	for w in watchers:
+		if !w:
+			return
 		w.event_update( self )
 
 func change_to_state( newstate:AIState, _result:RESULT = RESULT.SUCCEDED, _phase:PHASE = PHASE.EVALUATING ):
@@ -69,13 +72,12 @@ func change_to_state( newstate:AIState, _result:RESULT = RESULT.SUCCEDED, _phase
 	current_state = newstate
 
 ##	Run all conditions, if all return true then go to run tasks.
-func evaluate_conditions() -> bool:
+func evaluate_conditions():
 	for e in current_state.condition:
 		if !e.evaulate( self, current_state ):
 			phase = PHASE.TRANSITIONING
 			return false
 	phase = PHASE.EXECUTING
-	return true
 
 func run_tasks():
 	if result == RESULT.FAILED:

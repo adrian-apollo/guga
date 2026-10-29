@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://buwjdcyei7dne"]
+
+[ext_resource type="Texture2D" uid="uid://buod2w0qvkn27" path="res://__project_files/Assets/Sprites/Background.png" id="1_ar6h1"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="1_df0e3"]
+[ext_resource type="Script" uid="uid://d3gwnycdgbmng" path="res://__project_files/Components/c_background.gd" id="2_hc08n"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="2_mq407"]
+
+[sub_resource type="GDScript" id="GDScript_82g52"]
+script/source = "extends ComponentsSetup
+"
+
+[sub_resource type="Resource" id="Resource_df0e3"]
+resource_local_to_scene = true
+script = ExtResource("2_hc08n")
+bg_p1 = NodePath("normal")
+bg_p2 = NodePath("inverted")
+speed = 0.1
+tick_source = 2
+metadata/_custom_type_script = "uid://d3gwnycdgbmng"
+
+[sub_resource type="Resource" id="Resource_ar6h1"]
+resource_local_to_scene = true
+script = ExtResource("2_mq407")
+components = Array[ExtResource("1_df0e3")]([SubResource("Resource_df0e3")])
+metadata/_custom_type_script = "uid://bjs6owgj3feat"
+
+[node name="ActorBackground" type="Control" unique_id=350346048]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 2
+script = SubResource("GDScript_82g52")
+component_stack = SubResource("Resource_ar6h1")
+
+[node name="normal" type="TextureRect" parent="." unique_id=14559040]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_ar6h1")
+
+[node name="inverted" type="TextureRect" parent="." unique_id=422712136]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -294.0
+offset_bottom = -294.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_ar6h1")
+flip_h = true
+flip_v = true

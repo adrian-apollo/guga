@@ -1,7 +1,7 @@
 class_name GameModeBase
 extends PseudoNode
 
-@export var players_scenes:Array[ PackedScene ]
+@export var players_scenes:Array[ String ]
 @export var controller_class:PlayerController
 @export var ui_scene:PackedScene
 
@@ -56,7 +56,7 @@ func _spawn_players():
 		if !players_scenes[n]:
 			return
 
-		players[n] = players_scenes[n].instantiate()
+		players[n] = load( players_scenes[n] ).instantiate()
 		owner.add_child( players[n] )
 		players[n].owner = owner
 		players[n].name = "PLAYER_" + str(n)

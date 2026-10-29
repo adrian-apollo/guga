@@ -3,6 +3,34 @@
 [ext_resource type="Script" uid="uid://g1xqgd4esugs" path="res://addons/guga/classes/UI/class_widget.gd" id="1_miwrg"]
 [ext_resource type="Script" uid="uid://cdfq16ep8rbip" path="res://addons/guga/classes/better_joystick.gd" id="2_k6k1q"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vfla"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 0.6)
+corner_radius_top_left = 10000
+corner_radius_top_right = 10000
+corner_radius_bottom_right = 10000
+corner_radius_bottom_left = 10000
+corner_detail = 2
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6k1q"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
 [node name="uiw_touch_input" type="Control" unique_id=125842771]
 layout_mode = 3
 anchors_preset = 15
@@ -22,8 +50,11 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -186.0
-offset_right = 222.0
+offset_right = 152.0
 grow_vertical = 0
+theme_override_styles/normal_tip = SubResource("StyleBoxFlat_4vfla")
+theme_override_styles/pressed_tip = SubResource("StyleBoxFlat_4vfla")
+tip_size = 25.0
 script = ExtResource("2_k6k1q")
 metadata/_custom_type_script = "uid://cdfq16ep8rbip"
 
@@ -34,10 +65,22 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -202.0
-offset_top = -139.0
+offset_left = -131.0
+offset_top = -137.0
+offset_right = -31.0
+offset_bottom = -37.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxFlat_k6k1q")
+theme_override_styles/focus = SubResource("StyleBoxFlat_k6k1q")
 action_mode = 0
 text = "Fire"
-flat = true

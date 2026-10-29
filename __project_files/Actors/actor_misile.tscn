@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://bhlc3gajsnj5m" path="res://__project_files/Components/c_linear_movement.gd" id="2_30a47"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="2_tn6ep"]
 [ext_resource type="Script" uid="uid://dbflcnscykq8u" path="res://__project_files/Components/c_area_detector.gd" id="3_30a47"]
+[ext_resource type="Script" uid="uid://bqiy8aukwma7a" path="res://__project_files/Components/c_sfx_player.gd" id="4_3bstt"]
+[ext_resource type="Resource" uid="uid://dm0enupojmc1l" path="res://__project_files/Audio/sfx_missile.tres" id="5_hiilg"]
 
 [sub_resource type="GDScript" id="GDScript_3msbq"]
 script/source = "extends ComponentsSetup
@@ -21,10 +23,16 @@ resource_local_to_scene = true
 script = ExtResource("3_30a47")
 metadata/_custom_type_script = "uid://dbflcnscykq8u"
 
+[sub_resource type="Resource" id="Resource_04xe7"]
+resource_local_to_scene = true
+script = ExtResource("4_3bstt")
+sfx = ExtResource("5_hiilg")
+metadata/_custom_type_script = "uid://bqiy8aukwma7a"
+
 [sub_resource type="Resource" id="Resource_k1nw6"]
 resource_local_to_scene = true
 script = ExtResource("2_tn6ep")
-components = Array[ExtResource("1_7ektk")]([SubResource("Resource_tn6ep"), SubResource("Resource_30a47")])
+components = Array[ExtResource("1_7ektk")]([SubResource("Resource_tn6ep"), SubResource("Resource_30a47"), SubResource("Resource_04xe7")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k1nw6"]

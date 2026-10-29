@@ -1,19 +1,26 @@
 [gd_scene format=3 uid="uid://bjui8nq1l4vu3"]
 
 [ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="1_5uut2"]
+[ext_resource type="Script" uid="uid://re1rm1k0hcp7" path="res://__project_files/Components/c_alien.gd" id="2_hxorp"]
 [ext_resource type="Script" uid="uid://doqmwaglqmwy0" path="res://addons/gameplay_tags/classes/game_play_tags_container.gd" id="3_5ejy7"]
 [ext_resource type="Script" uid="uid://inugwkbdopsm" path="res://addons/guga/classes/Components/Builtin/class_ctags.gd" id="3_hxorp"]
-[ext_resource type="Script" uid="uid://clm7uxqvv4n01" path="res://addons/guga/classes/Components/Builtin/class_c_aitree_base.gd" id="4_5ejy7"]
+[ext_resource type="Script" uid="uid://clm7uxqvv4n01" path="res://addons/guga/classes/Components/Builtin/class_c_aitree.gd" id="4_5ejy7"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="4_c50h3"]
-[ext_resource type="Texture2D" uid="uid://t4vfr30pdpia" path="res://__project_files/Assets/Sprites/entity.png" id="6_5ejy7"]
+[ext_resource type="Texture2D" uid="uid://dq75nj6e4w7n1" path="res://__project_files/Assets/Sprites/ship_alien_small.png" id="6_5ejy7"]
 
 [sub_resource type="GDScript" id="GDScript_w7q1g"]
 script/source = "extends ComponentsSetup
 "
 
+[sub_resource type="Resource" id="Resource_hxorp"]
+resource_local_to_scene = true
+script = ExtResource("2_hxorp")
+tick_source = 2
+metadata/_custom_type_script = "uid://re1rm1k0hcp7"
+
 [sub_resource type="Resource" id="Resource_ov73r"]
 script = ExtResource("3_5ejy7")
-tags = PackedStringArray("entity.machine.spaceship.alien")
+tags = PackedStringArray("entity", "entity.machine", "entity.machine.spaceship", "entity.machine.spaceship.alien")
 metadata/_custom_type_script = "uid://doqmwaglqmwy0"
 
 [sub_resource type="Resource" id="Resource_kwt6k"]
@@ -22,7 +29,8 @@ script = ExtResource("3_hxorp")
 gameplaytags = SubResource("Resource_ov73r")
 metadata/_custom_type_script = "uid://inugwkbdopsm"
 
-[sub_resource type="Resource" id="Resource_mc3oc"]
+[sub_resource type="Resource" id="Resource_5ejy7"]
+resource_local_to_scene = true
 script = ExtResource("4_5ejy7")
 aI_tree_scene = "uid://bn81e17yxdwdx"
 metadata/_custom_type_script = "uid://clm7uxqvv4n01"
@@ -30,13 +38,15 @@ metadata/_custom_type_script = "uid://clm7uxqvv4n01"
 [sub_resource type="Resource" id="Resource_35atg"]
 resource_local_to_scene = true
 script = ExtResource("4_c50h3")
-components = Array[ExtResource("1_5uut2")]([SubResource("Resource_kwt6k"), SubResource("Resource_mc3oc")])
+components = Array[ExtResource("1_5uut2")]([SubResource("Resource_hxorp"), SubResource("Resource_kwt6k"), SubResource("Resource_5ejy7")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7b7a"]
-size = Vector2(29, 31)
+size = Vector2(17, 15)
 
-[node name="Alien" type="Node2D" unique_id=1635967849]
+[node name="Alien" type="CharacterBody2D" unique_id=167046822]
+motion_mode = 1
+platform_on_leave = 2
 script = SubResource("GDScript_w7q1g")
 component_stack = SubResource("Resource_35atg")
 
@@ -48,4 +58,5 @@ shape = SubResource("RectangleShape2D_g7b7a")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1088157384]
 texture_filter = 1
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_5ejy7")
