@@ -25,17 +25,19 @@ func event_tick():
 	if calc > 10 and calc < 640:
 		player.global_position.x = calc
 
-func event_possessed( _controller:PlayerController ):
+func event_possessed( _controller ) -> bool:
 	controller = _controller
 	tocuh_input()
 	EnhancedInput.add_context( imc )
 	EnhancedInput.debug_overlay = debug_input
 
 	ia_fire.triggered.connect(fire)
+	return true
 
-func event_unpossessed():
+func event_unpossessed( _controller ) -> bool:
 	EnhancedInput.remove_context( imc )
 	touchui.queue_free()
+	return true
 
 func tocuh_input():
 	if !OS.has_feature("mobile"):

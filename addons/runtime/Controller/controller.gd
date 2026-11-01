@@ -17,25 +17,34 @@ func possess( new_pawn: Node ) -> bool:
 	if new_pawn == pawn:
 		return false
 
-	unpossess()
+	unpossess( pawn )
 		
-	if !tree.get_component_with_method_from_actor( new_pawn, &"event_possessed"):
+	var pawnc:CPawn = tree.get_component_with_method_from_actor( new_pawn, &"event_possessed")
+	if !pawnc:
 		return false
 
-	tree.execute( new_pawn, &"event_possessed", [self] )
+	if !pawnc.event_possessed( self ):
+		return false
 
 	pawn = new_pawn
 	pawn_changed.emit( pawn )
 	tree.send_global_notification( &"pawn_changed", [ self, pawn] )
 	return true
 	
-func unpossess() -> bool:
+func unpossess( _pawn:Node ) -> bool:
 	if !pawn:
 		return false
+	if !_pawn:
+		return false
 	
-	tree.execute( pawn, &"event_unpossessed", [self] )
+	var pawnc:CPawn = tree.get_component_with_method_from_actor( _pawn, &"event_unpossessed")
+	if !pawnc:
+		return false
+
+	if !pawnc.event_unpossessed( self ):
+		return false
 	
 	pawn = null
-	pawn_changed.emit( pawn )
+	pawn_changed.emit( _pawn )
 	tree.send_global_notification( &"pawn_changed", [ self, pawn ] )
 	return true

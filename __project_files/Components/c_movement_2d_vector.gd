@@ -1,4 +1,4 @@
-class_name CVectorConstantMovement2D extends ComponentBase
+class_name CMovement2DVector extends ComponentBase
 
 @export var movement_vector:Vector2
 @export var speed:float = 100.0

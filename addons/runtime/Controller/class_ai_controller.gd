@@ -1,41 +1,59 @@
+##	Only to be instaniated by code from a pawn component
+
 class_name AIController
 extends Node
 
-@export var components:ComponentStack
+signal pawn_changed( new_pawn:Node )
 
-signal s_possessed( pawn:Node )
-signal s_unpossessed( pawn:Node )
-signal s_moving_pawn( pawn:Node )
-signal s_stoping_pawn( pawn:Node )
+var tree:GugaTree
+var pawn: Node
+var componentstack:ComponentStack = ComponentStack.new()
+var aitree:String
 
-var pawn:Node
+func _init():
+	tree = Engine.get_main_loop()
 
-@onready var tree:GugaTree = Engine.get_main_loop()
+#region possession
+func possess( new_pawn: Node ) -> bool:
+	if !is_instance_valid( new_pawn ):
+			return false
+	if new_pawn == pawn:
+		return false
 
-func possess( _pawn:Node ):
-	if !is_instance_valid( _pawn ):
-		return
-	if _pawn == pawn:
-		return
+	unpossess( pawn )
+		
+	var pawnc:CPawn = tree.get_component_with_method_from_actor( new_pawn, &"event_possessed")
+	if !pawnc:
+		return false
 
-	if tree.get_component_with_method_from_actor( _pawn, &"event_possess"):
-		tree.execute( _pawn, &"event_possess", [self] )
-		pawn = _pawn
-		s_possessed.emit( pawn )
+	if !pawnc.event_possessed( self ):
+		return false
+
+	pawn = new_pawn
+	pawn_changed.emit( pawn )
+	tree.send_global_notification( &"pawn_changed", [ self, pawn] )
+	return true
 	
-func unpossess( _pawn:Node ):
-	if _pawn != pawn:
-		return
-	tree.execute( pawn, &"event_unpossess", [self] )
-	s_possessed.emit( pawn )
-
-func move_pawn_to( position:Vector3):
+func unpossess( _pawn:Node ) -> bool:
 	if !pawn:
-		return
+		return false
+	if !_pawn:
+		return false
+	
+	var pawnc:CPawn = tree.get_component_with_method_from_actor( _pawn, &"event_unpossessed")
+	if !pawnc:
+		return false
 
-	tree.execute( pawn, &"move_to_position", [ position ])
-	s_moving_pawn.emit( pawn )
+	if !pawnc.event_unpossessed( self ):
+		return false
+	
+	pawn = null
+	pawn_changed.emit( _pawn )
+	tree.send_global_notification( &"pawn_changed", [ self, pawn ] )
+	return true
+#endregion
 
-func stop_pawn_movement():
-	tree.execute( pawn, &"stop_movement", [])
-	s_stoping_pawn.emit( pawn )
+func change_aitree( _aitree:String ):
+	pass
+	
+	

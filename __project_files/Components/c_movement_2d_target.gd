@@ -1,6 +1,4 @@
-class_name CLinearFloatingMovement2D extends ComponentBase
-
-## sfsdfsfd
+class_name CMovement2DTarget extends ComponentBase
 
 @export var speed:float = 100.0
 @export var tolerance:float = 1
