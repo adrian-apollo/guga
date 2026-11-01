@@ -12,6 +12,7 @@ script/source = "extends ComponentsSetup
 [sub_resource type="Resource" id="Resource_kwt6k"]
 resource_local_to_scene = true
 script = ExtResource("2_ov73r")
+ai_controller_class = "uid://c80yjnhyuehdj"
 metadata/_custom_type_script = "uid://cgk7nnr5gv5co"
 
 [sub_resource type="Resource" id="Resource_h86fq"]

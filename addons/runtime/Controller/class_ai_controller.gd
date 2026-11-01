@@ -7,11 +7,11 @@ signal pawn_changed( new_pawn:Node )
 
 var tree:GugaTree
 var pawn: Node
-var componentstack:ComponentStack = ComponentStack.new()
-var aitree:String
+var component_stack:ComponentStack = ComponentStack.new()
 
 func _init():
 	tree = Engine.get_main_loop()
+	component_stack.owner = self
 
 #region possession
 func possess( new_pawn: Node ) -> bool:
@@ -52,8 +52,3 @@ func unpossess( _pawn:Node ) -> bool:
 	tree.send_global_notification( &"pawn_changed", [ self, pawn ] )
 	return true
 #endregion
-
-func change_aitree( _aitree:String ):
-	pass
-	
-	

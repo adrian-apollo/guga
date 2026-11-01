@@ -151,9 +151,9 @@ func unlist_component(actor:Node, component:ComponentBase):
 	listed_components.erase( component )
 	s_component_unlisted.emit(actor, component)
 
-func actor_add_component(actor:Node, component:Script) -> ComponentBase:
+func add_component_to_actor( actor:Node, component:Script ) -> ComponentBase:
 	var newc:ComponentBase = component.new().duplicate_deep( Resource.DeepDuplicateMode.DEEP_DUPLICATE_ALL )
-	list_component(actor, newc)
+	list_component( actor, newc )
 	return newc
 
 func destroy_actor(actor:Node):

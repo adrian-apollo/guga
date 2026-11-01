@@ -4,6 +4,7 @@ extends CPawn
 @export_file("*.gd") var ai_controller_class:String = "uid://dw0ektocywjde"
 @export var autopossess:bool = true
 @export var auto_destroy_controller:bool = true
+@export var attach:bool = true
 
 var level:Level
 var aicontroller:AIController
@@ -31,8 +32,11 @@ func _spawn_ai_controller():
 		return
 
 	aicontroller = newaic
-	aicontroller.componentstack.components.push_back( C_AI_Tree.new() )
-	level.add_child( newaic )
+	
+	if attach:
+		owner.add_child( aicontroller )
+	else:
+		level.add_child( newaic )
 	newaic.name = "AIController"
 	newaic.owner = level
 	aicontroller.possess( owner )

@@ -7,22 +7,22 @@ var aitree:AITreeBase
 var aicontroller:AIController
 
 func event_begin():
-	if owner.get_script() != AIController:
+	if owner is not AIController:
 		return
 	
 	aicontroller = owner
-	
 	if ai_tree_scene.is_empty():
 		return
-	
-	
-	aicontroller.s_possessed.connect( _spawn_aitree )
-	aicontroller.s_unpossessed.connect( _destroy_aitree )
-	
-	if aicontroller.pawn:
-		_spawn_aitree( null )
 
-func _spawn_aitree( pawn ):
+	aicontroller.pawn_changed.connect( _spawn_aitree )
+
+	_spawn_aitree( aicontroller.pawn )
+
+func _spawn_aitree( pawn:Node ):
+	if !is_instance_valid( pawn ):
+		_destroy_aitree()
+		return
+
 	var new = load( ai_tree_scene ).instantiate()
 	
 	if new.get_script() != AITreeBase:
@@ -30,15 +30,15 @@ func _spawn_aitree( pawn ):
 		return
 	
 	aitree = new
-	aicontroller.add_child( aitree )
-	aitree.set( "owner", aicontroller )
-	
 	aitree.pawn = aicontroller.pawn
 	aitree.aicontroller = aicontroller
+	
+	aicontroller.add_child( aitree )
+	aitree.set( "owner", aicontroller )
 
-func _destroy_aitree( pawn:Node ):
+func _destroy_aitree():
 	if aitree:
 		aitree.queue_free()
 
 func event_destroy():
-	_destroy_aitree( null )
+	_destroy_aitree()

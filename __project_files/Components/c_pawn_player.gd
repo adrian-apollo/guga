@@ -9,16 +9,21 @@ class_name CPawnShip extends CPawn
 @export var ia_fire:InputAction
 @export var ia_move:InputAction
 @export var debug_input:bool = false
+@export var spawner_path:NodePath
 
 var player:Node2D
 
 var touchui:UIWidgetBase = load( "uid://fpr4sb12vrbi" ).instantiate()
 var touch_move:BetterJoystick
 var touch_fire:Button
+var spawner2d:Spawner2D
 
 func event_begin():
 	player = owner
 	tree.execute( owner, &"_activate_spawner", [])
+	
+	if !spawner_path.is_empty():
+		spawner2d = tree.get_node_from_nodepath( owner, spawner_path )
 
 func event_tick():
 	var calc:float = player.global_position.x + speed * ia_move.value * player.get_physics_process_delta_time() * move_scale
@@ -31,7 +36,7 @@ func event_possessed( _controller ) -> bool:
 	EnhancedInput.add_context( imc )
 	EnhancedInput.debug_overlay = debug_input
 
-	ia_fire.triggered.connect(fire)
+	ia_fire.triggered.connect( fire )
 	return true
 
 func event_unpossessed( _controller ) -> bool:
@@ -62,4 +67,5 @@ func move_touch( value:Vector2 ):
 	EnhancedInput.inject( ia_move, -value )
 
 func fire( _value ):
-	tree.execute( owner, &"trigger")
+	if spawner2d:
+		spawner2d.trigger()
