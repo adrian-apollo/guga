@@ -1,45 +1,52 @@
 [gd_scene format=3 uid="uid://hjlfhu74dkbq"]
 
-[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_enscl"]
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/runtime/class_level.gd" id="1_enscl"]
 [ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="2_7hjrw"]
-[ext_resource type="Script" uid="uid://dh6l501e3nvsw" path="res://__project_files/Components/c_playbutton.gd" id="3_8ofg8"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_enscl"]
-[ext_resource type="Script" uid="uid://cqw81dtennbrj" path="res://__project_files/Components/c_level_mainmenu.gd" id="4_wbxv6"]
-[ext_resource type="Script" uid="uid://bvvesnmxeu5fr" path="res://addons/guga/classes/Components/Builtin/class_gamemode.gd" id="6_msmn0"]
+[ext_resource type="Script" uid="uid://d3gwnycdgbmng" path="res://__project_files/Components/c_background.gd" id="4_wbxv6"]
 [ext_resource type="Texture2D" uid="uid://dwb28gg75h1vy" path="res://__project_files/Assets/Sprites/main menu bigbanner_20261022181548.png" id="6_wnqra"]
-[ext_resource type="PackedScene" uid="uid://s26qvyaym0hc" path="res://__project_files/UI/ui_game.tscn" id="7_ym7cv"]
 [ext_resource type="PackedScene" uid="uid://buwjdcyei7dne" path="res://__project_files/Actors/actor_background.tscn" id="8_ym7cv"]
 [ext_resource type="Texture2D" uid="uid://dbaionvq8c4gm" path="res://__project_files/Assets/Sprites/Copyright text_20261027210703.png" id="11_5e2pr"]
 
-[sub_resource type="Resource" id="Resource_6a0eu"]
+[sub_resource type="Resource" id="Resource_h86fq"]
 resource_local_to_scene = true
-script = ExtResource("3_8ofg8")
-button_path = NodePath("btn_play")
-next_level_path = "uid://col6w80jxays7"
-metadata/_custom_type_script = "uid://dh6l501e3nvsw"
-
-[sub_resource type="Resource" id="Resource_wnqra"]
 script = ExtResource("4_wbxv6")
-metadata/_custom_type_script = "uid://cqw81dtennbrj"
+bg_p1 = NodePath("normal")
+bg_p2 = NodePath("inverted")
+speed = 0.1
+tick_source = 2
+metadata/_custom_type_script = "uid://d3gwnycdgbmng"
 
-[sub_resource type="Resource" id="Resource_e46wd"]
+[sub_resource type="Resource" id="Resource_wbxv6"]
 resource_local_to_scene = true
 script = ExtResource("3_enscl")
-components = Array[ExtResource("2_7hjrw")]([SubResource("Resource_6a0eu"), SubResource("Resource_wnqra")])
+components = Array[ExtResource("2_7hjrw")]([SubResource("Resource_h86fq")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
-[sub_resource type="Resource" id="Resource_1mqgr"]
-script = ExtResource("6_msmn0")
-ui_scene = ExtResource("7_ym7cv")
-metadata/_custom_type_script = "uid://bvvesnmxeu5fr"
+[sub_resource type="GDScript" id="GDScript_g7b7a"]
+script/source = "extends Button
+
+@export_file( &\"*.tscn\" ) var level_scene:String
+var tree:GugaTree
+
+func _init():
+	tree = Engine.get_main_loop()
+
+func _pressed():
+	if level_scene.is_empty():
+		return
+	if !ResourceLoader.exists( level_scene ):
+		return
+	
+	var newl_level:Level = tree.load_level( level_scene )
+	tree.change_to_level( newl_level )
+"
 
 [node name="level_mainmenu" type="Node" unique_id=204834252]
 script = ExtResource("1_enscl")
-components = SubResource("Resource_e46wd")
-game_mode = SubResource("Resource_1mqgr")
-metadata/_custom_type_script = "uid://dx7ipnqchnxei"
 
 [node name="ActorBackground" parent="." unique_id=350346048 instance=ExtResource("8_ym7cv")]
+component_stack = SubResource("Resource_wbxv6")
 
 [node name="TextureButton2" type="TextureRect" parent="." unique_id=1887053920]
 texture_filter = 1
@@ -71,6 +78,8 @@ offset_bottom = 292.0
 mouse_filter = 2
 texture = ExtResource("11_5e2pr")
 stretch_mode = 3
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
 
 [node name="btn_play" type="Button" parent="." unique_id=762358774]
 anchors_preset = 15
@@ -85,3 +94,5 @@ theme_override_colors/font_color = Color(1.973361e-06, 0.8454188, 0.34236318, 1)
 action_mode = 0
 text = "TAP TO PLAY"
 flat = true
+script = SubResource("GDScript_g7b7a")
+level_scene = "uid://col6w80jxays7"

@@ -1,4 +1,4 @@
-class_name CPawnShip extends CPlayerPawn
+class_name CPawnShip extends CPawn
 
 @export_group( "Move config")
 @export var move_scale:float = 1.0
@@ -8,6 +8,7 @@ class_name CPawnShip extends CPlayerPawn
 @export var imc:InputMappingContext
 @export var ia_fire:InputAction
 @export var ia_move:InputAction
+@export var debug_input:bool = false
 
 var player:Node2D
 
@@ -16,7 +17,6 @@ var touch_move:BetterJoystick
 var touch_fire:Button
 
 func event_begin():
-	super()
 	player = owner
 	tree.execute( owner, &"_activate_spawner", [])
 
@@ -25,21 +25,22 @@ func event_tick():
 	if calc > 10 and calc < 640:
 		player.global_position.x = calc
 
-func event_possess():
+func event_possessed( _controller:PlayerController ):
+	controller = _controller
 	tocuh_input()
 	EnhancedInput.add_context( imc )
-	#EnhancedInput.debug_overlay = true
+	EnhancedInput.debug_overlay = debug_input
 
 	ia_fire.triggered.connect(fire)
 
-func event_unpossess():
+func event_unpossessed():
 	EnhancedInput.remove_context( imc )
 	touchui.queue_free()
 
 func tocuh_input():
 	if !OS.has_feature("mobile"):
 		return
-	tree.get_gamemode().uis[0].add_widget_to_layer( touchui, &"gameplay_menus" )
+	tree.current_level._ui.add_widget_to_layer( touchui, &"gameplay_menus" )
 	touch_move = touchui.get_child( 0 )
 	touch_fire = touchui.get_child( 1 )
 	
@@ -51,6 +52,7 @@ func tocuh_input():
 
 func fire_pressed():
 	EnhancedInput.inject( ia_fire, true )
+
 func fire_released():
 	EnhancedInput.inject( ia_fire, false )
 
@@ -58,4 +60,4 @@ func move_touch( value:Vector2 ):
 	EnhancedInput.inject( ia_move, -value )
 
 func fire( _value ):
-	tree.execute( owner, &"trigger", [])
+	tree.execute( owner, &"trigger")

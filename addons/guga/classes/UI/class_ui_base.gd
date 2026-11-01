@@ -21,8 +21,6 @@ enum LAYERPOSITION{
 	MIDDLE
 }
 
-
-	
 func _ready():
 	for l in layer_names.size():
 		var newlayer:CanvasLayer = CanvasLayer.new()

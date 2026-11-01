@@ -1,17 +1,28 @@
 class_name CUILevel0 extends ComponentBase
 
+var level:Level
+var levelui:UIBase
+
 func event_begin():
-	tree.get_gamemode().uis[0].add_widget_to_layer( 
+	if owner.get_script() != Level:
+		return
+	level = owner
+	
+	if !level._ui:
+		return
+	levelui = level._ui
+	
+	add_widgets()
+
+func add_widgets():
+	levelui.add_widget_to_layer( 
 		load("uid://b2pru0llhpe6b").instantiate(),
 		"indicators")
-	tree.get_gamemode().uis[0].add_widget_to_layer(
+	levelui.add_widget_to_layer(
 		load("uid://chqmihnkr47kd").instantiate(),
 		"gameplay_menus")
 	
 	##	screen blur effect
-	tree.get_gamemode().uis[0].add_widget_to_layer(
+	levelui.add_widget_to_layer(
 		load("uid://1x441e255mnh").instantiate(),
 		"effects3")
-
-func pause():
-	print("paused")

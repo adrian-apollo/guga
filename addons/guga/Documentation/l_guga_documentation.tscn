@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c1dvllig6ysk2"]
 
-[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_22rf1"]
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/runtime/class_level.gd" id="1_22rf1"]
 [ext_resource type="Script" uid="uid://caw75rukatvfd" path="res://addons/guga/Documentation/s_button_doc.gd" id="3_n5nie"]
 
 [node name="LDemo01" type="Node" unique_id=1322614457]

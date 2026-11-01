@@ -1,83 +1,104 @@
 [gd_scene format=3 uid="uid://col6w80jxays7"]
 
-[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/guga/classes/class_level.gd" id="1_hf2ay"]
-[ext_resource type="Script" uid="uid://dg86uhcgq1qmf" path="res://addons/guga/classes/class_player_controller.gd" id="2_2hpmw"]
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/runtime/class_level.gd" id="1_hf2ay"]
 [ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="2_4vi21"]
-[ext_resource type="PackedScene" uid="uid://bjui8nq1l4vu3" path="res://__project_files/Actors/actor_alien.tscn" id="2_xmk2t"]
-[ext_resource type="Script" uid="uid://bvvesnmxeu5fr" path="res://addons/guga/classes/Components/Builtin/class_gamemode.gd" id="3_2hpmw"]
+[ext_resource type="PackedScene" uid="uid://c22uu58tig3i6" path="res://__project_files/Actors/player_zero.tscn" id="2_312h8"]
+[ext_resource type="Script" uid="uid://ddyl7hq6v55p0" path="res://addons/runtime/Game/game_mode.gd" id="2_ab6lf"]
 [ext_resource type="Script" uid="uid://b6dkr6ui4crva" path="res://__project_files/Components/c_level_0_ui.gd" id="3_312h8"]
+[ext_resource type="Script" uid="uid://d04exjyghjgdx" path="res://addons/runtime/Game/game_state.gd" id="3_acgov"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_xmk2t"]
-[ext_resource type="PackedScene" uid="uid://s26qvyaym0hc" path="res://__project_files/UI/ui_game.tscn" id="5_e1rfy"]
-[ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="7_66b66"]
+[ext_resource type="Script" uid="uid://b55oyviiyrkhv" path="res://addons/runtime/Controller/player_controller.gd" id="4_j2qpl"]
+[ext_resource type="Script" uid="uid://drlvrghte6vsg" path="res://addons/runtime/Game/player_state.gd" id="5_f0jnn"]
+[ext_resource type="Script" uid="uid://d3gwnycdgbmng" path="res://__project_files/Components/c_background.gd" id="9_e1rfy"]
 [ext_resource type="PackedScene" uid="uid://buwjdcyei7dne" path="res://__project_files/Actors/actor_background.tscn" id="9_f0jnn"]
-[ext_resource type="Script" uid="uid://re1rm1k0hcp7" path="res://__project_files/Components/c_alien.gd" id="11_j2qpl"]
-[ext_resource type="Script" uid="uid://doqmwaglqmwy0" path="res://addons/gameplay_tags/classes/game_play_tags_container.gd" id="12_f0jnn"]
-[ext_resource type="Script" uid="uid://inugwkbdopsm" path="res://addons/guga/classes/Components/Builtin/class_ctags.gd" id="13_nrloe"]
-[ext_resource type="Script" uid="uid://clm7uxqvv4n01" path="res://addons/guga/classes/Components/Builtin/class_c_aitree.gd" id="14_k0maq"]
+[ext_resource type="Script" uid="uid://ctdset6x1cd3o" path="res://addons/guga/actors/spawner2d.gd" id="13_acgov"]
+[ext_resource type="PackedScene" uid="uid://c7iuw10w7ox4x" path="res://addons/guga/actors/PlayerStart2D.tscn" id="13_j2qpl"]
 
-[sub_resource type="Resource" id="Resource_cu6i8"]
+[sub_resource type="Resource" id="Resource_7fxn7"]
+resource_local_to_scene = true
 script = ExtResource("3_312h8")
 metadata/_custom_type_script = "uid://b6dkr6ui4crva"
 
-[sub_resource type="Resource" id="Resource_6mvmi"]
+[sub_resource type="Resource" id="Resource_04xe7"]
 resource_local_to_scene = true
 script = ExtResource("3_xmk2t")
-components = Array[ExtResource("2_4vi21")]([SubResource("Resource_cu6i8")])
+components = Array[ExtResource("2_4vi21")]([SubResource("Resource_7fxn7")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
-[sub_resource type="Resource" id="Resource_lsg44"]
-script = ExtResource("2_2hpmw")
-metadata/_custom_type_script = "uid://dg86uhcgq1qmf"
+[sub_resource type="Resource" id="Resource_msmn0"]
+script = ExtResource("3_acgov")
+metadata/_custom_type_script = "uid://d04exjyghjgdx"
 
-[sub_resource type="Resource" id="Resource_xgysc"]
-script = ExtResource("3_2hpmw")
-players_scenes = Array[String](["uid://c22uu58tig3i6"])
-controller_class = SubResource("Resource_lsg44")
-ui_scene = ExtResource("5_e1rfy")
-metadata/_custom_type_script = "uid://bvvesnmxeu5fr"
+[sub_resource type="Resource" id="Resource_ym7cv"]
+script = ExtResource("4_j2qpl")
+metadata/_custom_type_script = "uid://b55oyviiyrkhv"
 
-[sub_resource type="Resource" id="Resource_eimxt"]
+[sub_resource type="Resource" id="Resource_754cq"]
+script = ExtResource("5_f0jnn")
+metadata/_custom_type_script = "uid://drlvrghte6vsg"
+
+[sub_resource type="Resource" id="Resource_nrloe"]
 resource_local_to_scene = true
-script = ExtResource("11_j2qpl")
+script = ExtResource("2_ab6lf")
+game_state_class = SubResource("Resource_msmn0")
+default_pawn_scene = ExtResource("2_312h8")
+player_controller_class = SubResource("Resource_ym7cv")
+player_state_class = SubResource("Resource_754cq")
+
+[sub_resource type="Resource" id="Resource_312h8"]
+resource_local_to_scene = true
+script = ExtResource("9_e1rfy")
+bg_p1 = NodePath("normal")
+bg_p2 = NodePath("inverted")
+speed = 0.1
 tick_source = 2
-metadata/_custom_type_script = "uid://re1rm1k0hcp7"
+metadata/_custom_type_script = "uid://d3gwnycdgbmng"
 
-[sub_resource type="Resource" id="Resource_ov73r"]
-script = ExtResource("12_f0jnn")
-tags = PackedStringArray("entity", "entity.machine", "entity.machine.spaceship", "entity.machine.spaceship.alien")
-metadata/_custom_type_script = "uid://doqmwaglqmwy0"
-
-[sub_resource type="Resource" id="Resource_47nop"]
-resource_local_to_scene = true
-script = ExtResource("13_nrloe")
-gameplaytags = SubResource("Resource_ov73r")
-metadata/_custom_type_script = "uid://inugwkbdopsm"
-
-[sub_resource type="Resource" id="Resource_kelij"]
-resource_local_to_scene = true
-script = ExtResource("14_k0maq")
-aI_tree_scene = "uid://bn81e17yxdwdx"
-metadata/_custom_type_script = "uid://clm7uxqvv4n01"
-
-[sub_resource type="Resource" id="Resource_psv77"]
+[sub_resource type="Resource" id="Resource_acgov"]
 resource_local_to_scene = true
 script = ExtResource("3_xmk2t")
-components = Array[ExtResource("2_4vi21")]([SubResource("Resource_eimxt"), SubResource("Resource_47nop"), SubResource("Resource_kelij")])
+components = Array[ExtResource("2_4vi21")]([SubResource("Resource_312h8")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [node name="Level0" type="Node" unique_id=83678710]
 script = ExtResource("1_hf2ay")
-components = SubResource("Resource_6mvmi")
-game_mode = SubResource("Resource_xgysc")
+componentstack = SubResource("Resource_04xe7")
+game_mode = SubResource("Resource_nrloe")
 metadata/_custom_type_script = "uid://dx7ipnqchnxei"
 metadata/_edit_vertical_guides_ = [17.0]
 
 [node name="ActorBackground" parent="." unique_id=350346048 instance=ExtResource("9_f0jnn")]
+component_stack = SubResource("Resource_acgov")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
-[node name="PlayerStart_0" parent="." unique_id=875178709 instance=ExtResource("7_66b66")]
-position = Vector2(324, 254)
-sprite_scale = 0.2
+[node name="PlayerStart_0" parent="." unique_id=875178709 instance=ExtResource("13_j2qpl")]
+position = Vector2(329, 261)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
-[node name="Alien" parent="." unique_id=1635967849 instance=ExtResource("2_xmk2t")]
-position = Vector2(321, 53)
-component_stack = SubResource("Resource_psv77")
+[node name="Spawner2D" type="Node2D" parent="." unique_id=2002441693 node_paths=PackedStringArray("under_node")]
+position = Vector2(324, 72)
+script = ExtResource("13_acgov")
+scene = "uid://bjui8nq1l4vu3"
+autostart = true
+under_node = NodePath("..")
+metadata/_custom_type_script = "uid://ctdset6x1cd3o"
+
+[node name="Label" type="Label" parent="Spawner2D" unique_id=1750683954]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1

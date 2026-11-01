@@ -21,7 +21,7 @@ var cached_levels:Array[Level]:
  
 func load_level( level:String ) -> Level:
 	new_log_message(self, "Loading level from file: " + level, LOG_MESSAGE_MODE.NORMAL)
-	var newlevel:Level = ResourceLoader.load(level).instantiate()
+	var newlevel:Level = ResourceLoader.load( level).instantiate()
 	
 	if !is_instance_valid(newlevel):
 		new_log_message(self, "FAIL LOADING LEVEL FROM FILE: " + level, LOG_MESSAGE_MODE.ERROR)
@@ -31,14 +31,14 @@ func load_level( level:String ) -> Level:
 	new_log_message(self, "SUCESS", LOG_MESSAGE_MODE.NORMAL)
 	return newlevel
 
-func change_to_level( levelref:Level, destroy_previous:bool ):
+func change_to_level( levelref:Level, destroy_previous:bool = true ):
 	if !levelref or !is_instance_valid( levelref ):
 		new_log_message(self, "Fail changing to level(): " + str( levelref ), LOG_MESSAGE_MODE.ERROR)
 		return
 
 	if current_level and is_instance_valid(current_level):
 		if destroy_previous:
-			destroy_level(current_level)
+			destroy_level( current_level )
 		else:
 			cached_levels.push_back( current_level )
 			get_root().remove_child( current_level )
@@ -46,27 +46,16 @@ func change_to_level( levelref:Level, destroy_previous:bool ):
 	current_level = levelref
 	get_root().add_child( levelref )
 	s_level_changed.emit( levelref )
+	current_level._start()
 	new_log_message(self, "Changed to level: " + str( levelref ), LOG_MESSAGE_MODE.NORMAL)
 
-func destroy_level(levelref:Node):
-	s_level_destroyed.emit( levelref)
-	current_level.queue_free()
-
-#endregion
-
-#region player related
-func get_player_by_index( index:int ) -> Node :
-	if index > 7 and index < 0:
-		return null
-	return current_level.game_mode.players[index]
-
-func get_controller_by_index( index:int ) -> PlayerController :
-	if index > 7 and index < 0:
-		return null
-	return current_level.game_mode.controllers[ index ]
-	
-func get_gamemode() -> GameModeBase:
-	return current_level.game_mode
+func destroy_level( level:Level ) -> bool:
+	if !level:
+		return false
+	s_level_destroyed.emit( level )
+	send_global_notification("LevelDestroyed", level )
+	level.queue_free()
+	return true
 
 #endregion
 
@@ -187,11 +176,11 @@ func get_component_property_from_actor( actor_reference:Node, component:Componen
 #endregion
 
 #region component execution system
-##	system dedicated to execute orders
-##	on other actor's components
-##	ex: actor A calls method damage(int) on actor B
+##	system dedicated to execute orders on other actor's components
+##	ex: actor A calls method damage( int ) on actor B
 ##	actor A needs to know whos is the receiver
-func execute(receiver: Node, callable:StringName, data:Array) -> bool:
+##	but not the component or if it has that method
+func execute( receiver: Node, callable:StringName, data:Array = [] ) -> bool:
 	if !is_instance_valid( receiver ):
 		return false
 	if callable.is_empty():
@@ -229,7 +218,7 @@ func execute(receiver: Node, callable:StringName, data:Array) -> bool:
 ##	objective: communicate new events to many receivers
 ##	example: new day started, player death, objective reached, update UI data
 ##	just connect a callable to the signal, wait for to trigger, check the message and get the data
-signal global_notification(message:String, data:Variant)
+signal global_notification( message:String, data:Variant )
 
 ##	connects a callable to the signal and receives its data
 func connect_to_notification_signal( callable:Callable, flags:Object.ConnectFlags ):
@@ -247,7 +236,7 @@ func disconnect_from_notificaiton_signal( callable:Callable ):
 ##	returns true if succed
 ##	example message could be: "update_health_bar" and data a number
 ##	message must have a value, but data not
-func send_global_notification( message:String, data:Variant ) -> bool:
+func send_global_notification( message:StringName, data:Variant = null ) -> bool:
 	if message.is_empty():
 		return false
 	
@@ -292,7 +281,7 @@ func get_node_from_nodepath(location:Node, path:NodePath) -> Node:
 	
 	return get_node_from_name(location, get_name_from_nodepath(path) )
 
-#	for finding a specific component inside an actor with the specific method
+##	for finding a specific component inside an actor with the specific method
 func get_component_with_method_from_actor(actor:Node, method_name:StringName) -> ComponentBase:
 	if !is_instance_valid( actor ):
 		return
@@ -301,7 +290,7 @@ func get_component_with_method_from_actor(actor:Node, method_name:StringName) ->
 	if method_name.is_empty():
 		return
 
-	var ac:Array[ComponentBase] = listed_actors.get(actor)
+	var ac:Array = listed_actors.get(actor)
 	for d in ac:
 		if d.has_method( method_name ):
 			return d

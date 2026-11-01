@@ -11,7 +11,7 @@ func _ready():
 		button.pressed.connect( pause, 2 )
 	
 func pause():
-	tree.get_gamemode().uis[ 0 ].add_widget_to_layer( load(\"uid://dhhdwjae0gdb\").instantiate(), \"game_menus\")
+	tree.current_level._ui.add_widget_to_layer( load(\"uid://dhhdwjae0gdb\").instantiate(), \"game_menus\")
 "
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e70bt"]

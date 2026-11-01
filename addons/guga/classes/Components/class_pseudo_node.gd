@@ -64,7 +64,7 @@ func _stop_tick():
 
 	tree.disconnect_callable_from_timer( event_tick, tick_rate )
 
-func _reset_tick( _ticksource:TICK_SOURCE, _tickrate:float ):
+func _reset_tick( _ticksource:TICK_SOURCE = TICK_SOURCE.NONE, _tickrate:float = 1.0 ):
 	_stop_tick()
 	tick_source = _ticksource
 	tick_rate = _tickrate

@@ -41,7 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.025698068, 0.47174048, 0.29566908, 1)
+color = Color(0.105882354, 0.105882354, 0.105882354, 0.9254902)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 

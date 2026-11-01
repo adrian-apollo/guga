@@ -15,8 +15,8 @@ run/main_scene="uid://bdrydfb6si7ff"
 run/main_loop_type="GugaTree"
 config/features=PackedStringArray("4.7", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-config/icon="res://icon.svg"
 boot_splash/show_image=false
+config/icon="res://icon.svg"
 
 [autoload]
 
@@ -27,10 +27,6 @@ EnhancedInput="*uid://di122jbxf8vf7"
 
 window/size/viewport_width=640
 window/size/viewport_height=294
-window/size/mode=4
-window/size/resizable=false
-window/size/borderless=true
-window/size/extend_to_title=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 window/vsync/vsync_mode=0

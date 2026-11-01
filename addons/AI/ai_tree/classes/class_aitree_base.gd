@@ -14,6 +14,9 @@ enum PHASE {
 	TRANSITIONING
 }
 
+var pawn:Node
+var aicontroller:AIController
+
 ##	temporal data is stored on the AITree, state elements are shared resources
 var blackboard:Dictionary[ StringName, Variant ]
 
@@ -34,7 +37,6 @@ func _ready():
 			current_state = get_child( 0 )
 
 func _physics_process( delta: float ):
-	print( Engine.get_physics_frames() )
 	if !current_state:
 		return
 
@@ -56,6 +58,10 @@ func _physics_process( delta: float ):
 func update_watchers():
 	if !current_state:
 		return
+
+	blackboard.set(&"pawn", pawn)
+	blackboard.set(&"aicontroller", aicontroller )
+
 	for w in watchers:
 		if !w:
 			return

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cmh44f3lcvd8d"]
+
+[ext_resource type="Script" uid="uid://dw0ektocywjde" path="res://addons/runtime/Controller/class_ai_controller.gd" id="1_md108"]
+[ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="2_pti1t"]
+[ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_l626w"]
+[ext_resource type="Script" uid="uid://clm7uxqvv4n01" path="res://addons/AI/class_c_aitree.gd" id="3_rapu3"]
+
+[sub_resource type="Resource" id="Resource_ybmw6"]
+resource_local_to_scene = true
+script = ExtResource("3_rapu3")
+ai_tree_scene = "uid://bn81e17yxdwdx"
+metadata/_custom_type_script = "uid://clm7uxqvv4n01"
+
+[sub_resource type="Resource" id="Resource_md108"]
+resource_local_to_scene = true
+script = ExtResource("3_l626w")
+components = Array[ExtResource("2_pti1t")]([SubResource("Resource_ybmw6")])
+metadata/_custom_type_script = "uid://bjs6owgj3feat"
+
+[node name="AicAlien" type="Node" unique_id=1650017569]
+script = ExtResource("1_md108")
+components = SubResource("Resource_md108")
+metadata/_custom_type_script = "uid://dw0ektocywjde"
