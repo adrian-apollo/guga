@@ -1,10 +1,6 @@
 class_name AIState extends Node
 
-enum BEHAVIOR{
-	TRY_ENTER_STATE,
-	SELECT_CHILDREN_IN_ORDER,
-	SELECT_RANDOM_CHILD
-}
+@export var parameters:Dictionary[StringName, Variant]
 ##	This is behavior between a state and its child states.
 ##	Try enter = Will enter the phater state ignoring its children, default option for leafs states.
 ##	Select children in order = will run every state in the order they appear,used for chained behaviors.
@@ -22,6 +18,13 @@ enum BEHAVIOR{
 @export var transitions:Array [ AITransition ]
 
 @onready var children:Array[ Node ] = get_children()
+
+enum BEHAVIOR{
+	TRY_ENTER_STATE,
+	SELECT_CHILDREN_IN_ORDER,
+	SELECT_RANDOM_CHILD
+}
+
 
 var b_is_leaf_state:bool = true
 

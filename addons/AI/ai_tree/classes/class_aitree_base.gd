@@ -1,5 +1,6 @@
 class_name AITreeBase extends Node
 
+@export var parameters:Dictionary[StringName, Variant]
 @export var watchers:Array[ AIWatcherBase ]
 @export var initial_state:AIState
 
@@ -68,6 +69,9 @@ func update_watchers():
 		w.event_update( self )
 
 func change_to_state( newstate:AIState, _result:RESULT = RESULT.SUCCEDED, _phase:PHASE = PHASE.EVALUATING ):
+	if current_state:
+		current_state.parameters.clear()
+
 	current_task = null
 	phase = _phase
 	result = _result
@@ -97,6 +101,9 @@ func run_tasks():
 	#	run first task from the stack
 	if !current_task:
 		current_task = current_state.tasks[ 0 ]
+		if !current_task:
+			phase = PHASE.TRANSITIONING
+			return
 	
 	#	enter if not
 	if !current_task.b_entered:

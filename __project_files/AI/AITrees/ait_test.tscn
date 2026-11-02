@@ -5,23 +5,34 @@
 [ext_resource type="Script" uid="uid://dwouxwiyqhkmp" path="res://addons/AI/ai_tree/classes/class_aitree_condition_base.gd" id="3_burup"]
 [ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/AI/ai_tree/classes/class_aitree_task_base.gd" id="3_oklli"]
 [ext_resource type="Script" uid="uid://b15sve88pt50a" path="res://addons/AI/ai_tree/Builtin/Condition/aic_is_valid_actor.gd" id="4_uhkea"]
-[ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://addons/AI/ai_tree/Builtin/Tasks/task_console_print.gd" id="4_yiky2"]
+[ext_resource type="Script" uid="uid://8qyn75cc3eb1" path="res://__project_files/AI/Tasks/aitt_move_to_random_location.gd" id="6_burup"]
+[ext_resource type="Script" uid="uid://v6nqt1gjnvxi" path="res://addons/AI/ai_tree/classes/class_aitree_transition_base.gd" id="7_uhkea"]
 
 [sub_resource type="Resource" id="Resource_oklli"]
 script = ExtResource("4_uhkea")
 blackboard_key = &"pawn"
 metadata/_custom_type_script = "uid://b15sve88pt50a"
 
-[sub_resource type="Resource" id="Resource_ur4x4"]
-script = ExtResource("4_yiky2")
-metadata/_custom_type_script = "uid://dqlflbt72raq2"
+[sub_resource type="Resource" id="Resource_yiky2"]
+script = ExtResource("6_burup")
+distance = 50
+metadata/_custom_type_script = "uid://8qyn75cc3eb1"
+
+[sub_resource type="Resource" id="Resource_burup"]
+script = ExtResource("7_uhkea")
+go_to_state = NodePath(".")
+metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
 
 [node name="AIT_npc" type="Node" unique_id=568051682 node_paths=PackedStringArray("initial_state")]
 physics_interpolation_mode = 1
 script = ExtResource("1_r8ifx")
+parameters = Dictionary[StringName, Variant]({
+&"poi": Vector2(0, 0)
+})
 initial_state = NodePath("root")
 
 [node name="root" type="Node" parent="." unique_id=256823799]
 script = ExtResource("2_jv0dp")
 condition = Array[ExtResource("3_burup")]([SubResource("Resource_oklli")])
-tasks = Array[ExtResource("3_oklli")]([SubResource("Resource_ur4x4")])
+tasks = Array[ExtResource("3_oklli")]([SubResource("Resource_yiky2")])
+transitions = Array[ExtResource("7_uhkea")]([SubResource("Resource_burup")])
