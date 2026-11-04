@@ -2,37 +2,70 @@
 
 [ext_resource type="Script" uid="uid://cjgcru8uc64dc" path="res://addons/AI/ai_tree/classes/class_aitree_base.gd" id="1_r8ifx"]
 [ext_resource type="Script" uid="uid://dqymyd7c8gvk5" path="res://addons/AI/ai_tree/classes/class_aitree_state.gd" id="2_jv0dp"]
-[ext_resource type="Script" uid="uid://dwouxwiyqhkmp" path="res://addons/AI/ai_tree/classes/class_aitree_condition_base.gd" id="3_burup"]
-[ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/AI/ai_tree/classes/class_aitree_task_base.gd" id="3_oklli"]
-[ext_resource type="Script" uid="uid://b15sve88pt50a" path="res://addons/AI/ai_tree/Builtin/Condition/aic_is_valid_actor.gd" id="4_uhkea"]
-[ext_resource type="Script" uid="uid://8qyn75cc3eb1" path="res://__project_files/AI/Tasks/aitt_move_to_random_location.gd" id="6_burup"]
-[ext_resource type="Script" uid="uid://v6nqt1gjnvxi" path="res://addons/AI/ai_tree/classes/class_aitree_transition_base.gd" id="7_uhkea"]
+[ext_resource type="Script" uid="uid://bf7yph0rxrhjw" path="res://addons/AI/ai_tree/classes/class_aitree_task_base.gd" id="3_q7kbh"]
+[ext_resource type="Script" uid="uid://dqlflbt72raq2" path="res://addons/AI/ai_tree/Builtin/Tasks/task_console_print.gd" id="4_oklli"]
+[ext_resource type="Script" uid="uid://v6nqt1gjnvxi" path="res://addons/AI/ai_tree/classes/class_aitree_transition_base.gd" id="5_burup"]
+[ext_resource type="Script" uid="uid://dwouxwiyqhkmp" path="res://addons/AI/ai_tree/classes/class_aitree_condition_base.gd" id="6_burup"]
+
+[sub_resource type="Resource" id="Resource_q7kbh"]
+script = ExtResource("4_oklli")
+text = "attack"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
 [sub_resource type="Resource" id="Resource_oklli"]
-script = ExtResource("4_uhkea")
-blackboard_key = &"pawn"
-metadata/_custom_type_script = "uid://b15sve88pt50a"
+script = ExtResource("4_oklli")
+text = "1"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
-[sub_resource type="Resource" id="Resource_yiky2"]
-script = ExtResource("6_burup")
-distance = 50
-metadata/_custom_type_script = "uid://8qyn75cc3eb1"
-
-[sub_resource type="Resource" id="Resource_burup"]
-script = ExtResource("7_uhkea")
-go_to_state = NodePath(".")
+[sub_resource type="Resource" id="Resource_qh4ky"]
+script = ExtResource("5_burup")
+go_to_state = NodePath("../2")
 metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
 
-[node name="AIT_npc" type="Node" unique_id=568051682 node_paths=PackedStringArray("initial_state")]
+[sub_resource type="Resource" id="Resource_burup"]
+script = ExtResource("4_oklli")
+text = "2"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_uhkea"]
+script = ExtResource("5_burup")
+go_to_state = NodePath("../3")
+metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
+
+[sub_resource type="Resource" id="Resource_yiky2"]
+script = ExtResource("4_oklli")
+text = "3"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_ewusk"]
+script = ExtResource("5_burup")
+go_to_state = NodePath("..")
+metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
+
+[node name="AIT_npc" type="Node" unique_id=568051682]
 physics_interpolation_mode = 1
 script = ExtResource("1_r8ifx")
-parameters = Dictionary[StringName, Variant]({
-&"poi": Vector2(0, 0)
-})
-initial_state = NodePath("root")
 
-[node name="root" type="Node" parent="." unique_id=256823799]
+[node name="attack" type="Node" parent="." unique_id=1828075547]
 script = ExtResource("2_jv0dp")
-condition = Array[ExtResource("3_burup")]([SubResource("Resource_oklli")])
-tasks = Array[ExtResource("3_oklli")]([SubResource("Resource_yiky2")])
-transitions = Array[ExtResource("7_uhkea")]([SubResource("Resource_burup")])
+enter_behavior = 1
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_q7kbh")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="1" type="Node" parent="attack" unique_id=71945959]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_oklli")])
+transitions = Array[ExtResource("5_burup")]([SubResource("Resource_qh4ky")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="2" type="Node" parent="attack" unique_id=1404595336]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_burup")])
+transitions = Array[ExtResource("5_burup")]([SubResource("Resource_uhkea")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="3" type="Node" parent="attack" unique_id=1451285090]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_yiky2")])
+transitions = Array[ExtResource("5_burup")]([SubResource("Resource_ewusk")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

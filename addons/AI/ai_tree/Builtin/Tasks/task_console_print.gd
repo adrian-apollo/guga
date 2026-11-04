@@ -2,6 +2,6 @@ class_name AIT_ConsolePrint extends AITaskBase
 
 @export var text:String = "Task"
 
-func update( aitree: AITreeBase ):
+func enter( aitree: AITreeBase ):
 	print( text )
-	exit( aitree )
+	finish_task( aitree )
