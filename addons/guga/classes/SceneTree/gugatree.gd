@@ -246,6 +246,34 @@ func send_global_notification( message:StringName, data:Variant = null ) -> bool
 #endregion
 
 #region	utilitary functions
+
+##	This function returns all nodes beetwen two nodes in the tree
+static func get_inbeetwen_nodes( upper:Node, lower:Node , include_upper:bool = false, include_lower:bool = false ) -> Array[ Node ]:
+	var result: Array[Node] = []
+	
+	if upper == null or lower == null or upper == lower:
+		return result
+		
+	if include_upper:
+		result.push_back( upper )
+
+	var path:String = upper.get_path_to( lower )
+	var names:PackedStringArray = path.split("/")
+	#names.reverse()
+	
+	if names.is_empty():
+		return []
+	
+	var current:Node = upper
+
+	for n in names:
+		result.push_back( current.find_child( n ))
+	
+	if !include_lower:
+		result.pop_back()
+	
+	return result
+
 func validate_signal_connections(signalref:Signal):
 	if signalref.is_null():
 		return

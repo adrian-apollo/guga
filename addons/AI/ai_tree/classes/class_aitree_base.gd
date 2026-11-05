@@ -10,6 +10,7 @@ var aicontroller:AIController
 var _tree:GugaTree
 
 var current_state:AIState
+var active_hierarchy:Array[ AIState ]
 
 func _init():
 	set_process( false )
@@ -25,13 +26,10 @@ func _ready():
 	else:
 		current_state = get_child( 0 )
 
-func _physics_process( delta: float ):
-	print( " AITree Update")
+func _physics_process( delta: float ):	
 	update_watchers()
 	current_state.update_state( self )
 
-	print( "\n")
-	
 func update_watchers():
 	for w in watchers:
 		if is_instance_valid( w ):
