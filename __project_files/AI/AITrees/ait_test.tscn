@@ -22,7 +22,7 @@ script = ExtResource("5_burup")
 go_to_state = NodePath("../2")
 metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
 
-[sub_resource type="Resource" id="Resource_burup"]
+[sub_resource type="Resource" id="Resource_057xh"]
 script = ExtResource("4_oklli")
 text = "2"
 metadata/_custom_type_script = "uid://dqlflbt72raq2"
@@ -60,7 +60,7 @@ metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
 
 [node name="2" type="Node" parent="attack" unique_id=1404595336]
 script = ExtResource("2_jv0dp")
-tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_burup")])
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_057xh")])
 transitions = Array[ExtResource("5_burup")]([SubResource("Resource_uhkea")])
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
 

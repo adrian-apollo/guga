@@ -26,9 +26,12 @@ func _ready():
 		current_state = get_child( 0 )
 
 func _physics_process( delta: float ):
+	print( " AITree Update")
 	update_watchers()
 	current_state.update_state( self )
 
+	print( "\n")
+	
 func update_watchers():
 	for w in watchers:
 		if is_instance_valid( w ):
