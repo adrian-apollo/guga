@@ -12,36 +12,61 @@ script = ExtResource("4_oklli")
 text = "attack"
 metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
-[sub_resource type="Resource" id="Resource_oklli"]
+[sub_resource type="Resource" id="Resource_burup"]
 script = ExtResource("4_oklli")
-text = "st 1"
-finish = false
-metadata/_custom_type_script = "uid://dqlflbt72raq2"
-
-[sub_resource type="Resource" id="Resource_qh4ky"]
-script = ExtResource("5_burup")
-go_to_state = NodePath("../2")
-metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
-
-[sub_resource type="Resource" id="Resource_057xh"]
-script = ExtResource("4_oklli")
-text = "2"
+text = "1"
 metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
 [sub_resource type="Resource" id="Resource_uhkea"]
-script = ExtResource("5_burup")
-go_to_state = NodePath("../3")
-metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
-
-[sub_resource type="Resource" id="Resource_yiky2"]
 script = ExtResource("4_oklli")
-text = "3"
+text = "11"
 metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
 [sub_resource type="Resource" id="Resource_ewusk"]
 script = ExtResource("5_burup")
-go_to_state = NodePath("..")
+go_to_state = NodePath("../12")
 metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
+
+[sub_resource type="Resource" id="Resource_057xh"]
+script = ExtResource("4_oklli")
+text = "111"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_i162j"]
+script = ExtResource("5_burup")
+go_to_state = NodePath("../112")
+metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
+
+[sub_resource type="Resource" id="Resource_5vrpf"]
+script = ExtResource("4_oklli")
+text = "112"
+finish = false
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_h7wv7"]
+script = ExtResource("5_burup")
+go_to_state = NodePath("../../12")
+metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
+
+[sub_resource type="Resource" id="Resource_eg4ly"]
+script = ExtResource("4_oklli")
+text = "12"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_asp6x"]
+script = ExtResource("4_oklli")
+text = "121"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
+
+[sub_resource type="Resource" id="Resource_qh4ky"]
+script = ExtResource("5_burup")
+go_to_state = NodePath("../122")
+metadata/_custom_type_script = "uid://v6nqt1gjnvxi"
+
+[sub_resource type="Resource" id="Resource_oklli"]
+script = ExtResource("4_oklli")
+text = "122"
+metadata/_custom_type_script = "uid://dqlflbt72raq2"
 
 [node name="AIT_npc" type="Node" unique_id=568051682]
 physics_interpolation_mode = 1
@@ -55,18 +80,42 @@ metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
 
 [node name="1" type="Node" parent="attack" unique_id=71945959]
 script = ExtResource("2_jv0dp")
-tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_oklli")])
+enter_behavior = 1
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_burup")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="11" type="Node" parent="attack/1" unique_id=1352127034]
+script = ExtResource("2_jv0dp")
+enter_behavior = 1
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_uhkea")])
+transitions = Array[ExtResource("5_burup")]([SubResource("Resource_ewusk")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="111" type="Node" parent="attack/1/11" unique_id=650106868]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_057xh")])
+transitions = Array[ExtResource("5_burup")]([SubResource("Resource_i162j")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="112" type="Node" parent="attack/1/11" unique_id=1615864366]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_5vrpf")])
+transitions = Array[ExtResource("5_burup")]([SubResource("Resource_h7wv7")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="12" type="Node" parent="attack/1" unique_id=1922518794]
+script = ExtResource("2_jv0dp")
+enter_behavior = 1
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_eg4ly")])
+metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
+
+[node name="121" type="Node" parent="attack/1/12" unique_id=1244647591]
+script = ExtResource("2_jv0dp")
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_asp6x")])
 transitions = Array[ExtResource("5_burup")]([SubResource("Resource_qh4ky")])
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
 
-[node name="2" type="Node" parent="attack" unique_id=1404595336]
+[node name="122" type="Node" parent="attack/1/12" unique_id=1709545664]
 script = ExtResource("2_jv0dp")
-tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_057xh")])
-transitions = Array[ExtResource("5_burup")]([SubResource("Resource_uhkea")])
-metadata/_custom_type_script = "uid://dqymyd7c8gvk5"
-
-[node name="3" type="Node" parent="attack" unique_id=1451285090]
-script = ExtResource("2_jv0dp")
-tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_yiky2")])
-transitions = Array[ExtResource("5_burup")]([SubResource("Resource_ewusk")])
+tasks = Array[ExtResource("3_q7kbh")]([SubResource("Resource_oklli")])
 metadata/_custom_type_script = "uid://dqymyd7c8gvk5"

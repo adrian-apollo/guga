@@ -22,13 +22,13 @@ func make_transition( aitree:AITreeBase ):
 	if trigger == TRIGGERS.ON_STATE_FAILED && aitree.current_state._state_result == AIState.STATE_RESULT.FAILED:
 		evualte_conditons( aitree )
 
-
 func evualte_conditons( aitree:AITreeBase ):
 	for c in conditions:
 		if !c.evaulate( aitree, aitree.current_state ):
 			break
 			return
-		
+
 	var next_state:AIState = aitree.current_state.get_node_or_null( go_to_state )
-	if next_state:
-		aitree._changet_to_state( next_state )
+	if !next_state:
+		aitree._changet_to_state( aitree.initial_state )
+	aitree._changet_to_state( next_state )

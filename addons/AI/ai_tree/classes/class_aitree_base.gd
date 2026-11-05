@@ -10,7 +10,7 @@ var aicontroller:AIController
 var _tree:GugaTree
 
 var current_state:AIState
-var active_hierarchy:Array[ AIState ]
+var active_hierarchy:Array[ Node ]
 
 func _init():
 	set_process( false )
@@ -20,24 +20,41 @@ func _ready():
 	
 	if get_child_count() == 0:
 		set( &"process_mode", ProcessMode.PROCESS_MODE_DISABLED )
-		
+
 	if initial_state:
-		current_state = initial_state
+		_changet_to_state( initial_state )
 	else:
-		current_state = get_child( 0 )
+		initial_state = get_child( 0 )
+		_changet_to_state( initial_state )
 
-func _physics_process( delta: float ):	
+func _physics_process( delta: float ):
+	print("AITree RERUN")
 	update_watchers()
-	current_state.update_state( self )
+	var tmp:Array[Node] = active_hierarchy
 
+	for s in tmp:
+		if tmp != active_hierarchy:
+			break
+			return
+		if !s:
+			break
+			return
+
+		current_state = s
+		current_state.update_state( self )
+
+	print("\n")
 func update_watchers():
 	for w in watchers:
 		if is_instance_valid( w ):
 			w.event_update( self )
 
 func _changet_to_state( new_state:AIState ):
-	current_state._active_task = null
-	current_state._completed_tasks = 0
-	current_state._state_stage = AIState.STATE_STAGES.ENTER
-	current_state._state_result = AIState.STATE_RESULT.SUCCESS
-	current_state = new_state
+	print( "Previous " + str( active_hierarchy ))
+	active_hierarchy = _tree.get_inbeetwen_nodes( self, new_state, false, true )
+	print( "New " + str( active_hierarchy ))
+	for s in active_hierarchy:
+		s._active_task = null
+		s._completed_tasks = 0
+		s._state_stage = AIState.STATE_STAGES.ENTER
+		s._state_result = AIState.STATE_RESULT.SUCCESS
