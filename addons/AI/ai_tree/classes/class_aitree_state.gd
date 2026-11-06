@@ -88,7 +88,9 @@ func enter_stage( _aitree:AITreeBase ):
 	aitree = _aitree
 	
 	if !_evaluate_completed_conditions():
+		_state_result = STATE_RESULT.FAILED
 		_state_stage = STATE_STAGES.TRANSITION
+		return
 
 	if tasks.size() > 0:
 		_active_task = tasks[0]
@@ -121,7 +123,7 @@ func transition_stage():
 #region private
 
 func _evaluate_completed_conditions() -> bool:
-	if transitions.size() == 0:
+	if conditions.size() == 0:
 		return true
 
 	var correct:int = 0
@@ -173,9 +175,6 @@ func _evaluate_completed_conditions() -> bool:
 	return false
 
 func _evaluate_completed_tasks() -> bool:
-	if amount_to_complete > tasks.size():
-		amount_to_complete = tasks.size()
-
 	match amount_to_complete:
 		COMPLETED.ALL:
 			if _completed_tasks == tasks.size():

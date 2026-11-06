@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="1_5uut2"]
 [ext_resource type="Script" uid="uid://cgk7nnr5gv5co" path="res://addons/runtime/Pawn/class_ai_pawn.gd" id="2_ov73r"]
+[ext_resource type="Script" uid="uid://bhlc3gajsnj5m" path="res://__project_files/Components/c_linear_movementt.gd" id="3_5uut2"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="4_c50h3"]
 [ext_resource type="Texture2D" uid="uid://dq75nj6e4w7n1" path="res://__project_files/Assets/Sprites/ship_alien_small.png" id="6_5ejy7"]
 
@@ -15,10 +16,17 @@ script = ExtResource("2_ov73r")
 ai_controller_class = "uid://c80yjnhyuehdj"
 metadata/_custom_type_script = "uid://cgk7nnr5gv5co"
 
+[sub_resource type="Resource" id="Resource_c6xj7"]
+resource_local_to_scene = true
+script = ExtResource("3_5uut2")
+b_can_move = false
+tick_source = 2
+metadata/_custom_type_script = "uid://bhlc3gajsnj5m"
+
 [sub_resource type="Resource" id="Resource_h86fq"]
 resource_local_to_scene = true
 script = ExtResource("4_c50h3")
-components = Array[ExtResource("1_5uut2")]([SubResource("Resource_kwt6k")])
+components = Array[ExtResource("1_5uut2")]([SubResource("Resource_kwt6k"), SubResource("Resource_c6xj7")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7b7a"]

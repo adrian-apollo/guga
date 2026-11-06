@@ -8,12 +8,12 @@ enum COMPARE{
 	EQUAL
 }
 
-@export var bb_property:StringName
+@export var parameter_name:StringName
 @export var _is:COMPARE
 @export var than:float = 0.0
 
 func evaulate( aitree:AITreeBase, state:AIState ) -> bool:
-	var value: = aitree.blackboard.get( bb_property )
+	var value: = aitree.parameters.get( parameter_name )
 	if !value:
 		return false
 	if value.is_class("Float"):

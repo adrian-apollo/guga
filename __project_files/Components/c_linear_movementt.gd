@@ -1,24 +1,19 @@
-class_name CMovement2DTarget extends ComponentBase
+class_name CLinearMovement extends CMovementBase
 
-@export var speed:float = 100.0
-@export var tolerance:float = 1
 @export var stop_on_collide:bool = false
 
-signal movement_started
-signal movement_finished
-
-var target_position:Vector2 = Vector2.ZERO
-var is_moving:bool = false
-
+func event_begin():
+	_stop_tick()
+	
 func event_tick():
-	if !is_moving:
+	if !b_can_move:
 		return
+
 	var to_target:Vector2 = target_position - owner.global_position
 	var distance:float = to_target.length()
 	
-	if distance <= tolerance:
-		owner.global_position = target_position
-		is_moving = false
+	if distance <= tolerance_radius:
+		stop_movement()
 		movement_finished.emit()
 		return
 	
@@ -26,17 +21,18 @@ func event_tick():
 	var step:float = minf( speed * owner.get_physics_process_delta_time(), distance )
 	var motion:Vector2 = direction * step
 	
-	if !stop_on_collide:
-		return
 	var collision:KinematicCollision2D = owner.move_and_collide( motion )
 	if collision:
-		is_moving = false
+		stop_movement()
 
-func move_to_position( position:Vector2 ):
+func move_to( position:Vector3, _tolerance_radius:float ):
+	_reset_tick( TICK_SOURCE.PHYSICS )
+	tolerance_radius = _tolerance_radius
+	b_can_move = true
+	target_position = Vector2( position.x, position.y )
 	movement_started.emit()
-	is_moving =true
-	target_position = position
 
 func stop_movement():
+	_stop_tick()
 	target_position = Vector2.ZERO
-	is_moving = false
+	b_can_move = false

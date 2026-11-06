@@ -1,12 +1,12 @@
 class_name CIsValidActor extends AITCondition
 
-@export var blackboard_key:StringName = &""
+@export var parameter_name:StringName = &"pawn"
 
 func evaulate( aitree:AITreeBase, state:AIState ) -> bool:
-	if is_instance_valid(
-		aitree.blackboard.get(
-			blackboard_key
-		)
-		):
+	if !aitree.parameters.has( parameter_name):
+		return false
+
+	if is_instance_valid( aitree.parameters[ parameter_name ] ):
 		return true
+
 	return false

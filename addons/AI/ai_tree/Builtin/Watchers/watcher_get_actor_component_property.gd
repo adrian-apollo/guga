@@ -4,7 +4,7 @@ class_name AIW_ActorComponentProperty extends AIWatcherBase
 @export var component_reference:ComponentBase = null
 
 func event_update(  aitree:AITreeBase ):
-	aitree.blackboard.set(
+	aitree.parameters.set(
 		actor_property_name,
 		tree.get_component_property_from_actor(
 			aitree.owner,

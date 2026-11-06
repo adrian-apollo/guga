@@ -28,7 +28,9 @@ func _ready():
 		_changet_to_state( initial_state )
 
 func _physics_process( delta: float ):
-	print("AITree RERUN")
+	parameters[&"pawn"] = pawn
+	parameters[&"aicontroller"] = aicontroller
+	parameters[&"pawn_is_moving"] = aicontroller.pawn_is_moving
 	update_watchers()
 	var tmp:Array[Node] = active_hierarchy
 
@@ -43,17 +45,17 @@ func _physics_process( delta: float ):
 		current_state = s
 		current_state.update_state( self )
 
-	print("\n")
 func update_watchers():
 	for w in watchers:
 		if is_instance_valid( w ):
 			w.event_update( self )
 
 func _changet_to_state( new_state:AIState ):
-	print( "Previous " + str( active_hierarchy ))
 	active_hierarchy = _tree.get_inbeetwen_nodes( self, new_state, false, true )
-	print( "New " + str( active_hierarchy ))
+	parameters.clear()
 	for s in active_hierarchy:
+		s.parameters.clear()
+		s._state_result = AIState.STATE_RESULT.SUCCESS
 		s._active_task = null
 		s._completed_tasks = 0
 		s._state_stage = AIState.STATE_STAGES.ENTER

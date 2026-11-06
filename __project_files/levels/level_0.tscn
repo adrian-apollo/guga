@@ -54,7 +54,7 @@ speed = 0.1
 tick_source = 2
 metadata/_custom_type_script = "uid://d3gwnycdgbmng"
 
-[sub_resource type="Resource" id="Resource_j2qpl"]
+[sub_resource type="Resource" id="Resource_acgov"]
 resource_local_to_scene = true
 script = ExtResource("3_xmk2t")
 components = Array[ExtResource("2_4vi21")]([SubResource("Resource_312h8")])
@@ -68,7 +68,7 @@ metadata/_custom_type_script = "uid://dx7ipnqchnxei"
 metadata/_edit_vertical_guides_ = [17.0]
 
 [node name="ActorBackground" parent="." unique_id=350346048 instance=ExtResource("9_f0jnn")]
-component_stack = SubResource("Resource_j2qpl")
+component_stack = SubResource("Resource_acgov")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 

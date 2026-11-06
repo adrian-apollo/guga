@@ -1,14 +1,19 @@
-class_name CMovement2DVector extends ComponentBase
+class_name CMovement2DVector extends CMovementBase
 
 @export var movement_vector:Vector2
-@export var speed:float = 100.0
 @export var stop_on_collide:bool = false
 
-var is_moving:bool = true
-
 func event_tick():
-	if !is_moving:
+	if !b_can_move:
 		return
+
 	var collision:KinematicCollision2D = owner.move_and_collide( movement_vector * speed * owner.get_physics_process_delta_time() )
 	if collision:
-		is_moving = false
+		stop_movement()
+
+func move_to( destination, _radius:float ):
+	movement_vector = destination
+
+func stop_movement():
+	_stop_tick()
+	b_can_move = false

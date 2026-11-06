@@ -15,6 +15,9 @@ enum COMPARE{
 @export var than:Variant
 
 func evaulate( aitree:AITreeBase, state:AIState ) -> bool:
+	if !aitree.parameters.has( parameter_name):
+		return false
+
 	var value:Variant = aitree.parameters[ parameter_name ]
 		
 	match _is:
