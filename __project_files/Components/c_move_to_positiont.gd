@@ -1,4 +1,4 @@
-class_name CLinearMovement extends CMovementBase
+class_name CMoveToPosition extends CMovementBase
 
 @export var stop_on_collide:bool = false
 

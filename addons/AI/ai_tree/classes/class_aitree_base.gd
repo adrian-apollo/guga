@@ -31,7 +31,10 @@ func _physics_process( delta: float ):
 	parameters[&"pawn"] = pawn
 	parameters[&"aicontroller"] = aicontroller
 	parameters[&"pawn_is_moving"] = aicontroller.pawn_is_moving
+	parameters[&"destination"] = aicontroller.destination
+	
 	update_watchers()
+	
 	var tmp:Array[Node] = active_hierarchy
 
 	for s in tmp:

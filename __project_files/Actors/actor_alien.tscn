@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="1_5uut2"]
 [ext_resource type="Script" uid="uid://cgk7nnr5gv5co" path="res://addons/runtime/Pawn/class_ai_pawn.gd" id="2_ov73r"]
-[ext_resource type="Script" uid="uid://bhlc3gajsnj5m" path="res://__project_files/Components/c_linear_movementt.gd" id="3_5uut2"]
+[ext_resource type="Script" uid="uid://bhlc3gajsnj5m" path="res://__project_files/Components/c_move_to_positiont.gd" id="3_5uut2"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="4_c50h3"]
 [ext_resource type="Texture2D" uid="uid://dq75nj6e4w7n1" path="res://__project_files/Assets/Sprites/ship_alien_small.png" id="6_5ejy7"]
 

@@ -8,7 +8,7 @@ var _tree:GugaTree
 var _component_stack:ComponentStack = ComponentStack.new()
 
 var pawn: Node
-var destination:Vector3
+var destination:Vector3 = Vector3.ZERO
 var target_actor:Node
 var aceptable_radius:float = 0.0
 var destination_move_tolerance:float = 0.0
@@ -72,8 +72,19 @@ func unpossess( _pawn:Node ) -> bool:
 func move_pawn_to_destination( _destination:Vector3, _aceptable_radius:float = 0.0 ):
 	if !pawn and !mc:
 		return
-
+		
 	destination = _destination
+	aceptable_radius = _aceptable_radius
+	
+	var to_target:Vector3
+	if pawn is Node2D:
+		to_target = destination - Vector3( pawn.global_position.x, pawn.global_position.y, 0 )
+	else:
+		to_target = destination - pawn.global_position
+	var distance:float = to_target.length()
+	if distance <= aceptable_radius:
+		return
+
 	mc.movement_finished.connect( movement_is_completed, 4 )
 	mc.move_to( destination, _aceptable_radius )
 	aceptable_radius = _aceptable_radius
