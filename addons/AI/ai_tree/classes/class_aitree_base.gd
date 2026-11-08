@@ -1,8 +1,12 @@
 class_name AITreeBase extends Node
 
-@export var watchers:Array[ AIWatcherBase ]
-@export var parameters:Dictionary[StringName, Variant]
 @export var initial_state:AIState
+
+@export_category("Watchers")
+@export var watchers:Array[ AIWatcherBase ]
+
+@export_category("Constant parameters")
+@export var const_parameters:Dictionary[ StringName, Variant ]
 
 var pawn:Node
 var aicontroller:AIController
@@ -11,6 +15,7 @@ var _tree:GugaTree
 
 var current_state:AIState
 var active_hierarchy:Array[ Node ]
+var parameters:Dictionary[StringName, Variant]
 
 func _init():
 	set_process( false )
@@ -55,7 +60,7 @@ func update_watchers():
 
 func _changet_to_state( new_state:AIState ):
 	active_hierarchy = _tree.get_inbeetwen_nodes( self, new_state, false, true )
-	parameters.clear()
+	_clear_parameters()
 	for s in active_hierarchy:
 		s.parameters.clear()
 		s._state_result = AIState.STATE_RESULT.SUCCESS
@@ -63,3 +68,13 @@ func _changet_to_state( new_state:AIState ):
 		s._completed_tasks = 0
 		s._state_stage = AIState.STATE_STAGES.ENTER
 		s._state_result = AIState.STATE_RESULT.SUCCESS
+
+func _restart_parameters():
+	parameters.merge( const_parameters )
+	parameters[&"pawn"] = pawn
+	parameters[&"aicontroller"] = aicontroller
+	parameters[&"pawn_is_moving"] = aicontroller.pawn_is_moving
+	parameters[&"destination"] = aicontroller.destination
+
+func _clear_parameters():
+	parameters.clear()

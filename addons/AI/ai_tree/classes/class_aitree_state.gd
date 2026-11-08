@@ -2,12 +2,14 @@ class_name AIState extends Node
 
 #region exports
 ##	A place to store data relevant to the state to share between conditions and tasks
-@export var parameters:Dictionary[StringName, Variant]
+@export_category("Constant parameters")
+@export var constant_parameters:Dictionary[StringName, Variant]
 
 ##	This is behavior between a state and its child states.
 ##	Try enter = Will enter the phater state ignoring its children, default option for leafs states.
 ##	Select children in order = will run every state in the order they appear,used for chained behaviors.
 ##	Select childer in random order = will enter a random child state everytime, useful for random behavior.
+@export_category("Enter behavior")
 @export var enter_behavior:ENTER_BEHAVIOR = ENTER_BEHAVIOR.TRY_ENTER_STATE
 
 @export_category("Conditions")
@@ -62,6 +64,8 @@ enum STATE_RESULT{
 }
 #endregion
 
+var parameters:Dictionary[ StringName, Variant ]
+
 var _active_task:AITaskBase
 var _completed_tasks:int = 0
 var aitree:AITreeBase
@@ -73,12 +77,14 @@ func _init():
 
 #region MAIN
 func update_state( _aitree:AITreeBase ):
+	parameters.merge( constant_parameters )
 	if _state_stage == STATE_STAGES.ENTER:
 		enter_stage( _aitree )
 	
 	if _state_stage == STATE_STAGES.TICK:
 			tick_stage()
-
+	parameters.clear()
+	
 	if _state_stage == STATE_STAGES.TRANSITION:
 		if _enter_behavior():
 			return
