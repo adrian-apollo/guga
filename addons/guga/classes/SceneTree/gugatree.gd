@@ -247,6 +247,15 @@ func send_global_notification( message:StringName, data:Variant = null ) -> bool
 
 #region	utilitary functions
 
+##	For finding the level in wich an actor is
+func find_owning_level( actor:Node ) -> Level:
+	var nodes:Array[ Node ] = get_inbeetwen_nodes( Engine.get_main_loop().root, actor )
+	for n in nodes:
+		if n is Level:
+			return n
+			break
+	return
+
 ##	This function returns all nodes beetwen two nodes in the tree
 static func get_inbeetwen_nodes( upper:Node, lower:Node , include_upper:bool = false, include_lower:bool = false ) -> Array[ Node ]:
 	var result: Array[Node] = []
@@ -265,9 +274,9 @@ static func get_inbeetwen_nodes( upper:Node, lower:Node , include_upper:bool = f
 		return []
 	
 	var current:Node = upper
-
 	for n in names:
-		result.push_back( current.find_child( n ))
+		result.push_back( current.get_node( n ) )
+		current = result.back()
 	
 	if !include_lower:
 		result.pop_back()
