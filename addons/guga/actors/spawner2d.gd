@@ -19,13 +19,15 @@ signal s_destroyed
 var _tree:GugaTree
 var _amount:int = 0
 var can_fire:bool
+var _level:Level
 
 func _init():
 	_tree = Engine.get_main_loop()
 
 func _ready():
+	_level = _tree.find_owning_level( self )
 	await _tree.create_timer( delay, false, false, false).timeout
-	_tree.connect_callable_to_timer( _spawn, spawn_interval )
+	_level.connect_callable_to_timer( _spawn, spawn_interval )
 	s_started.emit()
 	
 	if !under_node:
@@ -34,7 +36,7 @@ func _ready():
 	can_fire = spawn_enabled
 
 func stop():
-	_tree.disconnect_callable_from_timer( _spawn, spawn_interval )
+	_level.disconnect_callable_from_timer( _spawn, spawn_interval )
 	s_stoped.emit()
 
 func trigger( ):

@@ -2,20 +2,17 @@
 class_name PseudoNode
 extends Resource
 
-enum TICK_SOURCE {
-	NONE,
-	PROCESS,
-	PHYSICS,
-	CUSTOM
-}
 @export_group("Tick")
-@export var tick_source:TICK_SOURCE
+@export var physics:bool
+@export var process:bool
+@export var custom:bool
 @export_range(0, 60,0.001, "or_greater") var tick_rate:float = 1
 
 #endregion
 
 var owner:Node
 var tree:GugaTree
+var _level:Level
 
 func _init():
 	tree = Engine.get_main_loop()
@@ -23,65 +20,89 @@ func _init():
 func _start():
 	call_deferred( &"event_begin" )
 	call_deferred( &"_start_tick" )
+	
+	if !tree:
+		tree = Engine.get_main_loop()
+	
+	if owner is Level:
+		_level = owner
+	else:
+		_level = tree.find_owning_level( owner )
+
+	_level.destroying_level.connect( _destructor )
+	
+	if owner:
+		if !owner.tree_entered.is_connected( _start_tick ):
+			owner.tree_entered.connect( _start_tick )
+		if !owner.tree_exited.is_connected( _stop_tick ):
+			owner.tree_exited.connect( _stop_tick )
 
 #region virtual methods
 ##	called when the component is ready
 func event_begin():
 	pass
 
-##	called on every physics, process or custom tick update
-func event_tick():
+##	
+func event_physics_tick( delta:float ):
 	pass
-	
+
+func event_process_tick( delta:float ):
+	pass
+
+func event_custom_tick():
+	pass
+
 func event_destroy():
 	pass
 
 #endregion
 
-#region tick
+#region tick configuration
 
 func _start_tick():
-	match tick_source:
-		TICK_SOURCE.NONE:
-			return
-		TICK_SOURCE.PROCESS:
-			tree.process_frame.connect(event_tick)
-		TICK_SOURCE.PHYSICS:
-			if !tree.physics_frame.is_connected( event_tick ):
-				tree.physics_frame.connect(event_tick)
-		TICK_SOURCE.CUSTOM:
-			tree.connect_callable_to_timer(event_tick, tick_rate)
+	if !_level:
+		return
+
+	_enable_physics_update( physics )
+	_enable_process_update( process )
+	_enable_custom_update( custom )
 
 func _stop_tick():
-	if !tree:
-		tree = Engine.get_main_loop()
-	if tree.physics_frame.is_connected( event_tick ):
-		tree.physics_frame.disconnect( event_tick )
+	if !_level:
 		return
-	if tree.process_frame.is_connected( event_tick ):
-		tree.process_frame.disconnect(event_tick)
-		return
+	
+	_enable_physics_update( false )
+	_enable_process_update( false )
+	_enable_custom_update( false )
 
-	tree.disconnect_callable_from_timer( event_tick, tick_rate )
-
-func _reset_tick( _ticksource:TICK_SOURCE = TICK_SOURCE.NONE, _tickrate:float = 1.0 ):
+func _reset_tick():
 	_stop_tick()
-	tick_source = _ticksource
-	tick_rate = _tickrate
 	_start_tick()
+
+func _enable_physics_update( value:bool):
+	if value:
+		_level.physics_update.connect( event_physics_tick )
+	elif _level.physics_update.is_connected( event_physics_tick ):
+		_level.physics_update.disconnect( event_physics_tick )
+
+func _enable_process_update( value:bool):
+	if value:
+		_level.process_update.connect( event_process_tick )
+	elif _level.process_update.is_connected( event_process_tick ):
+		_level.process_update.disconnect( event_process_tick )
+
+func _enable_custom_update( value:bool):
+	if value:
+		_level.connect_callable_to_timer( event_custom_tick, tick_rate )
+	else:
+		_level.disconnect_callable_from_timer( event_custom_tick, tick_rate )
 
 #endregion
 
 #region the end
-#func _notification(what):
-	#if !is_instance_valid(self):
-		#return
-	#if what == NOTIFICATION_PREDELETE:
-		#_destructor()
-
 func _destructor():
-	event_destroy()
 	_stop_tick()
+	event_destroy()
 	owner.tree_exiting.disconnect( _stop_tick )
 	owner.tree_entered.disconnect( _start_tick )
 #endregion

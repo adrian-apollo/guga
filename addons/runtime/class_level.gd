@@ -12,7 +12,7 @@ class_name Level extends Node
 @export_tool_button("Add PlayerStart3D", "3D") var playerstart3d = add_playerstart3d
 
 signal level_started
-signal tick_update( float )
+signal physics_update( float )
 signal process_update( float )
 signal destroying_level
 
@@ -32,7 +32,7 @@ func _start():
 	_tree.send_global_notification( &"LevelStarted", self )
 
 func _physics_process(delta: float):
-	tick_update.emit( delta )
+	physics_update.emit( delta )
 	
 func _process(delta: float):
 	process_update.emit( delta )
@@ -160,6 +160,7 @@ func _new_timer( hertz:float ):
 		return
 	var newtimer:Timer = Timer.new()
 	add_child( newtimer )
+	newtimer.owner = self
 	newtimer.start( 1/ hertz )
 	newtimer.set_autostart( true )
 	newtimer.name = "Timer_" + str( hertz )

@@ -15,7 +15,7 @@ resource_local_to_scene = true
 script = ExtResource("5_b5jva")
 movement_vector = Vector2(0, -1)
 speed = 500.0
-tick_source = 2
+physics = true
 metadata/_custom_type_script = "uid://cww2sqwb55id7"
 
 [sub_resource type="Resource" id="Resource_04xe7"]

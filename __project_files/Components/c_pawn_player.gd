@@ -25,8 +25,8 @@ func event_begin():
 	if !spawner_path.is_empty():
 		spawner2d = tree.get_node_from_nodepath( owner, spawner_path )
 
-func event_tick():
-	var calc:float = player.global_position.x + speed * ia_move.value * player.get_physics_process_delta_time() * move_scale
+func event_physics_tick( delta:float ):
+	var calc:float = player.global_position.x + speed * ia_move.value * delta * move_scale
 	if calc > 10 and calc < 640:
 		player.global_position.x = calc
 
