@@ -46,7 +46,7 @@ func change_to_level( levelref:Level, destroy_previous:bool = true ):
 	current_level = levelref
 	get_root().add_child( levelref )
 	s_level_changed.emit( levelref )
-	current_level._start()
+	current_level.start()
 	new_log_message(self, "Changed to level: " + str( levelref ), LOG_MESSAGE_MODE.NORMAL)
 
 func destroy_level( level:Level ) -> bool:
@@ -65,13 +65,17 @@ signal s_timer_destroyed
 
 var available_timers: Dictionary[float, Timer] = {}
 
-func connect_callable_to_timer(callable:Callable, tickrate:float):
+func connect_callable_to_timer(
+	parent_node:Node,
+	callable:Callable,
+	tickrate:float):
+
 	if !callable.is_valid():
 		return
 	if tickrate < 0:
 		return
 	if !available_timers.has(tickrate):
-		_new_timer( tickrate )
+		_new_timer( parent_node, tickrate )
 	
 	if ( available_timers.get(tickrate) as Timer ).is_connected( &"timeout", callable ):
 		return
@@ -89,11 +93,14 @@ func disconnect_callable_from_timer( callable:Callable, tickrate:float ):
 		timerref.queue_free()
 		available_timers.erase( tickrate )
 
-func _new_timer( hertz:float ):
+func _new_timer( parent_node:Node, hertz:float ):
 	if hertz < 0:
 		return
 	var newtimer:Timer = Timer.new()
-	get_root().add_child( newtimer )
+	if is_instance_valid( parent_node ):
+		parent_node.add_child( newtimer )
+	else:
+		get_root().add_child( newtimer )
 	newtimer.start( 1/ hertz )
 	newtimer.set_autostart( true )
 	newtimer.name = "Timer_" + str( hertz )
@@ -140,7 +147,7 @@ func list_component(actor:Node, component:ComponentBase):
 	s_component_listed.emit( actor, component )
 	listed_actors[actor].append(component)
 	listed_components.push_back( component )
-	component._setup(actor)
+	component.setup(actor)
 
 func unlist_component(actor:Node, component:ComponentBase):
 	if !is_instance_valid(actor):

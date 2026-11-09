@@ -93,9 +93,9 @@ func _enable_process_update( value:bool):
 
 func _enable_custom_update( value:bool):
 	if value:
-		_level.connect_callable_to_timer( event_custom_tick, tick_rate )
+		tree.connect_callable_to_timer( _level, event_custom_tick, tick_rate )
 	else:
-		_level.disconnect_callable_from_timer( event_custom_tick, tick_rate )
+		tree.disconnect_callable_from_timer( event_custom_tick, tick_rate )
 
 #endregion
 

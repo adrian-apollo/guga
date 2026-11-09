@@ -26,8 +26,9 @@ func _init():
 
 func _ready():
 	_level = _tree.find_owning_level( self )
+
 	await _tree.create_timer( delay, false, false, false).timeout
-	_level.connect_callable_to_timer( _spawn, spawn_interval )
+	_tree.connect_callable_to_timer( self, _spawn, spawn_interval )
 	s_started.emit()
 	
 	if !under_node:
@@ -36,7 +37,7 @@ func _ready():
 	can_fire = spawn_enabled
 
 func stop():
-	_level.disconnect_callable_from_timer( _spawn, spawn_interval )
+	_tree.disconnect_callable_from_timer( _spawn, spawn_interval )
 	s_stoped.emit()
 
 func trigger( ):

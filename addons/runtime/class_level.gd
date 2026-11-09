@@ -25,7 +25,7 @@ func _init():
 	
 	_tree = Engine.get_main_loop() as GugaTree
 
-func _start():
+func start():
 	if game_mode:
 		game_mode.init_game( self )
 	level_started.emit()
@@ -123,47 +123,4 @@ func get_component_property_from_actor( actor_reference:Node, component:Componen
 			return c.get( property_name )
 			break
 	return
-#endregion
-
-#region timers
-signal s_timer_created
-signal s_timer_destroyed
-
-var available_timers: Dictionary[float, Timer] = {}
-
-func connect_callable_to_timer(callable:Callable, tickrate:float):
-	if !callable.is_valid():
-		return
-	if tickrate < 0:
-		return
-	if !available_timers.has(tickrate):
-		_new_timer( tickrate )
-	
-	if ( available_timers.get(tickrate) as Timer ).is_connected( &"timeout", callable ):
-		return
-	( available_timers.get(tickrate) as Timer ).connect(&"timeout", callable)
-
-func disconnect_callable_from_timer( callable:Callable, tickrate:float ):
-	var timerref:Timer = available_timers.get( tickrate )
-	if !is_instance_valid( timerref ):
-		return	
-	if !timerref.timeout.is_connected( callable ):
-		return
-	
-	timerref.timeout.disconnect( callable )
-	if timerref.timeout.get_connections().size() == 0:
-		timerref.queue_free()
-		available_timers.erase( tickrate )
-
-func _new_timer( hertz:float ):
-	if hertz < 0:
-		return
-	var newtimer:Timer = Timer.new()
-	add_child( newtimer )
-	newtimer.owner = self
-	newtimer.start( 1/ hertz )
-	newtimer.set_autostart( true )
-	newtimer.name = "Timer_" + str( hertz )
-	available_timers.set( hertz, newtimer )
-
 #endregion
