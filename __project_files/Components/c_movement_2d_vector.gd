@@ -1,7 +1,6 @@
 class_name CMovement2DVector extends CMovementBase
 
 @export var movement_vector:Vector2
-@export var stop_on_collide:bool = false
 
 func event_physics_tick( delta:float ):
 	if !b_can_move:

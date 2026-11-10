@@ -56,6 +56,7 @@ func _spawn():
 	
 	if transport:
 		newnode.global_position = global_position
+		newnode.global_rotation = global_rotation
 	
 	_amount += 1
 	

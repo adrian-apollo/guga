@@ -43,13 +43,14 @@ texture_repeat = 1
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_04xe7")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=805813270]
-texture_filter = 3
-texture = ExtResource("6_3msbq")
-
 [node name="Spawner2D" type="Marker2D" parent="." unique_id=61853235]
-position = Vector2(0, -16)
+position = Vector2(16, 6.993822e-07)
 script = ExtResource("8_04xe7")
 scene = "uid://rrpne5rq22ns"
 spawn_interval = 10.0
 metadata/_custom_type_script = "uid://ctdset6x1cd3o"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=805813270]
+texture_filter = 3
+rotation = 1.5707964
+texture = ExtResource("6_3msbq")

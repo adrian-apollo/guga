@@ -38,7 +38,8 @@ script = SubResource("GDScript_hiilg")
 component_stack = SubResource("Resource_k1nw6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1643297824]
-position = Vector2(0, -2.5)
+position = Vector2(-0.4896078, 0)
+rotation = 1.5707964
 shape = SubResource("RectangleShape2D_hiilg")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1795975735]
@@ -46,11 +47,12 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -0.99988365
-offset_top = -5.205274
-offset_right = 1.0001163
-offset_bottom = -0.2052741
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 4.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+rotation = 1.5707964
 size_flags_horizontal = 3
 size_flags_vertical = 3

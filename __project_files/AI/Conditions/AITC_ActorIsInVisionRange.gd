@@ -17,7 +17,7 @@ func evaulate( aitree:AITreeBase, _state:AIState ) -> bool:
     if distance > vision_range:
         return false
 
-    var forward:Vector2 = pawn2d.global_transform.y.normalized()
+    var forward:Vector2 = pawn2d.global_transform.x.normalized()
     var direction_to_target:Vector2 = to_target.normalized()
 
     var angle:float = abs( forward.angle_to( direction_to_target ))
