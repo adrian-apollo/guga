@@ -78,17 +78,19 @@ func _init():
 #region MAIN
 func update_state( _aitree:AITreeBase ):
 	parameters.merge( constant_parameters )
+	
 	if _state_stage == STATE_STAGES.ENTER:
 		enter_stage( _aitree )
 	
 	if _state_stage == STATE_STAGES.TICK:
 			tick_stage()
-	parameters.clear()
 	
 	if _state_stage == STATE_STAGES.TRANSITION:
 		if _enter_behavior():
+			parameters.clear()
 			return
 		transition_stage()
+	parameters.clear()
 
 func enter_stage( _aitree:AITreeBase ):
 	aitree = _aitree
@@ -107,6 +109,7 @@ func enter_stage( _aitree:AITreeBase ):
 func tick_stage():
 	if !is_instance_valid( _active_task):
 		_state_stage = STATE_STAGES.TRANSITION
+		return
 
 	if !_active_task.b_entered:
 		_active_task.b_entered = true
@@ -236,16 +239,19 @@ func _evaluate_transitions():
 func _enter_behavior() -> bool:
 	if enter_behavior == ENTER_BEHAVIOR.TRY_ENTER_STATE:
 		return false
+
 	if enter_behavior == ENTER_BEHAVIOR.SELECT_CHILDREN_IN_ORDER:
 		if get_child_count() > 0:
 			var last:AIState = aitree.active_hierarchy.back()
 			if !get_children().has( last ) and last == self:
 				aitree._changet_to_state( get_child( 0 ) )
 			return true
+
 	if enter_behavior == ENTER_BEHAVIOR.SELECT_RANDOM_CHILD:
 		if get_child_count() > 0:
 			aitree._changet_to_state( get_children().pick_random() )
 			return true
-	return true
+
+	return false
 
 #endregion

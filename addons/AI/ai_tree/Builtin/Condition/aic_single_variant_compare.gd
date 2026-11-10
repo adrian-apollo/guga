@@ -1,4 +1,4 @@
-class_name CVariantCompare extends AITCondition
+class_name CSingleVariantCompare extends AITCondition
 
 enum COMPARE{
 	DIFFERENT,
@@ -14,15 +14,18 @@ enum COMPARE{
 @export var _is:COMPARE
 @export var than:Variant
 
-func evaulate( aitree:AITreeBase, state:AIState ) -> bool:
+func evaulate( aitree:AITreeBase, _state:AIState ) -> bool:
 	if !aitree.parameters.has( parameter_name):
 		return false
 
 	var value:Variant = aitree.parameters[ parameter_name ]
 		
 	match _is:
+		COMPARE.DIFFERENT:
+			if value != than:
+				return true
 		COMPARE.EQUAL:
-			if value == than:
+			if value.is_equal_approx( than ):
 				return true
 		COMPARE.LESS:
 			if value < than:

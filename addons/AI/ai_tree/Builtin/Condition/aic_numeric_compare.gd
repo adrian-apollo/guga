@@ -12,25 +12,27 @@ enum COMPARE{
 @export var _is:COMPARE
 @export var than:float = 0.0
 
-func evaulate( aitree:AITreeBase, state:AIState ) -> bool:
-	var value: = aitree.parameters.get( parameter_name )
-	if !value:
+func evaulate( aitree:AITreeBase, _state:AIState ) -> bool:
+	# Missing parameter -> condition fails
+	if !aitree.parameters.has( parameter_name ):
 		return false
-	if value.is_class("Float"):
-		match COMPARE:
-			COMPARE.EQUAL:
-				if value == than:
-					return true
-			COMPARE.LESS:
-				if value < than:
-					return true
-			COMPARE.GREATHER:
-				if value > than:
-					return true
-			COMPARE.GREATHER_OR_EQUAL:
-				if value >= than:
-					return true
-			COMPARE.LESS_OR_EQUAL:
-				if value <= than:
-					return true
+
+	var value:Variant = aitree.parameters[ parameter_name ]
+
+	# Accept only numbers (int or float)
+	if typeof( value ) != TYPE_FLOAT and typeof( value ) != TYPE_INT:
+		return false
+
+	match _is:
+		COMPARE.EQUAL:
+			return is_equal_approx( value, than )
+		COMPARE.LESS:
+			return value < than
+		COMPARE.GREATHER:
+			return value > than
+		COMPARE.GREATHER_OR_EQUAL:
+			return value >= than
+		COMPARE.LESS_OR_EQUAL:
+			return value <= than
+
 	return false

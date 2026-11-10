@@ -2,10 +2,10 @@ class_name AITreeBase extends Node
 
 @export var initial_state:AIState
 
-@export_category("Watchers")
+@export_group("Watchers")
 @export var watchers:Array[ AIWatcherBase ]
 
-@export_category("Constant parameters")
+@export_group("Constant parameters")
 @export var const_parameters:Dictionary[ StringName, Variant ]
 
 var pawn:Node
@@ -32,11 +32,11 @@ func _ready():
 		initial_state = get_child( 0 )
 		_changet_to_state( initial_state )
 
-func _physics_process( delta: float ):
-	parameters[&"pawn"] = pawn
-	parameters[&"aicontroller"] = aicontroller
-	parameters[&"pawn_is_moving"] = aicontroller.pawn_is_moving
-	parameters[&"destination"] = aicontroller.destination
+	for w in watchers:
+		w.event_begin( self )
+
+func _physics_process( _delta: float ):
+	_restart_parameters()
 	
 	update_watchers()
 	
@@ -70,11 +70,13 @@ func _changet_to_state( new_state:AIState ):
 		s._state_result = AIState.STATE_RESULT.SUCCESS
 
 func _restart_parameters():
+	_clear_parameters()
+
 	parameters.merge( const_parameters )
+	
 	parameters[&"pawn"] = pawn
 	parameters[&"aicontroller"] = aicontroller
 	parameters[&"pawn_is_moving"] = aicontroller.pawn_is_moving
-	parameters[&"destination"] = aicontroller.destination
 
 func _clear_parameters():
 	parameters.clear()

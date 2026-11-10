@@ -20,7 +20,11 @@ func make_transition( aitree:AITreeBase ):
 	if trigger == TRIGGERS.GO_TO_NEXT_STATE:
 		if !_evualte_conditons( aitree ):
 			return
-		var nodes:Array[ Node ] = tree.get_inbeetwen_nodes( aitree, aitree.current_state, true, false )
+		var nodes:Array[ Node ] = tree.get_inbeetwen_nodes(
+			aitree,
+			aitree.current_state,
+			true,
+			false )
 		var parent:Node = nodes.pop_back()
 		if parent.get_child_count() == 1:
 			return
@@ -46,7 +50,6 @@ func make_transition( aitree:AITreeBase ):
 func _evualte_conditons( aitree:AITreeBase ) -> bool:
 	for c in conditions:
 		if !c.evaulate( aitree, aitree.current_state ):
-			break
 			return	false
 
 	return true

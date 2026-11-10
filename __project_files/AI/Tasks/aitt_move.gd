@@ -1,4 +1,4 @@
-class_name AITT_Move extends AITaskBase
+class_name AITTMove extends AITaskBase
 
 func update( aitree: AITreeBase ):
 	

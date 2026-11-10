@@ -72,7 +72,7 @@ func unpossess( _pawn:Node ) -> bool:
 func move_pawn_to_destination( _destination:Vector3, _aceptable_radius:float = 0.0 ):
 	if !pawn and !mc:
 		return
-		
+
 	destination = _destination
 	aceptable_radius = _aceptable_radius
 	

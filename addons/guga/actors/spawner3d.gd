@@ -27,7 +27,7 @@ func _ready():
 
 func start():
 	await _tree.create_timer( delay, false, false, false).timeout
-	_tree.connect_callable_to_timer( _spawn, spawn_interval )
+	_tree.connect_callable_to_timer( _tree.find_owning_level( self ),_spawn, spawn_interval )
 	s_started.emit()
 
 func stop():

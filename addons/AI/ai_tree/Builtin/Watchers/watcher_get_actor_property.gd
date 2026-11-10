@@ -1,9 +1,7 @@
-class_name AIW_ActorProperty extends AIWatcherBase
-
-@export var actor_property_name:StringName = &"global_position"
+class_name AIWActorProperty extends AIWatcherBase
 
 func event_update(  aitree:AITreeBase ):
-	aitree.blackboard.set(
-		actor_property_name,
-		aitree.owner.get( actor_property_name )
+	aitree.parameters.set(
+		parameter_to_update,
+		aitree.pawn.get( parameter_to_update )
 		)

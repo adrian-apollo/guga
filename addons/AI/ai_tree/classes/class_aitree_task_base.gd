@@ -3,10 +3,10 @@ class_name AITaskBase extends Resource
 
 var b_entered:bool = false
 
-func enter( aitree: AITreeBase ):
+func enter( _aitree: AITreeBase ):
 	pass
 
-func tick( aitree: AITreeBase ):
+func tick( _aitree: AITreeBase ):
 	pass
 
 func finish_task( aitree: AITreeBase, result:bool = true):
