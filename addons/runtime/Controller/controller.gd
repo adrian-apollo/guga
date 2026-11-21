@@ -1,15 +1,15 @@
 @abstract
 class_name Controller
-extends Resource
+extends Node
 
 signal pawn_changed( new_pawn:Node )
 
-var name:StringName
 var pawn: Node
-var tree:GugaTree
+var input_enabled:bool = true
+var _tree:GugaTree
 
 func _init():
-	tree = Engine.get_main_loop()
+	_tree = Engine.get_main_loop()
 
 func possess( new_pawn: Node ) -> bool:
 	if !is_instance_valid( new_pawn ):
@@ -19,7 +19,7 @@ func possess( new_pawn: Node ) -> bool:
 
 	unpossess( pawn )
 		
-	var pawnc:CPawn = tree.get_component_with_method_from_actor( new_pawn, &"event_possessed")
+	var pawnc:CPawn = _tree.get_component_with_method_from_actor( new_pawn, &"event_possessed")
 	if !pawnc:
 		return false
 
@@ -28,7 +28,7 @@ func possess( new_pawn: Node ) -> bool:
 
 	pawn = new_pawn
 	pawn_changed.emit( pawn )
-	tree.send_global_notification( &"pawn_changed", [ self, pawn] )
+	_tree.send_global_notification( &"pawn_changed", [ self, pawn] )
 	return true
 	
 func unpossess( _pawn:Node ) -> bool:
@@ -37,7 +37,7 @@ func unpossess( _pawn:Node ) -> bool:
 	if !_pawn:
 		return false
 	
-	var pawnc:CPawn = tree.get_component_with_method_from_actor( _pawn, &"event_unpossessed")
+	var pawnc:CPawn = _tree.get_component_with_method_from_actor( _pawn, &"event_unpossessed")
 	if !pawnc:
 		return false
 
@@ -46,5 +46,5 @@ func unpossess( _pawn:Node ) -> bool:
 	
 	pawn = null
 	pawn_changed.emit( _pawn )
-	tree.send_global_notification( &"pawn_changed", [ self, pawn ] )
+	_tree.send_global_notification( &"pawn_changed", [ self, pawn ] )
 	return true

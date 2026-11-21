@@ -4,7 +4,7 @@ class_name C_AI_Tree extends ComponentBase
 @export var ai_tree_scene:String
 
 var aitree:AITreeBase
-var aicontroller:AIController
+var aicontroller:Node
 
 func event_begin():
 	if owner is not AIController:

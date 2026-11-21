@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://b6dkr6ui4crva" path="res://__project_files/Components/c_level_0_ui.gd" id="3_312h8"]
 [ext_resource type="Script" uid="uid://d04exjyghjgdx" path="res://addons/runtime/Game/game_state.gd" id="3_acgov"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="3_xmk2t"]
-[ext_resource type="Script" uid="uid://b55oyviiyrkhv" path="res://addons/runtime/Controller/player_controller.gd" id="4_j2qpl"]
 [ext_resource type="Script" uid="uid://drlvrghte6vsg" path="res://addons/runtime/Game/player_state.gd" id="5_f0jnn"]
 [ext_resource type="Script" uid="uid://d3gwnycdgbmng" path="res://__project_files/Components/c_background.gd" id="9_e1rfy"]
 [ext_resource type="PackedScene" uid="uid://buwjdcyei7dne" path="res://__project_files/Actors/actor_background.tscn" id="9_f0jnn"]
@@ -29,10 +28,6 @@ metadata/_custom_type_script = "uid://bjs6owgj3feat"
 script = ExtResource("3_acgov")
 metadata/_custom_type_script = "uid://d04exjyghjgdx"
 
-[sub_resource type="Resource" id="Resource_ym7cv"]
-script = ExtResource("4_j2qpl")
-metadata/_custom_type_script = "uid://b55oyviiyrkhv"
-
 [sub_resource type="Resource" id="Resource_754cq"]
 script = ExtResource("5_f0jnn")
 metadata/_custom_type_script = "uid://drlvrghte6vsg"
@@ -42,7 +37,6 @@ resource_local_to_scene = true
 script = ExtResource("2_ab6lf")
 game_state_class = SubResource("Resource_msmn0")
 default_pawn_scene = ExtResource("2_312h8")
-player_controller_class = SubResource("Resource_ym7cv")
 player_state_class = SubResource("Resource_754cq")
 
 [sub_resource type="Resource" id="Resource_312h8"]

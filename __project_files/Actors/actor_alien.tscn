@@ -2,34 +2,36 @@
 
 [ext_resource type="Script" uid="uid://clcd1bm6dhde3" path="res://addons/guga/classes/Components/Builtin/class_component_base.gd" id="1_5uut2"]
 [ext_resource type="Script" uid="uid://cgk7nnr5gv5co" path="res://addons/runtime/Pawn/class_ai_pawn.gd" id="2_ov73r"]
-[ext_resource type="Curve2D" uid="uid://ddsv8fre3g06p" path="res://__project_files/Resources/curve_sinowave.tres" id="3_5ejy7"]
-[ext_resource type="Script" uid="uid://didfj4gne6kks" path="res://__project_files/Components/c_move_to_positiont_with_curves.gd" id="4_5ejy7"]
+[ext_resource type="Script" uid="uid://cw4mqprkmj5tc" path="res://addons/guga/classes/Curve/class_extended_curve2d.gd" id="3_c50h3"]
+[ext_resource type="Curve2D" uid="uid://dennd64dflgop" path="res://__project_files/Assets/Curves/ec2d_sinewave.tres" id="4_2offh"]
 [ext_resource type="Script" uid="uid://bjs6owgj3feat" path="res://addons/guga/classes/Components/class_component_stack.gd" id="4_c50h3"]
+[ext_resource type="Curve2D" uid="uid://brw2l8648amop" path="res://__project_files/Assets/Curves/ec2d_projectile.tres" id="5_o835g"]
 [ext_resource type="Texture2D" uid="uid://dq75nj6e4w7n1" path="res://__project_files/Assets/Sprites/ship_alien_small.png" id="6_5ejy7"]
+[ext_resource type="Script" uid="uid://bondntqrpvet2" path="res://__project_files/Components/c_move_projectile.gd" id="6_p7mqd"]
 
 [sub_resource type="GDScript" id="GDScript_w7q1g"]
 script/source = "extends ComponentsSetup
 "
 
-[sub_resource type="Resource" id="Resource_kwt6k"]
+[sub_resource type="Resource" id="Resource_10ree"]
 resource_local_to_scene = true
 script = ExtResource("2_ov73r")
 ai_controller_class = "uid://c80yjnhyuehdj"
-physics = true
 metadata/_custom_type_script = "uid://cgk7nnr5gv5co"
 
-[sub_resource type="Resource" id="Resource_5uut2"]
+[sub_resource type="Resource" id="Resource_pcoxh"]
 resource_local_to_scene = true
-script = ExtResource("4_5ejy7")
-curves = Array[Curve2D]([ExtResource("3_5ejy7")])
+script = ExtResource("6_p7mqd")
+curves = Array[ExtResource("3_c50h3")]([ExtResource("4_2offh"), ExtResource("5_o835g")])
 b_can_move = false
+speed = 200.0
 physics = true
-metadata/_custom_type_script = "uid://didfj4gne6kks"
+metadata/_custom_type_script = "uid://bondntqrpvet2"
 
-[sub_resource type="Resource" id="Resource_h86fq"]
+[sub_resource type="Resource" id="Resource_g4q65"]
 resource_local_to_scene = true
 script = ExtResource("4_c50h3")
-components = Array[ExtResource("1_5uut2")]([SubResource("Resource_kwt6k"), SubResource("Resource_5uut2")])
+components = Array[ExtResource("1_5uut2")]([SubResource("Resource_10ree"), SubResource("Resource_pcoxh")])
 metadata/_custom_type_script = "uid://bjs6owgj3feat"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g7b7a"]
@@ -37,7 +39,7 @@ size = Vector2(17, 15)
 
 [node name="Alien" type="StaticBody2D" unique_id=1795445679]
 script = SubResource("GDScript_w7q1g")
-component_stack = SubResource("Resource_h86fq")
+component_stack = SubResource("Resource_g4q65")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1777188682]
 

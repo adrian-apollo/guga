@@ -48,7 +48,7 @@ func _spawn():
 			newactor.global_position = origin_node.global_position
 
 func _activate_spawner():
-	_reset_tick( TICK_SOURCE.CUSTOM, spawn_rate )
+	_reset_tick()
 
 func _deactivate_spawner():
 	_stop_tick()

@@ -15,7 +15,7 @@ class_name GameMode extends Resource
 ##	An array of scenes to choose over the default one, the index matches the pawn and controller
 @export var per_player_pawn_scenes:Array[ PackedScene ]
 ##	Class reference to a player controller derived class 
-@export var player_controller_class:PlayerController
+@export_file("*.gd") var player_controller_class:String = "uid://b55oyviiyrkhv"
 ##	Class reference for a player state stored inside the player controller
 @export var player_state_class:PlayerState
 
@@ -71,7 +71,8 @@ func login( player_name := "" ) -> PlayerController:
 	_next_player_id += 1
 	
 	#	create the PlayerController
-	var pc: PlayerController = player_controller_class.duplicate( true )
+	var pc:Node = load( player_controller_class ).new()
+	level.add_child( pc, true )
 	pc.name = "PlayerController%d" % ps.player_id
 	pc.player_state = ps
 	ps.controller = pc

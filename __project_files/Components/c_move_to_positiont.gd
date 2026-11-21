@@ -1,7 +1,5 @@
 class_name CMoveToPosition extends CMovementBase
 
-@export var stop_on_collide:bool = false
-
 func event_begin():
 	_stop_tick()
 	
@@ -29,10 +27,10 @@ func move_to( position:Vector3, _tolerance_radius:float ):
 	_reset_tick()
 	tolerance_radius = _tolerance_radius
 	b_can_move = true
-	target_position = Vector2( position.x, position.y )
+	target_position = position
 	movement_started.emit()
 
 func stop_movement():
 	_stop_tick()
-	target_position = Vector2.ZERO
+	target_position = Vector3.ZERO
 	b_can_move = false

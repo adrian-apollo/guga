@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cavjueawvsdk5"]
+
+[sub_resource type="Curve3D" id="Curve3D_hxkyu"]
+bake_interval = 0.01
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, -0.81, 0, 0.545, 0.695, 0, -0.505, 0.6004374, 0.49362147, -1.0426862, 0, 0, 0, 0, 0, 0, 1.5651944, -0.61311865, -0.47338808, 0, 0, 0, 0, 0, 0, 0.514634, -1.4213854, 0.72833216),
+"tilts": PackedFloat32Array(0, 0, -0.47212, 0)
+}
+point_count = 4
+
+[node name="P3d" type="Path3D" unique_id=2074313441]
+curve = SubResource("Curve3D_hxkyu")
+debug_custom_color = Color(0.62695587, 0.626956, 0.62695587, 1)

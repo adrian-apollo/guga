@@ -1,13 +1,9 @@
 ##	Only to be instaniated by code from a pawn component
 class_name AIController
-extends Node
+extends Controller
 
-signal pawn_changed( new_pawn:Node )
-
-var _tree:GugaTree
 var _component_stack:ComponentStack = ComponentStack.new()
 
-var pawn: Node
 var destination:Vector3 = Vector3.ZERO
 var target_actor:Node
 var aceptable_radius:float = 0.0

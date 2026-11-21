@@ -3,5 +3,4 @@
 [ext_resource type="Curve2D" uid="uid://bksmnwtifef7q" path="res://__project_files/Resources/curve_projectile.tres" id="1_rvnbh"]
 
 [node name="P" type="Path2D" unique_id=1288441730]
-rotation = -1.5707964
 curve = ExtResource("1_rvnbh")

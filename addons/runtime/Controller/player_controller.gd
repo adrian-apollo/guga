@@ -5,4 +5,3 @@ extends Controller
 ## The pawn may implement _on_possessed(controller) / _on_unpossessed(controller).
 ## Example: PlayerController.of(pawn).player_state.add_score(1)
 var player_state: PlayerState
-var input_enabled:bool = true

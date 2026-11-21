@@ -254,6 +254,18 @@ func send_global_notification( message:StringName, data:Variant = null ) -> bool
 
 #region	utilitary functions
 
+##	Finds valid elements inside an Array and returns a cleansed one
+func sanitize_array( array:Array[ Variant ] ) -> Array[ Variant ]:
+	var invalid:Array[ Variant ] = []
+	for e in array.size():
+		if !is_instance_valid( array[ e ] ):
+			invalid.push_back( e )
+	
+	for e in invalid:
+		array.erase( e )
+	
+	return array
+
 ##	For finding the level in wich an actor is
 func find_owning_level( actor:Node ) -> Level:
 	var nodes:Array[ Node ] = get_inbeetwen_nodes( Engine.get_main_loop().root, actor )
@@ -338,6 +350,20 @@ func get_component_with_method_from_actor(actor:Node, method_name:StringName) ->
 	for d in ac:
 		if d.has_method( method_name ):
 			return d
+			break
+
+	return null
+
+func find_component_on_actor( _actor:Node, _component:Resource ) -> Variant:
+	if !is_instance_valid( _actor ):
+		return null
+	if !listed_actors.has( _actor ):
+		return null
+	
+	var components:Array = listed_actors.get( _actor )
+	for c in components:
+		if c == _component:
+			return c
 			break
 
 	return null
