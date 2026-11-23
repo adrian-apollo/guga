@@ -1,2 +1,0 @@
-class CDefaultPawn extends CPawn
-

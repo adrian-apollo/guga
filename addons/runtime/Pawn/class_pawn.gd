@@ -1,4 +1,3 @@
-@abstract
 class_name CPawn
 extends ComponentBase
 
@@ -24,7 +23,7 @@ var _previous_controller:Controller
 var _input_vector:Vector3
 var _last_received_input_vector:Vector3
 var _last_consumed_input_vector:Vector3
-var _pawn_movement_component:CPawnMovement
+var _pawn_movement_component:CMovementBase
 var _player_state:PlayerState
 var _last_hit_by:Controller
 var _allowed_yaw_error:float
@@ -33,13 +32,15 @@ var _is_player_controlled:bool
 var _is_ai_controlled:bool
 
 func event_begin():
-	var pmc:ComponentBase = tree.find_component_on_actor( owner, CPawnMovement )
+	var pmc:ComponentBase = tree.find_component_on_actor( owner, CMovementBase )
 	if pmc:
 		_pawn_movement_component = pmc
 
-@abstract func event_possessed( controller ) -> bool
+func event_possessed( controller ) -> bool:
+	return false
 
-@abstract func event_unpossessed( controller ) -> bool
+func event_unpossessed( controller ) -> bool:
+	return false
 
 func spawn_controller():
 	pass
@@ -75,8 +76,9 @@ func get_input_component() -> ComponentBase:
 	return null
 
 func _add_input( location:Vector3, rotation:Vector3 ):
-	_input_data.origin = location
-	_input_data.basis = Basis.from_euler( rotation )
+	#_input_data.origin = location
+	#_input_data.basis = Basis.from_euler( rotation )
+	pass
 
 func _consume_input():
 	pass
@@ -119,4 +121,3 @@ func _reset_to_default_values():
 
 func recalculate_eye_base_height():
 	pass
-

@@ -1,3 +1,3 @@
-class_name ComponentsSetup extends Node
+class_name ComponentsStack extends Node
 
 @export var component_stack:ComponentStack

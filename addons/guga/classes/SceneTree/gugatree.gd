@@ -254,8 +254,20 @@ func send_global_notification( message:StringName, data:Variant = null ) -> bool
 
 #region	utilitary functions
 
+static func to_vector3( vector:Variant ) -> Vector3:
+	if vector is Vector3:
+		return vector
+	
+	return Vector3( vector.x, vector.y, 0)
+
+static func to_vector2( vector:Variant ) -> Vector2:
+	if vector is Vector2:
+		return vector
+	
+	return Vector2( vector.x, vector.y )
+
 ##	Finds valid elements inside an Array and returns a cleansed one
-func sanitize_array( array:Array[ Variant ] ) -> Array[ Variant ]:
+static func sanitize_array( array:Array[ Variant ] ) -> Array[ Variant ]:
 	var invalid:Array[ Variant ] = []
 	for e in array.size():
 		if !is_instance_valid( array[ e ] ):
@@ -267,7 +279,7 @@ func sanitize_array( array:Array[ Variant ] ) -> Array[ Variant ]:
 	return array
 
 ##	For finding the level in wich an actor is
-func find_owning_level( actor:Node ) -> Level:
+static func find_owning_level( actor:Node ) -> Level:
 	var nodes:Array[ Node ] = get_inbeetwen_nodes( Engine.get_main_loop().root, actor )
 	for n in nodes:
 		if n is Level:
@@ -302,7 +314,7 @@ static func get_inbeetwen_nodes( upper:Node, lower:Node , include_upper:bool = f
 	
 	return result
 
-func validate_signal_connections(signalref:Signal):
+static func validate_signal_connections( signalref:Signal ):
 	if signalref.is_null():
 		return
 		
@@ -310,10 +322,11 @@ func validate_signal_connections(signalref:Signal):
 		if !dict["callable"].is_valid():
 			signalref.disconnect(dict["callable"])
 
-func validate_dictionay_keys(dictionary:Dictionary):
-	for key in dictionary:
-		if !is_instance_valid(key):
-			listed_actors.erase(key)
+static func validate_dictionay_keys( dictionary:Dictionary ):
+	var copy:Dictionary = dictionary
+	for key in copy:
+		if !is_instance_valid( key ):
+			dictionary.erase( key )
 
 func get_name_from_nodepath(path:NodePath) -> String:
 	if path.is_empty():
@@ -489,8 +502,8 @@ func _initialize_log_file():
 		
 	var datetime:Dictionary = Time.get_datetime_dict_from_system()
 	var filename:String = "%04d_%02d_%02d_%02d_%02d_%02d.log" % [
-		  datetime.year, datetime.month, datetime.day,
-		  datetime.hour, datetime.minute, datetime.second
+		datetime.year, datetime.month, datetime.day,
+		datetime.hour, datetime.minute, datetime.second
 		]
 	current_logfile_route = LOG_ROUTE + filename
 	

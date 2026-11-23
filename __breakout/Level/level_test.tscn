@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bg2fgof11ba83"]
+
+[ext_resource type="Script" uid="uid://dx7ipnqchnxei" path="res://addons/runtime/class_level.gd" id="1_mk3la"]
+[ext_resource type="Script" uid="uid://ctdset6x1cd3o" path="res://addons/guga/actors/spawner2d.gd" id="2_xkdsr"]
+
+[node name="breakout" type="Node" unique_id=1266007607]
+script = ExtResource("1_mk3la")
+metadata/_custom_type_script = "uid://dx7ipnqchnxei"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=536736574]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+localize_numeral_system = false
+color = Color(0.6902481, 0.5247676, 0.45225942, 1)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Spawner2D" type="Marker2D" parent="." unique_id=698946049 node_paths=PackedStringArray("under_node")]
+position = Vector2(340, 141)
+script = ExtResource("2_xkdsr")
+quantity = 1
+scene = "uid://di531wwmif5cw"
+under_node = NodePath("..")
+spawn_enabled = true
+metadata/_custom_type_script = "uid://ctdset6x1cd3o"

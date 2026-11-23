@@ -3,7 +3,6 @@ class_name MainScene
 
 #	configuration
 @export_file() var start_level:String
-@export var hue:Color
 @export var delay:float = 1
 @export var mouse_confined:bool = false
 @export var mouse_captured:bool = false
@@ -33,8 +32,6 @@ func entry_config():
 	if mouse_captured:
 		Input.set_mouse_mode( Input.MOUSE_MODE_CAPTURED )
 
-	#for changing hue of the background
-	color = hue
 	#enforces a fullscreen background
 	set_anchors_and_offsets_preset(PRESET_FULL_RECT)
 	

@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://b6ieqb42do8d7"]
+
+[ext_resource type="Script" uid="uid://bk4btha1bcq4n" path="res://addons/guga/classes/class_mainscene.gd" id="1_t5u12"]
+
+[node name="Mainscene" type="ColorRect" unique_id=1704161890]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.73206824, 0.26946095, 0.22007135, 1)
+script = ExtResource("1_t5u12")
+start_level = "uid://bg2fgof11ba83"
+metadata/_custom_type_script = "uid://bk4btha1bcq4n"
