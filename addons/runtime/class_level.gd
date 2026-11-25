@@ -17,7 +17,7 @@ signal process_update( float )
 signal destroying_level
 
 var _tree:GugaTree
-var _ui:UIBase
+var ui:UIBase
 
 func _init():
 	if Engine.is_editor_hint():
@@ -94,7 +94,7 @@ func list_component(actor:Node, component:ComponentBase):
 	s_component_listed.emit( actor, component )
 	actors[actor].append(component)
 	components.push_back( component )
-	component._setup(actor)
+	component.setup(actor)
 
 func unlist_component(actor:Node, component:ComponentBase):
 	if !is_instance_valid(actor):

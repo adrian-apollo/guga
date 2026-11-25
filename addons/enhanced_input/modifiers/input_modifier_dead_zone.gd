@@ -2,12 +2,14 @@ class_name InputModifierDeadZone
 extends InputModifier
 ## Ignores small values and rescales [lower, upper] to [0, 1].
 
-enum Type { AXIAL, RADIAL }
+enum Type {
+	AXIAL,
+	RADIAL
+}
 
-@export var type := Type.RADIAL
-@export_range(0.0, 1.0) var lower := 0.2
-@export_range(0.0, 1.0) var upper := 1.0
-
+@export var type :Type = Type.RADIAL
+@export_range(0.0, 1.0) var lower :float = 0.2
+@export_range(0.0, 1.0) var upper :float = 1.0
 
 func modify(value: Vector3, _delta: float, _memory: Dictionary) -> Vector3:
 	if type == Type.RADIAL:

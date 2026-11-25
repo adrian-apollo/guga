@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-EnhancedInput="*uid://di122jbxf8vf7"
+EnhancedInput="*uid://dklqlbu4ke6h1"
 
 [display]
 
@@ -37,7 +37,6 @@ enabled=PackedStringArray("res://addons/enhanced_input/plugin.cfg", "res://addon
 [file_customization]
 
 folder_colors={
-"res://__project_files/": "blue",
 "res://addons/": "purple",
 "res://addons/guga/": "green",
 "res://addons/guga/Documentation/": "yellow"

@@ -5,12 +5,14 @@ extends CharacterBody2D
 var move := InputAction.new()
 var jump := InputAction.new()
 var context := InputMappingContext.new()
-
+var input_player:InputPlayer
 
 func _ready() -> void:
+	input_player = EnhancedInput.spawn_default_local_player_input()
 	move.value_type = InputAction.ValueType.AXIS_2D
 	jump.value_type = InputAction.ValueType.BOOL
 	jump.debug = true  # prints state changes
+	EnhancedInput.debug_overlay = true
 
 	var swizzle := InputModifierSwizzle.new()  # key value goes to Y
 	var negate := InputModifierNegate.new()
@@ -21,20 +23,24 @@ func _ready() -> void:
 		_key(KEY_D, move, []),                 # right -> (1, 0)
 		_key(KEY_SPACE, jump, [], [InputTriggerPressed.new()]),
 	])
-	EnhancedInput.add_context(context)
-	jump.triggered.connect(func(_v): print("jump!"))
+	input_player.add_context(context)
+	jump.triggered.connect(func(_v: Variant): print("jump!"))
 
 
 func _physics_process(_delta: float) -> void:
 	velocity = move.value * 200.0
 	move_and_slide()
 
-
 func _exit_tree() -> void:
-	EnhancedInput.remove_context(context)
+	input_player.remove_context(context)
 
+func _key(
+	keycode: Key,
+	action: InputAction,
+	modifiers: Array = [],
+	triggers: Array = []
+	)-> InputMapping:
 
-func _key(keycode: Key, action: InputAction, modifiers := [], triggers := []) -> InputMapping:
 	var m := InputMapping.new()
 	var e := InputEventKey.new()
 	e.keycode = keycode

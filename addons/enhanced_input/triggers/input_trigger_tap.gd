@@ -3,8 +3,7 @@ extends InputTrigger
 ## ONGOING while pressed; TRIGGERED on release if it was held <= tap_time.
 ## Held longer -> never fires (canceled).
 
-@export var tap_time := 0.2
-
+@export var tap_time :float = 0.2
 
 func evaluate(value: Vector3, last_value: Vector3, delta: float, memory: Dictionary) -> State:
 	if _actuated(value):

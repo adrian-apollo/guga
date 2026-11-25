@@ -4,5 +4,5 @@ extends InputTrigger
 
 
 func evaluate(value: Vector3, last_value: Vector3, _delta: float, _memory: Dictionary) -> State:
-	var fired := _actuated(last_value) and not _actuated(value)
+	var fired :bool = _actuated(last_value) and not _actuated(value)
 	return State.TRIGGERED if fired else State.NONE

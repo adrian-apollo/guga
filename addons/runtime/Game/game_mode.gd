@@ -50,7 +50,7 @@ func init_game( _level:Level ):
 	
 	game_state = game_state_class.duplicate( true )
 	game_state.level = _level
-	tree.process_frame.connect( game_state._count_time )
+	tree.process_frame.connect( game_state.count_time )
 	create_ui()
 	
 	for i in initial_players:
@@ -135,7 +135,7 @@ func create_ui():
 	var newui:UIBase = scr.new() 
 	level.add_child( newui )
 	newui.owner = level
-	level._ui = newui
+	level.ui = newui
 	newui.name = "UI"
 
 ## Override to change the spawn rule. Default: round-robin over player starts.
@@ -144,15 +144,15 @@ func choose_player_start( _pc: PlayerController ) -> Node:
 	return start
 
 func start_match():
-	if game_state.match_state == GameState.MATCH_STATE.IN_PROGRESS:
+	if game_state.match_state == GameState.MatchState.IN_PROGRESS:
 		return
-	game_state.match_state = GameState.MATCH_STATE.IN_PROGRESS
+	game_state.match_state = GameState.MatchState.IN_PROGRESS
 	match_started.emit()
 	tree.send_global_notification( &"match_started" )
 
 func end_match():
-	if game_state.match_state != GameState.MATCH_STATE.IN_PROGRESS:
+	if game_state.match_state != GameState.MatchState.IN_PROGRESS:
 		return
-	game_state.match_state = GameState.MATCH_STATE.WAITING_POST_MATCH
+	game_state.match_state = GameState.MatchState.WAITING_POST_MATCH
 	match_ended.emit()
 	tree.send_global_notification( &"match_ended" )

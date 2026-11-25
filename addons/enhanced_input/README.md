@@ -2,6 +2,8 @@
 
 Input system inspired by Unreal Engine 5 Enhanced Input.
 
+**Requires Godot 4.4 or newer** (the code uses typed dictionaries).
+
 ## Install
 
 1. Copy `addons/enhanced_input` into your project.
@@ -578,6 +580,37 @@ How to read it:
 
 - It does not block the mouse and it is drawn above everything (CanvasLayer 128), also while paused.
 - To print one action only, set `action.debug = true` (prints every state change to the Output panel).
+
+## Examples
+
+| File | Input | Use it on |
+|---|---|---|
+| `examples/example_player.gd` | Keyboard: WASD + Space | PC (or a phone with a physical keyboard) |
+| `examples/example_touch_player.gd` | Touch: on-screen d-pad (`inject`) + jump zone (`touch_zone`) | Android / iOS |
+
+Both go on a `CharacterBody2D`. The keyboard example does nothing on a phone because
+a touch screen sends no key events: use the touch example there.
+To try the touch example on PC, enable *Emulate Touch From Mouse*
+(Project Settings > Input Devices > Pointing).
+
+## Performance
+
+`EnhancedInput` runs every frame (see `update_mode`), plus once per input event. The cost grows with the
+number of mappings of the active contexts, not with the number of actions you declare.
+
+- Per frame, nothing is allocated and idle actions are skipped (no conversion, no signals).
+- The code is statically typed: loop variables, lambdas, collections (`Dictionary[InputMapping, Vector3]`)
+  and event casts are typed, so Godot can use its faster typed instructions. Only values that are
+  really dynamic stay `Variant` (`InputAction.value`, `inject()`, signal values).
+- Per event, each player checks every mapping of its contexts. Remove contexts you are not using:
+
+```gdscript
+player.remove_context(menu_ctx)    # menu closed: its mappings stop being checked
+```
+
+- Keep `debug_overlay` off in the shipped game: it builds text every frame while it is on.
+- Mouse motion is the most frequent event (hundreds per second): avoid binding it in contexts that
+  do not need it.
 
 ## Notes
 

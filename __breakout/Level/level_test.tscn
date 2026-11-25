@@ -18,8 +18,9 @@ color = Color(0.6902481, 0.5247676, 0.45225942, 1)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
-[node name="Spawner2D" type="Marker2D" parent="." unique_id=698946049 node_paths=PackedStringArray("under_node")]
-position = Vector2(340, 141)
+[node name="Spawner2D" type="Marker2D" parent="." unique_id=106912629 node_paths=PackedStringArray("under_node")]
+position = Vector2(317, 152)
+gizmo_extents = 26.2
 script = ExtResource("2_xkdsr")
 quantity = 1
 scene = "uid://di531wwmif5cw"

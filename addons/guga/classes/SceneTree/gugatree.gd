@@ -1,14 +1,18 @@
 class_name GugaTree extends SceneTree
 
+var log_file:FileAccess
+var current_logfile_route: String = ""
+
+
 #region	initialization
-#  tree init
+
 func _initialize():
-	_initialize_log_file()
-	new_log_message(self, "GameStarted", LOG_MESSAGE_MODE.NORMAL)
+	GameplayStatics.initialize_log_file( log_file, current_logfile_route )
+	GameplayStatics.new_log_message( self, "GameStarted", GameplayStatics.LogMessageMode.NORMAL)
 #endregion
 
 #region level managing
- 
+
 signal s_level_changed( Level )
 signal s_level_destroyed( Level )
 signal s_level_loaded( Level )
@@ -18,22 +22,35 @@ var current_level:Level
 var cached_levels:Array[Level]:
 	get:
 		return cached_levels
- 
+
 func load_level( level:String ) -> Level:
-	new_log_message(self, "Loading level from file: " + level, LOG_MESSAGE_MODE.NORMAL)
+	GameplayStatics.new_log_message(
+		self,
+		"Loading level from file: " + level,
+		GameplayStatics.LogMessageMode.NORMAL
+		)
+
 	var newlevel:Level = ResourceLoader.load( level).instantiate()
 	
 	if !is_instance_valid(newlevel):
-		new_log_message(self, "FAIL LOADING LEVEL FROM FILE: " + level, LOG_MESSAGE_MODE.ERROR)
+		GameplayStatics.new_log_message(
+			self,
+			"FAIL LOADING LEVEL FROM FILE: " + level,
+			GameplayStatics.LogMessageMode.ERROR
+			)
 		return
 	
 	s_level_loaded.emit( newlevel )
-	new_log_message(self, "SUCESS", LOG_MESSAGE_MODE.NORMAL)
+	GameplayStatics.new_log_message(self, "SUCESS", GameplayStatics.LogMessageMode.NORMAL)
 	return newlevel
 
 func change_to_level( levelref:Level, destroy_previous:bool = true ):
 	if !levelref or !is_instance_valid( levelref ):
-		new_log_message(self, "Fail changing to level(): " + str( levelref ), LOG_MESSAGE_MODE.ERROR)
+		GameplayStatics.new_log_message(
+			self,
+			"Fail changing to level(): " + str( levelref ),
+			GameplayStatics.LogMessageMode.ERROR
+			)
 		return
 
 	if current_level and is_instance_valid(current_level):
@@ -47,7 +64,11 @@ func change_to_level( levelref:Level, destroy_previous:bool = true ):
 	get_root().add_child( levelref )
 	s_level_changed.emit( levelref )
 	current_level.start()
-	new_log_message(self, "Changed to level: " + str( levelref ), LOG_MESSAGE_MODE.NORMAL)
+	GameplayStatics.new_log_message(
+		self,
+		"Changed to level: " + str( levelref ),
+		GameplayStatics.LogMessageMode.NORMAL
+		)
 
 func destroy_level( level:Level ) -> bool:
 	if !level:
@@ -254,6 +275,15 @@ func send_global_notification( message:StringName, data:Variant = null ) -> bool
 
 #region	utilitary functions
 
+func find_player_controller_with_index( player_pawn:Node, index:int ) -> PlayerController:
+	var level:Level = find_owning_level( player_pawn )
+	if level:
+		if level.game_mode:
+			var controller:PlayerController = level.game_mode.controllers.get( index )
+			if controller:
+				return controller
+	return null
+
 static func to_vector3( vector:Variant ) -> Vector3:
 	if vector is Vector3:
 		return vector
@@ -441,8 +471,8 @@ static func _raycastfromcameracenter(
 	var end:Vector3 = node.get_viewport().get_camera_3d().project_position( mouseposition, distance)
 
 	var result:Dictionary = worldspace.intersect_ray(
-		 PhysicsRayQueryParameters3D.create( start, end )
-		 )
+		PhysicsRayQueryParameters3D.create( start, end )
+		)
 
 	#if result and debug:
 		#DebugDraw3D.draw_sphere(result.position, radius, color, duration)
@@ -479,62 +509,6 @@ func get_property_value_from_actor( actor:Node, property:StringName ) -> Variant
 			break
 
 	return
-#endregion
-
-#region	logging system
-const LOG_ROUTE:String = "user://logs/"
-
-enum LOG_MESSAGE_MODE{
-	NORMAL,
-	ERROR,
-	WARNING
-}
-
-var log_file: FileAccess
-var current_logfile_route: String = ""
-
-var currenttime:String
-
-func _initialize_log_file():
-	var dir = DirAccess.open("user://")
-	if !dir.dir_exists("logs"):
-		dir.make_dir("logs")
-		
-	var datetime:Dictionary = Time.get_datetime_dict_from_system()
-	var filename:String = "%04d_%02d_%02d_%02d_%02d_%02d.log" % [
-		datetime.year, datetime.month, datetime.day,
-		datetime.hour, datetime.minute, datetime.second
-		]
-	current_logfile_route = LOG_ROUTE + filename
-	
-	log_file = FileAccess.open(current_logfile_route, FileAccess.WRITE)
-	
-	if !log_file:
-		push_error("GUGATree failed to create a log file")
-		return
-
-	print("Log system ready")
-
-func new_log_message(sender:Object, message:String, mode:LOG_MESSAGE_MODE):
-	if !is_instance_valid(sender):
-		return
-	if message.is_empty():
-		return
-	
-	currenttime = Time.get_time_string_from_system()
-	var new_message:String = "%s [%s] %s  >>>  %s\n" % [LOG_MESSAGE_MODE.find_key(mode), currenttime, sender, message]
-	
-	match mode:
-		LOG_MESSAGE_MODE.NORMAL:
-			print(new_message.strip_edges())
-		LOG_MESSAGE_MODE.ERROR:
-			push_error(new_message.strip_edges())
-		LOG_MESSAGE_MODE.WARNING:
-			push_error(new_message.strip_edges())
-	
-	if log_file:
-		log_file.store_string(new_message)
-		log_file.flush()
 #endregion
 
 #region test tree

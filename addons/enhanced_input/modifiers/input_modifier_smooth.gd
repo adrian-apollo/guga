@@ -3,7 +3,7 @@ extends InputModifier
 ## Smooths the value over time (exponential approach to the target). Higher speed = faster response.
 ## Note: after release the value fades out, so triggers stay active a few frames.
 
-@export var speed := 10.0
+@export var speed :float = 10.0
 
 
 func modify(value: Vector3, delta: float, memory: Dictionary) -> Vector3:

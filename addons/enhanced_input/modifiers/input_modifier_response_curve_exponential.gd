@@ -4,7 +4,7 @@ extends InputModifier
 ## exponent > 1: finer control near the center (stick 0.5 -> 0.25 with exponent 2).
 ## exponent < 1: more sensitive near the center. 1 = no change.
 
-@export var exponent := Vector3.ONE
+@export var exponent :Vector3 = Vector3.ONE
 
 
 func modify(value: Vector3, _delta: float, _memory: Dictionary) -> Vector3:

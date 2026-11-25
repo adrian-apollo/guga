@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://ls4jm5p6nqm7"]
-
-[ext_resource type="Curve2D" uid="uid://bksmnwtifef7q" path="res://__project_files/Resources/curve_projectile.tres" id="1_rvnbh"]
-
-[node name="P" type="Path2D" unique_id=1288441730]
-curve = ExtResource("1_rvnbh")

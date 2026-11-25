@@ -4,7 +4,7 @@ extends Marker2D
 @export_range( 0, 100, 1, "or_greater" ) var quantity:int = 0
 @export_file(".tscn") var scene:String
 @export_range(0, 1, 0.01, "or_greater") var delay:float = 0
-@export_range(0, 100, 0.00001,"or_greater" ) var spawn_interval:float = 1
+@export_range(0, 100, 0.00001,"or_greater" ) var spawn_interval:float = 120
 @export var under_node:Node
 @export var autodestroy:bool = true
 @export var transport:bool = true

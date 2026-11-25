@@ -8,7 +8,7 @@ class_name CMovementBase extends ComponentBase
 @export var prefered_movement_method:MovementMethod
 
 @export_group("Variables")
-@export var b_can_move:bool = true
+@export var can_move:bool = true
 @export var max_speed:float = 100
 @export var acceleration:float = 10.0
 @export var aceleration_curve:Curve
@@ -52,14 +52,14 @@ var _available_movement_methods:Array[ MovementMethod ]
 func event_begin():
 	_get_updated_body_and_collision_shape()
 	if !_updated_body:
-		tree.new_log_message( self, "No body found", tree.LOG_MESSAGE_MODE.ERROR )
+		tree.new_log_message( self, "No body found", tree.LogMessageMode.ERROR )
 		_destructor()
 		return
 
 	_find_updated_body_class()
 	_find_dimension()
 	if _actor_dimension == ActorDimension.OTHER:
-		tree.new_log_message( self, "Body is not movable", tree.LOG_MESSAGE_MODE.ERROR )
+		tree.new_log_message( self, "Body is not movable", tree.LogMessageMode.ERROR )
 		_destructor()
 		return
 
@@ -71,7 +71,7 @@ func event_begin():
 
 #region ticks
 func event_physics_tick( delta:float ):
-	if !b_can_move:
+	if !can_move:
 		return
 	_delta = delta
 	s_debug.emit()
@@ -82,12 +82,25 @@ func event_physics_tick( delta:float ):
 #endregion ticks
 
 #region public methods
-func add_movement_input( direction: Vector3, scale_value: float = 1.0, _force: bool = false):
+func add_input_vector( direction: Vector3, scale_value: float = 1.0, _force: bool = false):
 	_control_input_vector += direction.normalized() * scale_value
 
 func request_direct_move(_move_velocity: Vector3, _force_max_speed: bool = false):
 	# Esqueleto: inyecta velocidad calculada por un algoritmo de navegación directamente.
 	_velocity = _move_velocity
+
+func stop_movement_immediately():
+	_stop_tick()
+	
+	can_move = false
+
+	_velocity = Vector3.ZERO
+
+	if owner.has_method(&"velocity"):
+		if _actor_dimension == ActorDimension.NODE2D:
+			owner.set( &"velocity", Vector2.ZERO )
+		if _actor_dimension == ActorDimension.NODE3D:
+			owner.set( &"velocity", Vector3.ZERO )
 
 #endregion public methods
 
@@ -119,7 +132,12 @@ func _connect_movement_action():
 				s_perform_move.connect( _perform_move_character )
 				return
 
-	tree.new_log_message( self, "No match for prefered movement method: " + str( prefered_movement_method ), GugaTree.LOG_MESSAGE_MODE.ERROR)
+	GameplayStatics.new_log_message(
+		self,
+		"No match for prefered movement method: " + str( prefered_movement_method ),
+		GameplayStatics.LogMessageMode.ERROR
+		)
+	
 	_destructor()
 
 func _find_dimension():
@@ -249,7 +267,7 @@ func _debug_setup():
 			s_debug.connect( _debug_ai_input )
 
 func _debug_player_input():
-	add_movement_input( debug_input_vector )
+	add_input_vector( debug_input_vector )
 
 func _debug_ai_input():
 	request_direct_move( debug_input_vector )

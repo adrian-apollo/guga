@@ -19,8 +19,6 @@ func _setup_local_to_scene():
 func _setup():
 	if Engine.is_editor_hint():
 		return
-	#_tree.s_component_listed.connect( _add_component)
-	#_tree.s_component_unlisted.connect( _remove_component)
 	_tree.s_actor_unlisted.connect( _owner_destroyed)
 	for c in components:
 		_tree.list_component( owner, c )

@@ -2,9 +2,9 @@ class_name InputModifierNegate
 extends InputModifier
 ## Inverts the selected axes.
 
-@export var x := true
-@export var y := true
-@export var z := true
+@export var x :bool= true
+@export var y :bool= true
+@export var z :bool= true
 
 
 func modify(value: Vector3, _delta: float, _memory: Dictionary) -> Vector3:

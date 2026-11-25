@@ -7,6 +7,6 @@ extends InputTrigger
 
 
 func evaluate(value: Vector3, _last_value: Vector3, _delta: float, memory: Dictionary) -> State:
-	var chord := _player_action(memory, chord_action)
-	var chord_on := chord != null and chord.state == State.TRIGGERED
+	var chord :InputAction = _player_action(memory, chord_action)
+	var chord_on :bool = chord != null and chord.state == State.TRIGGERED
 	return State.TRIGGERED if chord_on and _actuated(value) else State.NONE

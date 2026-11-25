@@ -18,7 +18,7 @@ func _ready() -> void:
 	entry_config()
 	
 	if start_level.is_empty():
-		tree.new_log_message(self, "No level to load", tree.LOG_MESSAGE_MODE.NORMAL)
+		tree.new_log_message(self, "No level to load", tree.LogMessageMode.NORMAL)
 		return
 
 	if !load_level:

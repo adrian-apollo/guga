@@ -7,8 +7,7 @@ extends InputTrigger
 
 @export var combo_steps: Array[InputAction] = []
 ## Max seconds allowed between steps.
-@export var step_time := 0.5
-
+@export var step_time :float = 0.5
 
 func evaluate(value: Vector3, last_value: Vector3, delta: float, memory: Dictionary) -> State:
 	var idx: int = memory.get("idx", 0)
@@ -16,7 +15,7 @@ func evaluate(value: Vector3, last_value: Vector3, delta: float, memory: Diction
 	if idx > 0 and timer > step_time:  # too slow: reset
 		idx = 0
 	if idx < combo_steps.size():
-		var step := _player_action(memory, combo_steps[idx])
+		var step :InputAction = _player_action(memory, combo_steps[idx])
 		if step and step.state == State.TRIGGERED:
 			idx += 1
 			timer = 0.0

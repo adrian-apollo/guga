@@ -7,7 +7,7 @@ class_name PlayerState extends Resource
 signal score_changed( new_score: float )
 
 var name:StringName = &"PlayerState"
-var player_id := 0
+var player_id :int = 0
 var controller: PlayerController
 var score:float = 0:
 	set(value):

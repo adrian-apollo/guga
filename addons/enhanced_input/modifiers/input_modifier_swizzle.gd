@@ -3,10 +3,15 @@ extends InputModifier
 ## Reorders axes. Order name = which input axis feeds (x, y, z) of the output.
 ## Example: YXZ -> output.x = input.y, output.y = input.x.
 
-enum Order { YXZ, ZYX, XZY, YZX, ZXY }
+enum Order {
+	YXZ,
+	ZYX,
+	XZY,
+	YZX,
+	ZXY
+}
 
-@export var order := Order.YXZ
-
+@export var order :Order = Order.YXZ
 
 func modify(v: Vector3, _delta: float, _memory: Dictionary) -> Vector3:
 	match order:

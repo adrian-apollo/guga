@@ -8,7 +8,7 @@ extends CharacterBody2D
 var move := InputAction.new()
 var jump := InputAction.new()
 var context := InputMappingContext.new()
-var _held := {}  # Vector2 direction -> true, for every d-pad button currently pressed
+var _held: Dictionary[Vector2, bool] = {}  # direction -> true, for every d-pad button currently pressed
 
 
 func _ready() -> void:
@@ -37,7 +37,7 @@ func _exit_tree() -> void:
 	EnhancedInput.remove_context(context)
 
 
-func _on_jump(_value) -> void:
+func _on_jump(_value: Variant) -> void:
 	print("jump!")
 	scale = Vector2(1.5, 1.5)  # visible feedback for any CharacterBody2D
 	create_tween().tween_property(self, "scale", Vector2.ONE, 0.2)
@@ -51,7 +51,7 @@ func _hold(direction: Vector2, down: bool) -> void:
 	else:
 		_held.erase(direction)
 	var sum := Vector2.ZERO
-	for d in _held:
+	for d: Vector2 in _held:
 		sum += d
 	EnhancedInput.inject(move, sum)
 

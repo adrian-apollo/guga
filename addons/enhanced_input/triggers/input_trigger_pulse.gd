@@ -2,12 +2,11 @@ class_name InputTriggerPulse
 extends InputTrigger
 ## While held, TRIGGERED every `interval` seconds (ONGOING in between).
 
-@export var interval := 0.2
+@export var interval :float = 0.2
 ## Fire immediately on the first frame.
-@export var trigger_on_start := true
+@export var trigger_on_start :bool = true
 ## Max number of pulses per press. 0 = unlimited.
-@export var trigger_limit := 0
-
+@export var trigger_limit :float = 0
 
 func evaluate(value: Vector3, _last_value: Vector3, delta: float, memory: Dictionary) -> State:
 	if not _actuated(value):

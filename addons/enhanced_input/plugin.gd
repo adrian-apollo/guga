@@ -5,10 +5,8 @@ extends EditorPlugin
 const AUTOLOAD := "EnhancedInput"
 const PATH := "res://addons/enhanced_input/enhanced_input.gd"
 
-
-func _enter_tree() -> void:
+func _enter_tree():
 	add_autoload_singleton(AUTOLOAD, PATH)
 
-
-func _exit_tree() -> void:
+func _exit_tree():
 	remove_autoload_singleton(AUTOLOAD)

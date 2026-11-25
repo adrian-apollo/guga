@@ -14,7 +14,6 @@ var status
 
 func _physics_process(_delta: float):
 	status = ResourceLoader.load_threaded_get_status( target_uid, progress_array )
-	
 	if progress_array.size() > 0 and callback_progress.is_valid():
 		callback_progress.call( progress_array[0] )
 

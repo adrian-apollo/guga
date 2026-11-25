@@ -6,7 +6,7 @@ signal match_state_changed(new_state: StringName)
 signal player_state_added(player_state: PlayerState)
 signal player_state_removed(player_state: PlayerState)
 
-enum MATCH_STATE {
+enum MatchState {
 	WAITING_TO_START,
 	IN_PROGRESS,
 	WAITING_POST_MATCH
@@ -14,7 +14,7 @@ enum MATCH_STATE {
 
 var player_array: Array[PlayerState] = []
 var elapsed_time := 0.0
-var match_state:MATCH_STATE = MATCH_STATE.WAITING_TO_START:
+var match_state:MatchState = MatchState.WAITING_TO_START:
 	set(value):
 		if value == match_state:
 			return
@@ -27,8 +27,8 @@ var level:Level
 func _init():
 	tree = Engine.get_main_loop()
 
-func _count_time() -> void:
-	if match_state == MATCH_STATE.IN_PROGRESS:
+func count_time() -> void:
+	if match_state == MatchState.IN_PROGRESS:
 		elapsed_time += level.get_process_delta_time()
 
 func add_player_state( player_state: PlayerState ):
@@ -41,5 +41,5 @@ func remove_player_state( player_state:PlayerState ):
 	player_state.queue_free()
 	
 func free():
-	if tree.process_frame.is_connected(_count_time):
-		tree.process_frame.disconnect( _count_time )
+	if tree.process_frame.is_connected(count_time):
+		tree.process_frame.disconnect( count_time )
