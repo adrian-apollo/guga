@@ -1,84 +1,21 @@
 class_name GugaTree extends SceneTree
 
-var log_file:FileAccess
-var current_logfile_route: String = ""
-
-
-#region	initialization
-
-func _initialize():
-	GameplayStatics.initialize_log_file( log_file, current_logfile_route )
-	GameplayStatics.new_log_message( self, "GameStarted", GameplayStatics.LogMessageMode.NORMAL)
-#endregion
-
-#region level managing
-
 signal s_level_changed( Level )
 signal s_level_destroyed( Level )
 signal s_level_loaded( Level )
 
-var current_level:Level
+#	logging
+var log_file:FileAccess
+var current_logfile_route: String = ""
 
-var cached_levels:Array[Level]:
-	get:
-		return cached_levels
+#	levels
+var active_level:Level
+var previous_level:Level
+var inactive_levels:Array[Level]
 
-func load_level( level:String ) -> Level:
-	GameplayStatics.new_log_message(
-		self,
-		"Loading level from file: " + level,
-		GameplayStatics.LogMessageMode.NORMAL
-		)
-
-	var newlevel:Level = ResourceLoader.load( level).instantiate()
-	
-	if !is_instance_valid(newlevel):
-		GameplayStatics.new_log_message(
-			self,
-			"FAIL LOADING LEVEL FROM FILE: " + level,
-			GameplayStatics.LogMessageMode.ERROR
-			)
-		return
-	
-	s_level_loaded.emit( newlevel )
-	GameplayStatics.new_log_message(self, "SUCESS", GameplayStatics.LogMessageMode.NORMAL)
-	return newlevel
-
-func change_to_level( levelref:Level, destroy_previous:bool = true ):
-	if !levelref or !is_instance_valid( levelref ):
-		GameplayStatics.new_log_message(
-			self,
-			"Fail changing to level(): " + str( levelref ),
-			GameplayStatics.LogMessageMode.ERROR
-			)
-		return
-
-	if current_level and is_instance_valid(current_level):
-		if destroy_previous:
-			destroy_level( current_level )
-		else:
-			cached_levels.push_back( current_level )
-			get_root().remove_child( current_level )
-
-	current_level = levelref
-	get_root().add_child( levelref )
-	s_level_changed.emit( levelref )
-	current_level.start()
-	GameplayStatics.new_log_message(
-		self,
-		"Changed to level: " + str( levelref ),
-		GameplayStatics.LogMessageMode.NORMAL
-		)
-
-func destroy_level( level:Level ) -> bool:
-	if !level:
-		return false
-	s_level_destroyed.emit( level )
-	send_global_notification("LevelDestroyed", level )
-	level.queue_free()
-	return true
-
-#endregion
+func _initialize():
+	GameplayStatics.initialize_log_file( log_file, current_logfile_route )
+	GameplayStatics.new_log_message( self, "GameStarted", GameplayStatics.LogMessageMode.NORMAL)
 
 #region timers
 signal s_timer_created

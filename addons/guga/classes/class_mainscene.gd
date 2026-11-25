@@ -39,5 +39,5 @@ func entry_config():
 	await get_tree().create_timer( delay ).timeout
 
 func startgame( level:PackedScene ):
-	tree.change_to_level( level.instantiate(), true )
+	GameplayStatics.change_to_level( level.instantiate(), true )
 	queue_free()

@@ -43,13 +43,75 @@ static func get_game_instance(_world_context: Node) -> Node:
 #region 2. GESTIÓN DE NIVELES Y TRANSICIONES (Level Streaming / World)
 # ==============================================================================
 
+static func load_level( level:String ) -> Level:
+	var tree:GugaTree = Engine.get_main_loop()
+	new_log_message(
+		tree,
+		"Loading level from file: " + level,
+		GameplayStatics.LogMessageMode.NORMAL
+		)
+
+	var newlevel:Level = ResourceLoader.load( level).instantiate()
+	
+	if !is_instance_valid(newlevel):
+		GameplayStatics.new_log_message(
+			tree,
+			"FAIL LOADING LEVEL FROM FILE: " + level,
+			GameplayStatics.LogMessageMode.ERROR
+			)
+		return
+	
+	tree.s_level_loaded.emit( newlevel )
+	GameplayStatics.new_log_message(
+		tree,
+		"SUCESS",
+		GameplayStatics.LogMessageMode.NORMAL)
+	return newlevel
+
+static func change_to_level( levelref:Level, destroy_previous:bool = true ):
+	var tree:GugaTree = Engine.get_main_loop()
+	if !levelref or !is_instance_valid( levelref ):
+		GameplayStatics.new_log_message(
+			tree,
+			"Fail changing to level(): " + str( levelref ),
+			GameplayStatics.LogMessageMode.ERROR
+			)
+		return
+
+	if tree.active_level and is_instance_valid( tree.active_level):
+		if destroy_previous:
+			destroy_level( tree.active_level )
+		else:
+			tree.inactive_levels.push_back( tree.active_level )
+			tree.get_root().remove_child( tree.active_level )
+
+	tree.active_level = levelref
+	tree.get_root().add_child( levelref )
+	tree.s_level_changed.emit( levelref )
+	tree.active_level.start()
+	GameplayStatics.new_log_message(
+		tree,
+		"Changed to level: " + str( levelref ),
+		GameplayStatics.LogMessageMode.NORMAL
+		)
+
+static func destroy_level( level:Level ) -> bool:
+	if !level:
+		return false
+
+	var tree:GugaTree = Engine.get_main_loop()
+	tree.s_level_destroyed.emit( level )
+	tree.send_global_notification("LevelDestroyed", level )
+	level.queue_free()
+	return true
+
 ## Equivalente a: UGameplayStatics::OpenLevel(const UObject* WorldContextObject, FName LevelName, ...)
 static func open_level(_world_context: Node, _level_path: String, _absolute: bool = true, _options: String = "") -> void:
 	# Esqueleto: cambiar de escena mediante get_tree().change_scene_to_file(_level_path).
 	pass
 
 ## Equivalente a: UGameplayStatics::GetCurrentLevelName(const UObject* WorldContextObject, bool bRemovePrefixString)
-static func get_current_level_name(_world_context: Node, _remove_prefix_string: bool = true) -> String:
+static func get_active_level_name(_world_context: Node, _remove_prefix_string: bool = true) -> String:
 	# Esqueleto: extraer el nombre del nodo raíz de la escena activa.
 	return ""
 
