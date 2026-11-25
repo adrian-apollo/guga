@@ -4,67 +4,17 @@ signal s_level_changed( Level )
 signal s_level_destroyed( Level )
 signal s_level_loaded( Level )
 
-#	logging
 var log_file:FileAccess
 var current_logfile_route: String = ""
 
-#	levels
 var active_level:Level
 var previous_level:Level
 var inactive_levels:Array[Level]
+var available_timers: Dictionary[float, Timer] = {}
 
 func _initialize():
 	GameplayStatics.initialize_log_file( log_file, current_logfile_route )
 	GameplayStatics.new_log_message( self, "GameStarted", GameplayStatics.LogMessageMode.NORMAL)
-
-#region timers
-signal s_timer_created
-signal s_timer_destroyed
-
-var available_timers: Dictionary[float, Timer] = {}
-
-func connect_callable_to_timer(
-	parent_node:Node,
-	callable:Callable,
-	tickrate:float):
-
-	if !callable.is_valid():
-		return
-	if tickrate < 0:
-		return
-	if !available_timers.has(tickrate):
-		_new_timer( parent_node, tickrate )
-	
-	if ( available_timers.get(tickrate) as Timer ).is_connected( &"timeout", callable ):
-		return
-	( available_timers.get(tickrate) as Timer ).connect(&"timeout", callable)
-
-func disconnect_callable_from_timer( callable:Callable, tickrate:float ):
-	var timerref:Timer = available_timers.get( tickrate )
-	if !is_instance_valid( timerref ):
-		return	
-	if !timerref.timeout.is_connected( callable ):
-		return
-	
-	timerref.timeout.disconnect( callable )
-	if timerref.timeout.get_connections().size() == 0:
-		timerref.queue_free()
-		available_timers.erase( tickrate )
-
-func _new_timer( parent_node:Node, hertz:float ):
-	if hertz < 0:
-		return
-	var newtimer:Timer = Timer.new()
-	if is_instance_valid( parent_node ):
-		parent_node.add_child( newtimer )
-	else:
-		get_root().add_child( newtimer )
-	newtimer.start( 1/ hertz )
-	newtimer.set_autostart( true )
-	newtimer.name = "Timer_" + str( hertz )
-	available_timers.set( hertz, newtimer )
-
-#endregion
 
 #region actor component system
 
@@ -448,16 +398,6 @@ func get_property_value_from_actor( actor:Node, property:StringName ) -> Variant
 	return
 #endregion
 
-#region test tree
-
-func _test():
-	print("GUGATree alive")
-
-#endregion
-
-#region exit game
 func _finalize():
 	if log_file:
 		log_file.close()
-	
-#endregion

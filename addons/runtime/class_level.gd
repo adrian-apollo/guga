@@ -18,6 +18,7 @@ signal destroying_level
 
 var _tree:GugaTree
 var ui:UIBase
+var available_timers: Dictionary[float, Timer] = {}
 
 func _init():
 	if Engine.is_editor_hint():

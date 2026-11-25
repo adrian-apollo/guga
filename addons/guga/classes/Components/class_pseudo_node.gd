@@ -93,9 +93,9 @@ func _enable_process_update( value:bool):
 
 func _enable_custom_update( value:bool):
 	if value:
-		tree.connect_callable_to_timer( _level, event_custom_tick, tick_rate )
+		GameplayStatics.connect_callable_to_timer( event_custom_tick, _level, owner, tick_rate )
 	else:
-		tree.disconnect_callable_from_timer( event_custom_tick, tick_rate )
+		GameplayStatics.disconnect_callable_from_timer( event_custom_tick, _level, tick_rate )
 
 #endregion
 

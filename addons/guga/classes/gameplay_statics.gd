@@ -146,6 +146,116 @@ static func spawn_object(_object_class: GDScript, _owner: RefCounted = null) -> 
 	# Esqueleto: instanciar un UObject / RefCounted que no está en el árbol de nodos.
 	return null
 
+static func connect_callable_to_timer(
+	##	The callable to call by the Timer
+	callable:Callable,
+	##	The level where is saved available timers references
+	context:Level = null,
+	##	The parent node where to place the Timer inside
+	parent_node:Node = null,	
+	##	Update rate of the Timer
+	tickrate:float = 0.0
+	) -> bool:
+	
+	if context:
+		if context.get( "available_timers" ):
+			return false
+	if !callable.is_valid():
+		return false
+	if tickrate <= 0:
+		return false
+
+	if !context.available_timers.has( tickrate ):
+		var t:Timer =_create_new_timer( context, parent_node, tickrate )
+		if !t.is_connected( &"timeout", callable ):
+			t.connect(&"timeout", callable)
+			return true
+	
+	return false
+
+static func disconnect_callable_from_timer(
+	callable:Callable,
+	context:Level = null,
+	tickrate:float = 0.0
+	) -> bool:
+	
+	if !callable.is_valid():
+		return false
+	if tickrate <= 0:
+		return false
+
+	var tree:GugaTree = Engine.get_main_loop()
+	var t:Timer
+
+	if context:
+		t = context.available_timers.get( tickrate )
+	else:
+		t = tree.available_timers.get( tickrate )
+	
+	if !is_instance_valid( t ):
+		return false
+	if !t.timeout.is_connected( callable ):
+		return false
+	
+	t.timeout.disconnect( callable )
+	_destroy_timer( t, context, tickrate )
+
+	return true
+
+static func _create_new_timer(
+	context:Level = null,
+	parent_node:Node = null,
+	rate:float = 0.0
+	) -> Timer:
+	
+	if rate <= 0.0:
+		return null
+
+	var tree:GugaTree = Engine.get_main_loop()
+	
+	var t:Timer = Timer.new()
+
+	if is_instance_valid( parent_node ):
+		parent_node.add_child( t, false, 1 )
+		t.owner = parent_node
+	elif is_instance_valid( context ):
+		context.add_child( t, false, 1 )
+		t.owner = context
+	else:
+		tree.get_root().add_child( t, false, 1 )
+		t.owner = tree.get_root()
+
+	if context:
+		context.available_timers.set( rate, t )
+	else:
+		tree.available_timers.set( rate, t )
+
+	t.start( 1/ rate )
+	t.set_autostart( true )
+	t.name = "Timer_" + str( rate )
+
+	return t
+
+static func _destroy_timer(
+	t:Timer,
+	context:Level = null,
+	tickrate:float = 0.0
+	):
+	
+	if !is_instance_valid( t ):
+		return
+
+	if tickrate <= 0.0:
+		return
+
+	var tree:GugaTree = Engine.get_main_loop()
+	if t.timeout.get_connections().size() == 0:
+		t.queue_free()
+		if context:
+			context.available_timers.erase( tickrate )
+		else:
+			tree.available_timers.erase( tickrate )
+
 #endregion
 
 #region 4. AUDIO Y SONIDO (2D y 3D en el mundo)
